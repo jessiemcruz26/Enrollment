@@ -179,3 +179,7 @@ C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\System.Memory.xml
 C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\System.Numerics.Vectors.xml
 C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\EntityFramework.dll
+C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\EntityFramework.SqlServer.dll
+C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\EntityFramework.xml
+C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\EntityFramework.SqlServer.xml
