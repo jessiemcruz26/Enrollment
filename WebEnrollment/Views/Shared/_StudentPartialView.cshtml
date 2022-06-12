@@ -1,0 +1,75 @@
+﻿@model WebEnrollment.Models.Student
+@section scripts{
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+}
+
+@using (Html.BeginForm("Edit", "Student", FormMethod.Post, new { autocomplete = "off" }))
+{
+    <div class="form-group row">
+        <label for="staticStudentNumber" class="col-sm-2 col-form-label">Student Number</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticStudentNumber" value="@Model.StudentNumber">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="staticProgram" class="col-sm-2 col-form-label">Program</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticProgram" value="@Model.Program">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="staticProgram" class="col-sm-2 col-form-label">Level</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticLevel" value="@Model.Level">
+        </div>
+    </div>
+
+    <div class="form-group row">
+    <label for="staticFirstName" class="col-sm-2 col-form-label">First Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" id="FirstName" name="FirstName" value="@Model.FirstName">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="staticLastName" class="col-sm-2 col-form-label">Last Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" id="LastName" name="LastName" value="@Model.LastName">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="staticBirthday" class="col-sm-2 col-form-label">Birthday</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" id="datepicker" name="Birthday" value="@Model.Birthday">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" id="Email" name="Email" value="@Model.Email">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="staticMobile" class="col-sm-2 col-form-label">Mobile</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" id="Mobile" name="Mobile" value="@Model.Mobile">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="staticAddress" class="col-sm-2 col-form-label">Address</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" id="Address" name="Address" value="@Model.Address">
+        </div>
+    </div>
+    <span class="col-right">
+        <input name="" value="Save" class="buttonUpdate" type="submit" />
+    </span>
+}

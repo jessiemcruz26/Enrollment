@@ -160,6 +160,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -193,7 +194,10 @@
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Modules\RepositoryModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Business.cs" />
+    <Compile Include="Repository\DataAccess.cs" />
     <Compile Include="Student.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
@@ -366,6 +370,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
+    <Content Include="Views\Shared\_StudentPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

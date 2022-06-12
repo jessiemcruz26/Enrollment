@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WebEnrollment.App_Start;
 
 namespace WebEnrollment
 {
@@ -12,6 +9,7 @@ namespace WebEnrollment
     {
         protected void Application_Start()
         {
+            AutoConfig.ConfigContainer();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
