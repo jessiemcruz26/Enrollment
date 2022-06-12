@@ -151,7 +151,6 @@ C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\System.Web.WebPage
 C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\Newtonsoft.Json.xml
 C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\Antlr3.Runtime.pdb
 C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\obj\Debug\WebEnrollment.csproj.AssemblyReference.cache
 C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\obj\Debug\WebEnrollment.csproj.CoreCompileInputs.cache
 C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\obj\Debug\WebEnrollment.csproj.CopyComplete
 C:\Users\JessieCruz\Source\Repos\Enrollment\WebEnrollment\obj\Debug\WebEnrollment.dll
