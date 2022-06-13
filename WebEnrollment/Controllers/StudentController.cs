@@ -38,13 +38,12 @@ namespace WebApplication6.Controllers
                     Level = _student.Level,
                     FirstName = _student.FirstName,
                     LastName = _student.LastName,
-                    Birthday = _student.Birthday,
+                    Birthday = _student.Birthday?.ToString(),
                     Email = _student.Email,
                     Mobile = _student.Mobile,
                     Address = _student.Address,
                 };
 
-                //return RedirectToAction("Edit", new { id = _student.StudentID });
                 return RedirectToAction("Edit", "Student", new { id = 1 });
             }
         }
@@ -82,26 +81,25 @@ namespace WebApplication6.Controllers
         public ActionResult Edit(string studentNumber)
         {
             var context = new EnrollmentEntities();
-            //var _student = context.Students.Where(x => x.StudentID == 1).First();
+
             if (string.IsNullOrEmpty(studentNumber))
                 return View(new Models.Student());
+
             var _student = context.Students.Where(x => x.StudentNumber == studentNumber).FirstOrDefault();
 
-                        var student = new Models.Student
+            var student = new Models.Student
             {
                 StudentNumber = _student.StudentNumber,
                 Program = _student.Program,
                 Level = _student.Level,
                 FirstName = _student.FirstName,
                 LastName = _student.LastName,
-                Birthday = (DateTime?)Convert.ToDateTime(_student.Birthday.Value.ToShortDateString()),
+                Birthday = _student.Birthday.HasValue ? _student.Birthday.Value.ToShortDateString() : null,
                 Email = _student.Email,
                 Mobile = _student.Mobile,
                 Address = _student.Address,
             };
             return PartialView("_StudentPartialView", student);
-            //return View("Edit", student);
-            //return View("Edit", student);
         }
 
 
@@ -111,7 +109,6 @@ namespace WebApplication6.Controllers
         {
             try
             {
-                // TODO: Add update logic here'
 
                 var context = new EnrollmentEntities();
                 string sa = form["StudentNumber"];
@@ -121,7 +118,7 @@ namespace WebApplication6.Controllers
                 _student.Email = form["Email"];
                 _student.Mobile = form["Mobile"];
                 _student.Address = form["Address"];
-                _student.Birthday = !string.IsNullOrEmpty(form["Birthday"]) ? (DateTime?)Convert.ToDateTime(form["Birthday"]) : null;
+                _student.Birthday = (DateTime?)Convert.ToDateTime(form["Birthday"]);
                 
                 context.SaveChanges();
                 var student = new Models.Student
@@ -131,7 +128,7 @@ namespace WebApplication6.Controllers
                     Level = _student.Level,
                     FirstName = _student.FirstName,
                     LastName = _student.LastName,
-                    Birthday = _student.Birthday.HasValue ? (DateTime?)Convert.ToDateTime(_student.Birthday.Value.ToShortDateString()) : null,
+                    Birthday = _student.Birthday?.ToString(),
                     Email = _student.Email,
                     Mobile = _student.Mobile,
                     Address = _student.Address,

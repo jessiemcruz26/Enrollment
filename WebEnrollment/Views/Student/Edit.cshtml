@@ -1,8 +1,4 @@
-﻿@*@{
-        ViewBag.Title = "Edit";
-    }*@
-
-@model WebEnrollment.Models.Student
+﻿@model WebEnrollment.Models.Student
 @section scripts{
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -18,16 +14,7 @@
             $("#myPartialViewContainer").load('@Url.Action("Edit", "Student")' + '?studentNumber=' + $('#staticStudentNumber').val())
             $('#myPartialViewContainer').css("visibility", "visible");
 
-            var d = $('#datepicker').val()
-            alert(d);
         });
-
-        //var date = new Date(), y = $('#datepicker').getFullYear(), m = $('#datepicker').getMonth(), d = $('#datepicker')
-
-        //var firstDay = new Date(y, m, 1).toString().split(' ').slice(0, 3).join(' ');
-
-
-      
     </script>
 }
 <h2>Edit</h2>
