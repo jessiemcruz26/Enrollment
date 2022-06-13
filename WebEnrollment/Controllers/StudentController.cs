@@ -76,7 +76,7 @@ namespace WebApplication6.Controllers
             }
         }
 
-        // GET: Student/Edit/5
+
         [HttpGet]
         public ActionResult Edit(string studentNumber)
         {
@@ -99,7 +99,8 @@ namespace WebApplication6.Controllers
                 Mobile = _student.Mobile,
                 Address = _student.Address,
             };
-            return PartialView("_StudentPartialView", student);
+
+            return Json(new { row = student }, JsonRequestBehavior.AllowGet);
         }
 
 
