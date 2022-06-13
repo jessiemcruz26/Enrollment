@@ -87,14 +87,14 @@ namespace WebApplication6.Controllers
                 return View(new Models.Student());
             var _student = context.Students.Where(x => x.StudentNumber == studentNumber).FirstOrDefault();
 
-            var student = new Models.Student
+                        var student = new Models.Student
             {
                 StudentNumber = _student.StudentNumber,
                 Program = _student.Program,
                 Level = _student.Level,
                 FirstName = _student.FirstName,
                 LastName = _student.LastName,
-                Birthday = _student.Birthday,
+                Birthday = (DateTime?)Convert.ToDateTime(_student.Birthday.Value.ToShortDateString()),
                 Email = _student.Email,
                 Mobile = _student.Mobile,
                 Address = _student.Address,
@@ -107,21 +107,22 @@ namespace WebApplication6.Controllers
 
         // POST: Student/Edit/5
         [HttpPost]
-        public ActionResult Edit(int? id, FormCollection form)
+        public ActionResult Edit(FormCollection form)
         {
             try
             {
                 // TODO: Add update logic here'
 
                 var context = new EnrollmentEntities();
-                var _student = context.Students.Where(x => x.StudentID == id).First();
+                string sa = form["StudentNumber"];
+                var _student = context.Students.Where(x => x.StudentNumber == sa).FirstOrDefault();
                 _student.FirstName = form["FirstName"];
                 _student.LastName = form["LastName"];
                 _student.Email = form["Email"];
                 _student.Mobile = form["Mobile"];
                 _student.Address = form["Address"];
                 _student.Birthday = !string.IsNullOrEmpty(form["Birthday"]) ? (DateTime?)Convert.ToDateTime(form["Birthday"]) : null;
-
+                
                 context.SaveChanges();
                 var student = new Models.Student
                 {
@@ -130,14 +131,14 @@ namespace WebApplication6.Controllers
                     Level = _student.Level,
                     FirstName = _student.FirstName,
                     LastName = _student.LastName,
-                    Birthday = _student.Birthday,
+                    Birthday = _student.Birthday.HasValue ? (DateTime?)Convert.ToDateTime(_student.Birthday.Value.ToShortDateString()) : null,
                     Email = _student.Email,
                     Mobile = _student.Mobile,
                     Address = _student.Address,
                 };
                 return View(student);
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }

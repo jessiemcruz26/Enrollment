@@ -8,6 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script>
+
         $(function () {
             $("#datepicker").datepicker();
         });
@@ -15,39 +16,24 @@
         $('#btn_Submit').click(function () {
 
             $("#myPartialViewContainer").load('@Url.Action("Edit", "Student")' + '?studentNumber=' + $('#staticStudentNumber').val())
+            $('#myPartialViewContainer').css("visibility", "visible");
 
-            //alert("c");
-            //$.ajax({
-            //    type: "GET",
-            //    url: "/Student/Edit",
-            //    data: { studentNumber: $('#staticStudentNumber').val() },
-            //    success: function (data) {
-            //        debugger;
-            //        alert("f");
-            //        $("#resultarea").text(data);
-            //        $("#test").replaceWith(data);
-            //    }
-            //});
+            var d = $('#datepicker').val()
+            alert(d);
         });
+
+        //var date = new Date(), y = $('#datepicker').getFullYear(), m = $('#datepicker').getMonth(), d = $('#datepicker')
+
+        //var firstDay = new Date(y, m, 1).toString().split(' ').slice(0, 3).join(' ');
+
+
+      
     </script>
 }
 <h2>Edit</h2>
 
-<script>
-//$('#btn_Save').click(function () {
-    //    alert("a");
-    //var url = "/Home/Index";
-    //var name = $('#Name').val();
-    //    $.post(url, {}, function (data) {
-
-
-    //    });</script>
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-
     <input type="hidden" id="StudentNumber" name="showAll" />
     <div class="form-group row">
         <label for="staticStudentNumber" class="col-sm-2 col-form-label">Enter student number: </label>
@@ -59,8 +45,8 @@
         <input id="btn_Submit" name="" value="Submit" class="buttonUpdate" type="submit" />
     </span>
 </div>
-<div id="myPartialViewContainer">
+<br />
+<div id="myPartialViewContainer" style="visibility: hidden" class="jumbotron">
     @Html.Partial("_StudentPartialView")
-
 </div>
 
