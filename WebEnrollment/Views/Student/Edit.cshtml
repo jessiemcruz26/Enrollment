@@ -138,7 +138,9 @@
                 <div class="form-group row">
                     <label for="staticStudentNumber1" class="col-sm-2 col-form-label">Courses</label>
                     <div class="col-sm-10">
-                        @Html.DropDownListFor(model => model.CourseID, Model.CourseListItems)
+                        @*@Html.DropDownList("Course", Model.CourseListItems)*@
+                        @*@Html.DropDownList("Course", Model.CourseListItems)*@
+                        @Html.DropDownListFor(x => Model.CourseID, new SelectList(Model.CourseListItems, "Value", "Text"))
                         <div class="dropdown">
 
 

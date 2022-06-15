@@ -76,28 +76,40 @@ namespace WebApplication6.Controllers
             }
         }
 
-
         [HttpGet]
         public ActionResult Edit(string studentNumber)
         {
             var context = new EnrollmentEntities();
-
+            var student = new Models.Student
+            {
+                CourseListItems = new List<SelectListItem>()
+            };
             if (string.IsNullOrEmpty(studentNumber))
-                return View(new Models.Student());
+                return View(new Models.Student() { CourseListItems = new List<SelectListItem>() });
 
             var _student = context.Students.Where(x => x.StudentNumber == studentNumber).FirstOrDefault();
             var _courseList = context.Courses.ToList();
 
-            IList<Course> courses = context.Courses.ToList();
-            IEnumerable<SelectListItem> selectList =
-                from c in _courseList
-                select new SelectListItem
-                {
-                    Text = c.CourseName,
-                    Value = c.CourseID.ToString()
-                };
+            //var courses = context.Courses.ToList();
+            //IEnumerable<SelectListItem> selectList =
+            //    from c in _courseList
+            //    select new SelectListItem
+            //    {
+            //        Text = c.CourseName,
+            //        Value = c.CourseID.ToString()
+            //    };
 
-            var student = new Models.Student
+            //IEnumerable<SelectListItem> selectList =
+            //   courses.Tosel
+            //IList<SelectListItem> selectList = new List<SelectListItem>();
+            //foreach (var item in courses)
+            //{
+            //    selectList.Add(new SelectListItem { Text = item.CourseName, Value = item.CourseID.ToString()});
+            //}
+            var courses = context.Courses.ToList();
+            var bb = GetSelectListItems(courses);
+
+            student = new Models.Student
             {
                 StudentNumber = _student.StudentNumber,
                 Program = _student.Program,
@@ -108,12 +120,26 @@ namespace WebApplication6.Controllers
                 Email = _student.Email,
                 Mobile = _student.Mobile,
                 Address = _student.Address,
-                CourseListItems = selectList
+                CourseListItems = bb,
+                CourseID = "1"
             };
 
             return Json(new { row = student }, JsonRequestBehavior.AllowGet);
         }
 
+        private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<Course> elements)
+        {
+            var selectList = new List<SelectListItem>();
+            foreach (var element in elements)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = element.CourseID.ToString(),
+                    Text = element.CourseName
+                });
+            }
+            return selectList;
+        }
 
         // POST: Student/Edit/5
         [HttpPost]
