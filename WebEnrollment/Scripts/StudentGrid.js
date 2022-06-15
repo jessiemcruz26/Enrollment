@@ -1,9 +1,9 @@
 ﻿$(function () {
     $("#studentGrid").jqGrid({
-        url: "/Home/GetDate",
+        url: "/Home/GetStudents",
         datatype: 'json',
         mtype: 'Get',
-        colNames: ["StudentID", "StudentNumber", "FirstName", "LastName", "Birthday", "Program", "Level"],
+        colNames: ["StudentID", "StudentNumber", "First Name", "Last Name", "Birthday", "Email", "Mobile", "Program", "Level"],
         colModel: [
             {
                 key: true, hidden: true, name: 'StudentID', index: 'StudentID', sortable: false
@@ -16,6 +16,12 @@
             },
             {
                 name: 'LastName', index: 'LastName', editable: true
+            },
+            {
+                name: 'Email', index: 'Email', editable: true
+            },
+            {
+                name: 'Mobile', index: 'Mobile', editable: true
             },
             {
                 name: 'Birthday', index: 'Birthday', editable: true, formatter: 'date', formatoptions: { newformat: 'd/m/Y' }
@@ -52,7 +58,8 @@
         },
         autowidth: true,
         multiselect: false,
-    }).navGrid('#jqControls', {
+        hiddengrid: true
+    }).navGrid('#studentControls', {
         edit: true, add: true, del: true, search: true,
         searchtext: "Search Student", refresh: true
     },

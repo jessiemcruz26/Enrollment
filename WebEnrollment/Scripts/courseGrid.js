@@ -1,26 +1,21 @@
 ﻿$(function () {
-    $("#instructorGrid").jqGrid({
-        url: "/Home/GetInstructors",
+    $("#courseGrid").jqGrid({
+        url: "/Home/GetCourses",
         datatype: 'json',
         mtype: 'Get',
-        colNames: ["InstructorID", "First Name", "Last Name", "Email", "Mobile"],
+        colNames: ["CourseID", "Course Name", "Course Description"],
         colModel: [
             {
-                key: true, hidden: true, name: 'InstructorID', index: 'InstructorID', sortable: false
+                key: true, hidden: true, name: 'CourseID', index: 'CourseID', sortable: false
             },
          
             {
-                name: 'FirstName', index: 'FirstName', sortable: false, editable: true
+                name: 'CourseName', index: 'CourseName', sortable: false, editable: true
             },
             {
-                name: 'LastName', index: 'LastName', editable: true
+                name: 'CourseDescription', index: 'CourseDescription', editable: true
             },
-            {
-                name: 'Email', index: 'Email', editable: true
-            },
-            {
-                name: 'Mobile', index: 'Mobile', editable: true
-            },
+          
             //{
             //    name: 'Birthday', index: 'Birthday', editable: true, formatter: 'date', formatoptions: { newformat: 'd/m/Y' }
             //},
@@ -39,13 +34,13 @@
         //    { key: false, name: 'Gender', index: 'Gender', editable: true, edittype: 'select', editoptions: { value: { 'M': 'Male', 'F': 'Female', 'N': 'None' } } },
         //    { key: false, name: 'ClassName', index: 'ClassName', editable: true, edittype: 'select', editoptions: { value: { '1': '1st Class', '2': '2nd Class', '3': '3rd Class', '4': '4th Class', '5': '5th Class' } } },
         //    { key: false, name: 'DateOfAdmission', index: 'DateOfAdmission', editable: true, formatter: 'date', formatoptions: { newformat: 'd/m/Y' } }],
-        pager: jQuery('#instructorControls'),
+        pager: jQuery('#courseControls'),
         rowNum: 10,
         rowList: [10, 20, 30, 40, 50],
         height: '100%',
         viewrecords: true,
-        caption: 'Instructor Records',
-        emptyrecords: 'No Instructors Records are Available to Display',
+        caption: 'Course Records',
+        emptyrecords: 'No Course Records are Available to Display',
         jsonReader: {
             root: "rows",
             page: "page",
@@ -57,9 +52,9 @@
         autowidth: true,
         multiselect: false,
         hiddengrid: true
-    }).navGrid('#instructorControls', {
+    }).navGrid('#courseControls', {
         edit: true, add: true, del: true, search: true,
-        searchtext: "Search Instructor", refresh: true
+        searchtext: "Search Course", refresh: true
     },
         {
             zIndex: 100,
@@ -90,7 +85,7 @@
             closeOnEscape: true,
             closeAfterDelete: true,
             recreateForm: true,
-            msg: "Are you sure you want to delete Instructor... ? ",
+            msg: "Are you sure you want to delete Course... ? ",
             afterComplete: function (response) {
                 if (response.responseText) {
                     alert(response.responseText);
@@ -99,7 +94,7 @@
         },
         {
             zIndex: 100,
-            caption: "Search Instructors",
+            caption: "Search Courses",
             sopt: ['cn']
         });
 });

@@ -341,6 +341,7 @@
     <Content Include="Scripts\i18n\grid.locale-tw.js" />
     <Content Include="Scripts\i18n\grid.locale-ua.js" />
     <Content Include="Scripts\i18n\grid.locale-vi.js" />
+    <Content Include="Scripts\courseGrid.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />

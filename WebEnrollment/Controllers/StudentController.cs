@@ -86,6 +86,16 @@ namespace WebApplication6.Controllers
                 return View(new Models.Student());
 
             var _student = context.Students.Where(x => x.StudentNumber == studentNumber).FirstOrDefault();
+            var _courseList = context.Courses.ToList();
+
+            IList<Course> courses = context.Courses.ToList();
+            IEnumerable<SelectListItem> selectList =
+                from c in _courseList
+                select new SelectListItem
+                {
+                    Text = c.CourseName,
+                    Value = c.CourseID.ToString()
+                };
 
             var student = new Models.Student
             {
@@ -98,6 +108,7 @@ namespace WebApplication6.Controllers
                 Email = _student.Email,
                 Mobile = _student.Mobile,
                 Address = _student.Address,
+                CourseListItems = selectList
             };
 
             return Json(new { row = student }, JsonRequestBehavior.AllowGet);

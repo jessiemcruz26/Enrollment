@@ -33,12 +33,28 @@ namespace WebApplication.Controllers
             ;
         }
 
-        public ActionResult GetDate()
+        public ActionResult GetStudents()
         {
             var context = new EnrollmentEntities();
-            var b = context.Students.ToList();
+            var _studentRows = context.Students.ToList();
 
-            return Json(new { rows = b }, JsonRequestBehavior.AllowGet);
+            return Json(new { rows = _studentRows}, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetInstructors()
+        {
+            var context = new EnrollmentEntities();
+            var _instructorRows = context.Instructors.ToList();
+
+            return Json(new {rows = _instructorRows }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetCourses()
+        {
+            var context = new EnrollmentEntities();
+            var _coursetRows = context.Courses.ToList();
+
+            return Json(new { rows = _coursetRows }, JsonRequestBehavior.AllowGet);
         }
 
 
