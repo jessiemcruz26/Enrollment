@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CommonService.Service;
+using CommonService.Contracts;
 
 namespace WebEnrollment.Repository
 {
     public interface IBusiness
     {
-        List<string> GetUsers();
+        StudentResponse GetStudents();
 
         void Save();
     }
@@ -19,9 +21,10 @@ namespace WebEnrollment.Repository
         {
             _dataAccess = dataAccess;
         }
-        public List<string> GetUsers()
+
+        public StudentResponse GetStudents()
         {
-            return _dataAccess.Get();
+            return _dataAccess.GetStudents();
         }
 
         public void Save()

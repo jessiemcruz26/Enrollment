@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Models = WebEnrollment.Models;
 using System.Data.Entity;
 using WebEnrollment;
+using CommonService.Service;
 
 namespace WebApplication6.Controllers
 {
@@ -18,6 +19,7 @@ namespace WebApplication6.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Index(string studentNumber)
         {
@@ -88,24 +90,9 @@ namespace WebApplication6.Controllers
                 return View(new Models.Student() { CourseListItems = new List<SelectListItem>() });
 
             var _student = context.Students.Where(x => x.StudentNumber == studentNumber).FirstOrDefault();
+
             var _courseList = context.Courses.ToList();
 
-            //var courses = context.Courses.ToList();
-            //IEnumerable<SelectListItem> selectList =
-            //    from c in _courseList
-            //    select new SelectListItem
-            //    {
-            //        Text = c.CourseName,
-            //        Value = c.CourseID.ToString()
-            //    };
-
-            //IEnumerable<SelectListItem> selectList =
-            //   courses.Tosel
-            //IList<SelectListItem> selectList = new List<SelectListItem>();
-            //foreach (var item in courses)
-            //{
-            //    selectList.Add(new SelectListItem { Text = item.CourseName, Value = item.CourseID.ToString()});
-            //}
             var courses = context.Courses.ToList();
             var bb = GetSelectListItems(courses);
 

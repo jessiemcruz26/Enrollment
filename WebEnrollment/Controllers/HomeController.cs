@@ -7,6 +7,7 @@ using WebEnrollment.Repository;
 using Model = WebEnrollment.Models;
 using System.Data.Entity;
 using WebEnrollment;
+using CommonService.Service;
 
 namespace WebApplication.Controllers
 {
@@ -21,7 +22,8 @@ namespace WebApplication.Controllers
 
         public ActionResult Index()
         {
-            var users = _business.GetUsers();
+            var students = _business.GetStudents();
+
             return View();
         }
 
@@ -30,15 +32,15 @@ namespace WebApplication.Controllers
             var a = form["StudentNumber"];
             _business.Save();
             return View("Index");
-            ;
         }
 
         public ActionResult GetStudents()
         {
-            var context = new EnrollmentEntities();
-            var _studentRows = context.Students.ToList();
+            EnrollmentService service = new EnrollmentService();
 
-            return Json(new { rows = _studentRows}, JsonRequestBehavior.AllowGet);
+            var _studentRows = service.GetStudent(new CommonService.Contracts.StudentRequest());
+
+            return Json(new { rows = _studentRows.Students }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetInstructors()

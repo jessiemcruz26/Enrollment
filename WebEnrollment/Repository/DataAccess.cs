@@ -6,26 +6,31 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Web;
+using CommonService.Service;
+using CommonService.Contracts;
 
 namespace WebEnrollment.Repository
 {
     public interface IDataAccess
     {
-        List<string> Get();
+        StudentResponse GetStudents();
     }
 
     public class DataAccess : IDataAccess
     {
-        //private readonly IUserProvider _userProvider;
-        //public UserRepository(IUserProvider userProvider)
-        //{
-        //    _userProvider = userProvider;
-        //}
-
-        public List<string> Get()
+      
+        public StudentResponse GetStudents()
         {
-            //var user = _userProvider.UserName;
-            return new List<string> { "User 1", "User 2", "User 3" };
+            EnrollmentService service = new EnrollmentService();
+
+            return service.GetStudent(new CommonService.Contracts.StudentRequest());
+        }
+
+        public StudentResponse UpdateStudents()
+        {
+            EnrollmentService service = new EnrollmentService();
+
+            return service.UpdateStudent(new CommonService.Contracts.StudentRequest());
         }
 
         public static HttpClient ApiClient { get; set; } = new HttpClient();
@@ -52,6 +57,7 @@ namespace WebEnrollment.Repository
             public string FirstName { get; set; }
             public string LastName { get; set; }
         }
+
         public static async void Post()
         {
             ApiClient.DefaultRequestHeaders.Accept.Clear();
@@ -69,6 +75,5 @@ namespace WebEnrollment.Repository
                 var a = await reponse.Content.ReadAsStringAsync();
             }
         }
-
     }
 }
