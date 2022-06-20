@@ -15,33 +15,33 @@ namespace CommonService.Handlers
 
         protected override StudentResponse Process(StudentRequest request)
         {
-            var context = new EnrollmentEntities();
-            var _studentRows = context.Students.ToList();
+            //var context = new EnrollmentEntities();
+            //var _studentRows = context.Students.ToList();
 
-            var respone = new StudentResponse();
-            var studentList = new List<Contracts.Student>();
-            foreach (var item in _studentRows)
-            {
-                Contracts.Student student = new Contracts.Student()
-                {
-                    StudentID = item.StudentID,
-                    Address = item.Address,
-                    Birthday = item.Birthday,
-                    Email = item.Email,
-                    FirstName = item.FirstName,
-                    LastName = item.LastName,
-                    Level = item.Level,
-                    Mobile = item.Mobile,
-                    Program = item.Program,
-                    StudentNumber = item.StudentNumber
-                };
+            //var respone = new StudentResponse();
+            //var studentList = new List<Contracts.Student>();
+            //foreach (var item in _studentRows)
+            //{
+            //    Contracts.Student student = new Contracts.Student()
+            //    {
+            //        StudentID = item.StudentID,
+            //        Address = item.Address,
+            //        Birthday = item.Birthday,
+            //        Email = item.Email,
+            //        FirstName = item.FirstName,
+            //        LastName = item.LastName,
+            //        Level = item.Level,
+            //        Mobile = item.Mobile,
+            //        Program = item.Program,
+            //        StudentNumber = item.StudentNumber
+            //    };
 
-                studentList.Add(student);
-            }
+            //    studentList.Add(student);
+            //}
 
-            respone.Students = studentList;
+            //respone.Students = studentList;
 
-            return respone;
+            return new StudentResponse();
         }
 
         protected override List<ValidationError> Validate(StudentRequest request)

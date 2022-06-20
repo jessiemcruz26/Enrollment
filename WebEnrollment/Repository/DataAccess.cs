@@ -13,18 +13,18 @@ namespace WebEnrollment.Repository
 {
     public interface IDataAccess
     {
-        StudentResponse GetStudents();
+        //StudentResponse GetStudents();
     }
 
     public class DataAccess : IDataAccess
     {
       
-        public StudentResponse GetStudents()
-        {
-            EnrollmentService service = new EnrollmentService();
+        //public StudentResponse GetStudents()
+        //{
+        //    EnrollmentService service = new EnrollmentService();
 
-            return service.GetStudent(new CommonService.Contracts.StudentRequest());
-        }
+        //    return service.GetStudent(new CommonService.Contracts.StudentRequest());
+        //}
 
         public StudentResponse UpdateStudents()
         {

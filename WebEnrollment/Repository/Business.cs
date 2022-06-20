@@ -9,7 +9,7 @@ namespace WebEnrollment.Repository
 {
     public interface IBusiness
     {
-        StudentResponse GetStudents();
+        //StudentResponse GetStudents();
 
         void Save();
     }
@@ -22,10 +22,10 @@ namespace WebEnrollment.Repository
             _dataAccess = dataAccess;
         }
 
-        public StudentResponse GetStudents()
-        {
-            return _dataAccess.GetStudents();
-        }
+        //public StudentResponse GetStudents()
+        //{
+        //    return _dataAccess.GetStudents();
+        //}
 
         public void Save()
         {

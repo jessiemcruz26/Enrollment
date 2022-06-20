@@ -7,11 +7,26 @@ using Models = WebEnrollment.Models;
 using System.Data.Entity;
 using WebEnrollment;
 using CommonService.Service;
+using CModel = CommonService.Contracts;
+using WebEnrollment.Repository;
 
 namespace WebApplication6.Controllers
 {
     public class StudentController : Controller
     {
+        private readonly IBusiness _business;
+
+        private readonly IStudentMediator _studentMediator;
+        public StudentController(IBusiness business, IStudentMediator studentMediator) {
+            _business = business; _studentMediator = studentMediator;
+        }
+
+        //private readonly IDataAccess _dataAccess;
+        //public Business(IDataAccess dataAccess)
+        //{
+        //    _dataAccess = dataAccess;
+        //}
+
         // GET: Student
 
         [HttpGet]
@@ -81,35 +96,40 @@ namespace WebApplication6.Controllers
         [HttpGet]
         public ActionResult Edit(string studentNumber)
         {
-            var context = new EnrollmentEntities();
-            var student = new Models.Student
-            {
-                CourseListItems = new List<SelectListItem>()
-            };
+            //var context = new EnrollmentEntities();
+            //var student = new Models.Student
+            //{
+            //    CourseListItems = new List<SelectListItem>()
+            //};
+            //if (string.IsNullOrEmpty(studentNumber))
+            //    return View(new Models.Student() { CourseListItems = new List<SelectListItem>() });
+
+            //var _student = context.Students.Where(x => x.StudentNumber == studentNumber).FirstOrDefault();
+
+            //var _courseList = context.Courses.ToList();
+
+            //var courses = context.Courses.ToList();
+            //var bb = GetSelectListItems(courses);
+
+            //student = new Models.Student
+            //{
+            //    StudentNumber = _student.StudentNumber,
+            //    Program = _student.Program,
+            //    Level = _student.Level,
+            //    FirstName = _student.FirstName,
+            //    LastName = _student.LastName,
+            //    Birthday = _student.Birthday.HasValue ? _student.Birthday.Value.ToShortDateString() : null,
+            //    Email = _student.Email,
+            //    Mobile = _student.Mobile,
+            //    Address = _student.Address,
+            //    CourseListItems = bb,
+            //    CourseID = "1"
+            //};
+
             if (string.IsNullOrEmpty(studentNumber))
                 return View(new Models.Student() { CourseListItems = new List<SelectListItem>() });
 
-            var _student = context.Students.Where(x => x.StudentNumber == studentNumber).FirstOrDefault();
-
-            var _courseList = context.Courses.ToList();
-
-            var courses = context.Courses.ToList();
-            var bb = GetSelectListItems(courses);
-
-            student = new Models.Student
-            {
-                StudentNumber = _student.StudentNumber,
-                Program = _student.Program,
-                Level = _student.Level,
-                FirstName = _student.FirstName,
-                LastName = _student.LastName,
-                Birthday = _student.Birthday.HasValue ? _student.Birthday.Value.ToShortDateString() : null,
-                Email = _student.Email,
-                Mobile = _student.Mobile,
-                Address = _student.Address,
-                CourseListItems = bb,
-                CourseID = "1"
-            };
+            Models.Student student = _studentMediator.GetStudent(studentNumber);
 
             return Json(new { row = student }, JsonRequestBehavior.AllowGet);
         }
@@ -134,33 +154,50 @@ namespace WebApplication6.Controllers
         {
             try
             {
+                var student = _studentMediator.UpdateStudent(form);
 
-                var context = new EnrollmentEntities();
-                string sa = form["StudentNumber"];
-                var _student = context.Students.Where(x => x.StudentNumber == sa).FirstOrDefault();
-                _student.FirstName = form["FirstName"];
-                _student.LastName = form["LastName"];
-                _student.Email = form["Email"];
-                _student.Mobile = form["Mobile"];
-                _student.Address = form["Address"];
-                _student.Birthday = (DateTime?)Convert.ToDateTime(form["Birthday"]);
-                
-                context.SaveChanges();
-                var student = new Models.Student
-                {
-                    StudentNumber = _student.StudentNumber,
-                    Program = _student.Program,
-                    Level = _student.Level,
-                    FirstName = _student.FirstName,
-                    LastName = _student.LastName,
-                    Birthday = _student.Birthday?.ToString(),
-                    Email = _student.Email,
-                    Mobile = _student.Mobile,
-                    Address = _student.Address,
-                };
-                return View(student);
+                //CModel.Student student = new CModel.Student
+                //{
+                //    StudentNumber = form["StudentNumber"],
+                //    FirstName = form["FirstName"],
+                //    LastName = form["LastName"],
+                //    Email = form["Email"],
+                //    Mobile = form["Mobile"],
+                //    Address = form["Address"],
+                //    Birthday = (DateTime?)Convert.ToDateTime(form["Birthday"])
+                //};
+                //_business.Save
+                //Business.
+
+
+
+                //var context = new EnrollmentEntities();
+                //string sa = form["StudentNumber"];
+                //var _student = context.Students.Where(x => x.StudentNumber == sa).FirstOrDefault();
+                //_student.FirstName = form["FirstName"];
+                //_student.LastName = form["LastName"];
+                //_student.Email = form["Email"];
+                //_student.Mobile = form["Mobile"];
+                //_student.Address = form["Address"];
+                //_student.Birthday = (DateTime?)Convert.ToDateTime(form["Birthday"]);
+
+                //context.SaveChanges();
+                //var student = new Models.Student
+                //{
+                //    StudentNumber = _student.StudentNumber,
+                //    Program = _student.Program,
+                //    Level = _student.Level,
+                //    FirstName = _student.FirstName,
+                //    LastName = _student.LastName,
+                //    Birthday = _student.Birthday?.ToString(),
+                //    Email = _student.Email,
+                //    Mobile = _student.Mobile,
+                //    Address = _student.Address,
+                //};
+                //return View(student);
+                return View();
             }
-            catch(Exception e)
+            catch
             {
                 return View();
             }

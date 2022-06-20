@@ -99,6 +99,7 @@
     <Compile Include="Contracts\CourseRequest.cs" />
     <Compile Include="Contracts\Instructor.cs" />
     <Compile Include="Contracts\StudentRequest.cs" />
+    <Compile Include="Contracts\StudentsResponse.cs" />
     <Compile Include="Contracts\StudentResponse.cs" />
     <Compile Include="Contracts\IRequest.cs" />
     <Compile Include="Contracts\IResponse.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Handlers\CreateInstructorHandler.cs" />
     <Compile Include="Handlers\GetCourseHandler.cs" />
     <Compile Include="Handlers\GetInstructorHandler.cs" />
+    <Compile Include="Handlers\GetStudentsHandler.cs" />
     <Compile Include="Handlers\UpdateInstructorHandler.cs" />
     <Compile Include="Handlers\UpdateCourseHandler.cs" />
     <Compile Include="Handlers\CreateCourseHandler .cs" />

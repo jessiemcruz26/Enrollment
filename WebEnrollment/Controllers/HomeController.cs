@@ -13,34 +13,36 @@ namespace WebApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IBusiness _business;
 
-        public HomeController(IBusiness business)
+        private readonly IStudentMediator _studentMediator;
+
+        public HomeController(IStudentMediator studentMediator)
         {
-            _business = business;
+            _studentMediator = studentMediator;
         }
 
         public ActionResult Index()
         {
-            var students = _business.GetStudents();
+            //var students = _business.GetStudents();
 
             return View();
         }
 
         public ActionResult Save(FormCollection form)
         {
-            var a = form["StudentNumber"];
-            _business.Save();
+            //var a = form["StudentNumber"];
+            //_business.Save();
             return View("Index");
         }
 
         public ActionResult GetStudents()
         {
-            EnrollmentService service = new EnrollmentService();
+            var _listStudents = _studentMediator.GetStudents();
+            //EnrollmentService service = new EnrollmentService();
 
-            var _studentRows = service.GetStudent(new CommonService.Contracts.StudentRequest());
+            //var _studentRows = service.GetStudent(new CommonService.Contracts.StudentRequest());
 
-            return Json(new { rows = _studentRows.Students }, JsonRequestBehavior.AllowGet);
+            return Json(new { rows = _listStudents }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetInstructors()

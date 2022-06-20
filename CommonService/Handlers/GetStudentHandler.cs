@@ -16,32 +16,46 @@ namespace CommonService.Handlers
         protected override StudentResponse Process(StudentRequest request)
         {
             var context = new EnrollmentEntities();
-            var _studentRows = context.Students.ToList();
+            var _studentRow = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
 
-            var respone = new StudentResponse();
-            var studentList = new List<Contracts.Student>();
-            foreach (var item in _studentRows)
+            //var respone = new StudentResponse();
+            //var studentList = new List<Contracts.Student>();
+            //foreach (var item in _studentRows)
+            //{
+            //    Contracts.Student student = new Contracts.Student()
+            //    {
+            //        StudentID = item.StudentID,
+            //        Address = item.Address,
+            //        Birthday = item.Birthday,
+            //        Email = item.Email,
+            //        FirstName = item.FirstName,
+            //        LastName = item.LastName,
+            //        Level = item.Level,
+            //        Mobile = item.Mobile,
+            //        Program = item.Program,
+            //        StudentNumber = item.StudentNumber
+            //    };
+
+            //    studentList.Add(student);
+            //}
+
+            //respone.Students = studentList;
+
+            StudentResponse _response = new StudentResponse
             {
-                Contracts.Student student = new Contracts.Student()
-                {
-                    StudentID = item.StudentID,
-                    Address = item.Address,
-                    Birthday = item.Birthday,
-                    Email = item.Email,
-                    FirstName = item.FirstName,
-                    LastName = item.LastName,
-                    Level = item.Level,
-                    Mobile = item.Mobile,
-                    Program = item.Program,
-                    StudentNumber = item.StudentNumber
-                };
+                FirstName = _studentRow.FirstName,
+                LastName = _studentRow.LastName,
+                Email = _studentRow.Email,
+                Mobile = _studentRow.Mobile,
+                Level = _studentRow.Level,
+                Program = _studentRow.Program,
+                StudentID = _studentRow.StudentID,
+                StudentNumber = _studentRow.StudentNumber,
+                Address = _studentRow.Address,
+                Birthday = _studentRow?.Birthday,
+            };
 
-                studentList.Add(student);
-            }
-
-            respone.Students = studentList;
-
-            return respone;
+            return _response;
         }
 
         protected override List<ValidationError> Validate(StudentRequest request)
