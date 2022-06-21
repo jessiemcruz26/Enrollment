@@ -3,34 +3,34 @@
         url: "/Home/GetStudents",
         datatype: 'json',
         mtype: 'Get',
-        colNames: ["StudentID", "StudentNumber", "First Name", "Last Name", "Birthday", "Email", "Mobile", "Program", "Level"],
+        colNames: ["StudentID", "StudentNumber", "First Name", "Last Name", "Email", "Mobile", "Program", "Level"],
         colModel: [
             {
-                key: true, hidden: true, name: 'StudentID', index: 'StudentID', sortable: false
+                key: true, name: 'StudentID', index: 'StudentID', sortable: false, editable: true, hidden: true
             },
             {
-                name: 'StudentNumber', index: 'StudentNumber', editable: false
+                key: false, name: 'StudentNumber', index: 'StudentNumber', editable: true
             },
             {
-                name: 'FirstName', index: 'FirstName', sortable: false, editable: true
+                key: false, name: 'FirstName', index: 'FirstName', sortable: false, editable: true
             },
             {
-                name: 'LastName', index: 'LastName', editable: true
+                key: false, name: 'LastName', index: 'LastName', editable: true
             },
             {
-                name: 'Email', index: 'Email', editable: true
+                key: false, name: 'Email', index: 'Email', editable: true
             },
             {
-                name: 'Mobile', index: 'Mobile', editable: true
+                key: false, name: 'Mobile', index: 'Mobile', editable: true
+            },
+            //{
+            //    key: false, name: 'Birthday', index: 'Birthday', editable: true, formatter: 'date', formatoptions: { newformat: 'd/m/Y' }
+            //},
+            {
+                key: false, name: 'Program', index: 'Program', editable: true
             },
             {
-                name: 'Birthday', index: 'Birthday', editable: true, formatter: 'date', formatoptions: { newformat: 'd/m/Y' }
-            },
-            {
-                name: 'Program', index: 'Program', editable: true
-            },
-            {
-                name: 'Level', index: 'Level', editable: true
+                key: false, name: 'Level', index: 'Level', editable: true
             }
         ],
         //colNames: ['ID', 'Student Name', 'Father Name', 'Gender', 'Class', 'Admission Date'],

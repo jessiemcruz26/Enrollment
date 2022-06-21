@@ -7,25 +7,6 @@ using System.Web.Mvc;
 
 namespace WebEnrollment.Models
 {
-    public class MySkills
-    {
-        public int ID
-        {
-            get;
-            set;
-        }
-        public string Name
-        {
-            get;
-            set;
-        }
-        public IEnumerable<SelectListItem> Skills
-        {
-            get;
-            set;
-        }
-    }
-
     public class Student : Course
     {
         public int MyProperty { get; set; }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebEnrollment.Repository;
-using Model = WebEnrollment.Models;
+using model = WebEnrollment.Models;
 using System.Data.Entity;
 using WebEnrollment;
 using CommonService.Service;
@@ -74,16 +74,98 @@ namespace WebApplication.Controllers
             return View();
         }
 
-        public string Edit(Model.Student Model)
+        public string Edit(Student Model)
         {
+            //model.Student student = new model.Student
+            //{
+            //    StudentNumber = Model.StudentNumber,
+            //    FirstName = Model.FirstName,
+            //    LastName = Model.LastName,
+            //    Email = Model.Email,
+            //    Mobile = Model.Mobile,
+            //    Address = Model.Address,
+            //    Birthday = Model.Birthday.ToString(),
+            //};
+
+            //_studentMediator.UpdateStudent(student);
+
+            //string msg = "Success";
+
             EnrollmentEntities db = new EnrollmentEntities();
+            string msg;
+            try
+            {
+                var errors = ModelState
+    .Where(x => x.Value.Errors.Count > 0)
+    .Select(x => new { x.Key, x.Value.Errors })
+    .ToArray();
+
+                if (ModelState.IsValid)
+                {
+                    model.Student _student = new model.Student
+                    {
+                        Address = Model.Address,
+                        FirstName = Model.FirstName,
+                        LastName = Model.LastName,
+                        Mobile = Model.Mobile,
+                        Email = Model.Email,
+                        Level = Model.Level,
+                        Program = Model.Program,
+                        StudentNumber = Model.StudentNumber
+                    };
+
+                    _studentMediator.UpdateStudent(_student, null);
+                    msg = "Saved Successfully";
+                }
+                else
+                {
+                    msg = "Validation data not successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
+        }
+
+        [HttpPost]
+        public string Create([Bind(Exclude = "StudentId")] Student Model)
+        {
+            //ApplicationDbContext db = new ApplicationDbContext();
             string msg;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(Model).State = EntityState.Modified;
-                    db.SaveChanges();
+                    _studentMediator.CreateStudent(Model);
+                    msg = "Saved Successfully";
+                }
+                else
+                {
+                    msg = "Validation data not successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
+        }
+
+        public string Delete(string Id)
+        {
+            //ApplicationDbContext db = new ApplicationDbContext();
+            //StudentMaster student = db.Students.Find(Id);
+            //db.Students.Remove(student);
+            //db.SaveChanges();
+            //return "Deleted successfully";
+            string msg;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _studentMediator.UpdateStudent(new model.Student(), Id);
                     msg = "Saved Successfully";
                 }
                 else

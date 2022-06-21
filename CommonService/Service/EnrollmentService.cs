@@ -40,12 +40,5 @@ namespace CommonService.Service
             var serviceHandler = new UpdateStudentHandler();
             return serviceHandler.Execute(request);
         }
-
-
-        public StudentResponse DeleteStudent(StudentRequest request)
-        {
-            var serviceHandler = new CreateStudentHandler();
-            return serviceHandler.Execute(request);
-        }
     }
 }

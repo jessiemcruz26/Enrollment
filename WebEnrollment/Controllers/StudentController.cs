@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Models = WebEnrollment.Models;
+using model = WebEnrollment.Models;
 using System.Data.Entity;
 using WebEnrollment;
 using CommonService.Service;
-using CModel = CommonService.Contracts;
+using contract = CommonService.Contracts;
 using WebEnrollment.Repository;
 
 namespace WebApplication6.Controllers
@@ -48,7 +48,7 @@ namespace WebApplication6.Controllers
                 return View();
             else
             {
-                var student = new Models.Student
+                var student = new model.Student
                 {
                     StudentNumber = _student.StudentNumber,
                     Program = _student.Program,
@@ -127,9 +127,9 @@ namespace WebApplication6.Controllers
             //};
 
             if (string.IsNullOrEmpty(studentNumber))
-                return View(new Models.Student() { CourseListItems = new List<SelectListItem>() });
+                return View(new model.Student() { CourseListItems = new List<SelectListItem>() });
 
-            Models.Student student = _studentMediator.GetStudent(studentNumber);
+            model.Student student = _studentMediator.GetStudent(studentNumber);
 
             return Json(new { row = student }, JsonRequestBehavior.AllowGet);
         }
@@ -154,7 +154,19 @@ namespace WebApplication6.Controllers
         {
             try
             {
-                var student = _studentMediator.UpdateStudent(form);
+
+                model.Student student = new model.Student
+                {
+                    StudentNumber = form["StudentNumber"],
+                    FirstName = form["FirstName"],
+                    LastName = form["LastName"],
+                    Email = form["Email"],
+                    Mobile = form["Mobile"],
+                    Address = form["Address"],
+                    Birthday = form["Birthday"],
+                };
+
+                var response = _studentMediator.UpdateStudent(student, string.Empty);
 
                 //CModel.Student student = new CModel.Student
                 //{
@@ -195,7 +207,7 @@ namespace WebApplication6.Controllers
                 //    Address = _student.Address,
                 //};
                 //return View(student);
-                return View();
+                return View(response);
             }
             catch
             {

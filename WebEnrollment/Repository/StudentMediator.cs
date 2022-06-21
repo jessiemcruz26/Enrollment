@@ -12,10 +12,9 @@ namespace WebEnrollment.Repository
     public interface IStudentMediator
     {
         model.Student GetStudent(string studentNumber);
-
-        List<Student> GetStudents();
-
-        contract.StudentResponse UpdateStudent(FormCollection form);
+        List<model.Student> GetStudents();
+        model.Student UpdateStudent(model.Student student, string id);
+        model.Student CreateStudent(Student student);
     }
 
     public class StudentMediator : IStudentMediator
@@ -47,24 +46,28 @@ namespace WebEnrollment.Repository
             return _student;
         }
 
-        public List<Student> GetStudents()
+        public List<model.Student> GetStudents()
         {
             EnrollmentService service = new EnrollmentService();
 
             var _service = service.GetStudents(new contract.StudentRequest());
 
-            List<Student> _studentsList = new List<Student>();
+            List<model.Student> _studentsList = new List<model.Student>();
 
             foreach (var item in _service.Students)
             {
-                Student _student = new Student()
+                model.Student _student = new model.Student()
                 {
                     FirstName = item.FirstName,
                     LastName = item.LastName,
                     Address = item.Address,
                     Mobile = item.Mobile,
-                    Birthday = item.Birthday,
-                    Email = item.Email
+                    Birthday = item.Birthday != null ? item.Birthday.ToString() : null,
+                    Email = item.Email,
+                    Level = item.Level,
+                    Program = item.Program,
+                    StudentID = item.StudentID,
+                    StudentNumber = item.StudentNumber
                 };
 
                 _studentsList.Add(_student);
@@ -73,23 +76,75 @@ namespace WebEnrollment.Repository
             return _studentsList;
         }
 
-        public contract.StudentResponse UpdateStudent(FormCollection form)
+        public model.Student UpdateStudent(model.Student student, string id)
         {
-
-            contract.StudentRequest student = new contract.StudentRequest
+            contract.StudentRequest _studentRequest = new contract.StudentRequest()
             {
-                StudentNumber = form["StudentNumber"],
-                FirstName = form["FirstName"],
-                LastName = form["LastName"],
-                Email = form["Email"],
-                Mobile = form["Mobile"],
-                Address = form["Address"],
-                Birthday = form["Birthday"] != null ? (DateTime?)Convert.ToDateTime(form["Birthday"]) : null,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                Address = student.Address,
+                Mobile = student.Mobile,
+                Birthday = null,
+                Email = student.Email,
+                Program = student.Program,
+                StudentNumber = student.StudentNumber,
+                StudentID = student.StudentID,
+                Level = student.Level,
+                Id = id
             };
 
-            var response = _service.UpdateStudent(student);
-          
-            return response;
+            var _response = _service.UpdateStudent(_studentRequest);
+
+            model.Student _student = new model.Student()
+            {
+                FirstName = _response.FirstName,
+                LastName = _response.LastName,
+                Address = _response.Address,
+                Mobile = _response.Mobile,
+                Birthday = _response.Birthday != null ? _response.Birthday.ToString() : null,
+                Email = _response.Email,
+                Program = _response.Program,
+                StudentNumber = _response.StudentNumber,
+                StudentID = _response.StudentID,
+                Level = _response.Level,
+            };
+
+            return _student;
+        }
+
+        public model.Student CreateStudent(Student student)
+        {
+            contract.StudentRequest _studentRequest = new contract.StudentRequest()
+            {
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                Address = student.Address,
+                Mobile = student.Mobile,
+                Birthday = null,
+                Email = student.Email,
+                Program = student.Program,
+                StudentNumber = student.StudentNumber,
+                StudentID = student.StudentID,
+                Level = student.Level,
+            };
+
+            var _response = _service.CreateStudent(_studentRequest);
+
+            model.Student _student = new model.Student()
+            {
+                FirstName = _response.FirstName,
+                LastName = _response.LastName,
+                Address = _response.Address,
+                Mobile = _response.Mobile,
+                Birthday = _response.Birthday != null ? _response.Birthday.ToString() : null,
+                Email = _response.Email,
+                Program = _response.Program,
+                StudentNumber = _response.StudentNumber,
+                StudentID = _response.StudentID,
+                Level = _response.Level,
+            };
+
+            return _student;
         }
     }
 }
