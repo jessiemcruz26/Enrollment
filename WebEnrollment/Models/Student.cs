@@ -21,7 +21,6 @@ namespace WebEnrollment.Models
         public string Level { get; set; }
         public string Birthday { get; set; }
 
-        //public IEnumerable<SelectListItem> CourseListItems { get; set; }
         public IEnumerable<SelectListItem> CourseListItems { get; set; }
         public string CourseID { get; set; }
     }

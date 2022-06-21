@@ -21,14 +21,6 @@ namespace WebApplication6.Controllers
             _business = business; _studentMediator = studentMediator;
         }
 
-        //private readonly IDataAccess _dataAccess;
-        //public Business(IDataAccess dataAccess)
-        //{
-        //    _dataAccess = dataAccess;
-        //}
-
-        // GET: Student
-
         [HttpGet]
         public ActionResult Index()
         {
@@ -96,36 +88,6 @@ namespace WebApplication6.Controllers
         [HttpGet]
         public ActionResult Edit(string studentNumber)
         {
-            //var context = new EnrollmentEntities();
-            //var student = new Models.Student
-            //{
-            //    CourseListItems = new List<SelectListItem>()
-            //};
-            //if (string.IsNullOrEmpty(studentNumber))
-            //    return View(new Models.Student() { CourseListItems = new List<SelectListItem>() });
-
-            //var _student = context.Students.Where(x => x.StudentNumber == studentNumber).FirstOrDefault();
-
-            //var _courseList = context.Courses.ToList();
-
-            //var courses = context.Courses.ToList();
-            //var bb = GetSelectListItems(courses);
-
-            //student = new Models.Student
-            //{
-            //    StudentNumber = _student.StudentNumber,
-            //    Program = _student.Program,
-            //    Level = _student.Level,
-            //    FirstName = _student.FirstName,
-            //    LastName = _student.LastName,
-            //    Birthday = _student.Birthday.HasValue ? _student.Birthday.Value.ToShortDateString() : null,
-            //    Email = _student.Email,
-            //    Mobile = _student.Mobile,
-            //    Address = _student.Address,
-            //    CourseListItems = bb,
-            //    CourseID = "1"
-            //};
-
             if (string.IsNullOrEmpty(studentNumber))
                 return View(new model.Student() { CourseListItems = new List<SelectListItem>() });
 
@@ -154,7 +116,6 @@ namespace WebApplication6.Controllers
         {
             try
             {
-
                 model.Student student = new model.Student
                 {
                     StudentNumber = form["StudentNumber"],
@@ -168,45 +129,6 @@ namespace WebApplication6.Controllers
 
                 var response = _studentMediator.UpdateStudent(student, string.Empty);
 
-                //CModel.Student student = new CModel.Student
-                //{
-                //    StudentNumber = form["StudentNumber"],
-                //    FirstName = form["FirstName"],
-                //    LastName = form["LastName"],
-                //    Email = form["Email"],
-                //    Mobile = form["Mobile"],
-                //    Address = form["Address"],
-                //    Birthday = (DateTime?)Convert.ToDateTime(form["Birthday"])
-                //};
-                //_business.Save
-                //Business.
-
-
-
-                //var context = new EnrollmentEntities();
-                //string sa = form["StudentNumber"];
-                //var _student = context.Students.Where(x => x.StudentNumber == sa).FirstOrDefault();
-                //_student.FirstName = form["FirstName"];
-                //_student.LastName = form["LastName"];
-                //_student.Email = form["Email"];
-                //_student.Mobile = form["Mobile"];
-                //_student.Address = form["Address"];
-                //_student.Birthday = (DateTime?)Convert.ToDateTime(form["Birthday"]);
-
-                //context.SaveChanges();
-                //var student = new Models.Student
-                //{
-                //    StudentNumber = _student.StudentNumber,
-                //    Program = _student.Program,
-                //    Level = _student.Level,
-                //    FirstName = _student.FirstName,
-                //    LastName = _student.LastName,
-                //    Birthday = _student.Birthday?.ToString(),
-                //    Email = _student.Email,
-                //    Mobile = _student.Mobile,
-                //    Address = _student.Address,
-                //};
-                //return View(student);
                 return View(response);
             }
             catch

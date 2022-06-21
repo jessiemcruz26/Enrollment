@@ -14,7 +14,6 @@ namespace WebEnrollment.Modules
             builder.RegisterType<CourseMediator>().As<ICourseMediator>();
             builder.RegisterType<InstructorMediator>().As<IInstructorMediator>();
             builder.RegisterType<EnrollmentService>().As<IEnrollmentService>();
-            
 
             base.Load(builder);
         }

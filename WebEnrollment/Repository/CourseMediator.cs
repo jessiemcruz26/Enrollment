@@ -9,9 +9,7 @@ namespace WebEnrollment.Repository
 {
     public interface ICourseMediator
     {
-        //StudentResponse GetStudents();
-
-        //void Save();
+      
     }
 
     public class CourseMediator : ICourseMediator

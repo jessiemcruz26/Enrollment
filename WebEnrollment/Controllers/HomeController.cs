@@ -23,24 +23,17 @@ namespace WebApplication.Controllers
 
         public ActionResult Index()
         {
-            //var students = _business.GetStudents();
-
             return View();
         }
 
         public ActionResult Save(FormCollection form)
         {
-            //var a = form["StudentNumber"];
-            //_business.Save();
             return View("Index");
         }
 
         public ActionResult GetStudents()
         {
             var _listStudents = _studentMediator.GetStudents();
-            //EnrollmentService service = new EnrollmentService();
-
-            //var _studentRows = service.GetStudent(new CommonService.Contracts.StudentRequest());
 
             return Json(new { rows = _listStudents }, JsonRequestBehavior.AllowGet);
         }
@@ -76,30 +69,10 @@ namespace WebApplication.Controllers
 
         public string Edit(Student Model)
         {
-            //model.Student student = new model.Student
-            //{
-            //    StudentNumber = Model.StudentNumber,
-            //    FirstName = Model.FirstName,
-            //    LastName = Model.LastName,
-            //    Email = Model.Email,
-            //    Mobile = Model.Mobile,
-            //    Address = Model.Address,
-            //    Birthday = Model.Birthday.ToString(),
-            //};
-
-            //_studentMediator.UpdateStudent(student);
-
-            //string msg = "Success";
-
             EnrollmentEntities db = new EnrollmentEntities();
             string msg;
             try
             {
-                var errors = ModelState
-    .Where(x => x.Value.Errors.Count > 0)
-    .Select(x => new { x.Key, x.Value.Errors })
-    .ToArray();
-
                 if (ModelState.IsValid)
                 {
                     model.Student _student = new model.Student
@@ -132,7 +105,6 @@ namespace WebApplication.Controllers
         [HttpPost]
         public string Create([Bind(Exclude = "StudentId")] Student Model)
         {
-            //ApplicationDbContext db = new ApplicationDbContext();
             string msg;
             try
             {
@@ -155,11 +127,6 @@ namespace WebApplication.Controllers
 
         public string Delete(string Id)
         {
-            //ApplicationDbContext db = new ApplicationDbContext();
-            //StudentMaster student = db.Students.Find(Id);
-            //db.Students.Remove(student);
-            //db.SaveChanges();
-            //return "Deleted successfully";
             string msg;
             try
             {

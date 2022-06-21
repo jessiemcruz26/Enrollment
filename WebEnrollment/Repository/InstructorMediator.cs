@@ -9,9 +9,6 @@ namespace WebEnrollment.Repository
 {
     public interface IInstructorMediator
     {
-        //StudentResponse GetStudents();
-
-        //void Save();
     }
 
     public class InstructorMediator : IInstructorMediator
@@ -21,8 +18,6 @@ namespace WebEnrollment.Repository
         {
             _mediator = mediator;
         }
-
-
 
     }
 }
