@@ -9,7 +9,7 @@ using System.Web;
 using CommonService.Service;
 using CommonService.Contracts;
 
-namespace WebEnrollment.Repository
+namespace WebEnrollment.Mediator
 {
     public interface IDataAccess
     {

@@ -53,7 +53,7 @@ namespace CommonService.Handlers
                 StudentNumber = _student.StudentNumber
             };
 
-            return _studentResponse;
+            return new StudentResponse();
         }
 
         protected override List<ValidationError> Validate(StudentRequest request)

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace WebEnrollment.Models
 {
-    public class Student : Course
+    public class Student : Response
     {
         public int MyProperty { get; set; }
         public int StudentID { get; set; }

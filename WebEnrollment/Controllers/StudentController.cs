@@ -8,7 +8,7 @@ using System.Data.Entity;
 using WebEnrollment;
 using CommonService.Service;
 using contract = CommonService.Contracts;
-using WebEnrollment.Repository;
+using WebEnrollment.Mediator;
 
 namespace WebApplication6.Controllers
 {

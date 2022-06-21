@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CommonService",
     "\\WebEnrollment",
-    "\\WebEnrollment\\Repository"
+    "\\WebEnrollment\\Mediator"
   ],
-  "SelectedNode": "\\WebEnrollment\\Repository\\StudentMediator.cs",
+  "SelectedNode": "\\WebEnrollment\\Mediator\\StudentMediator.cs",
   "PreviewInSolutionExplorer": false
 }

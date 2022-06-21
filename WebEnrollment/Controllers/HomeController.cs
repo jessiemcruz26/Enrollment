@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebEnrollment.Repository;
+using WebEnrollment.Mediator;
 using model = WebEnrollment.Models;
 using System.Data.Entity;
 using WebEnrollment;
@@ -26,10 +26,10 @@ namespace WebApplication.Controllers
             return View();
         }
 
-        public ActionResult Save(FormCollection form)
-        {
-            return View("Index");
-        }
+        //public ActionResult Save(FormCollection form)
+        //{
+        //    return View("Index");
+        //}
 
         public ActionResult GetStudents()
         {
@@ -52,19 +52,6 @@ namespace WebApplication.Controllers
             var _coursetRows = context.Courses.ToList();
 
             return Json(new { rows = _coursetRows }, JsonRequestBehavior.AllowGet);
-        }
-
-
-        public ActionResult About()
-        {
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
 
         public string Edit(Student Model)
@@ -146,5 +133,17 @@ namespace WebApplication.Controllers
             }
             return msg;
         }
+
+        //public ActionResult About()
+        //{
+        //    return View();
+        //}
+
+        //public ActionResult Contact()
+        //{
+        //    ViewBag.Message = "Your contact page.";
+
+        //    return View();
+        //}
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using WebEnrollment.Repository;
+using WebEnrollment.Mediator;
 using CommonService.Service;
 
 namespace WebEnrollment.Modules

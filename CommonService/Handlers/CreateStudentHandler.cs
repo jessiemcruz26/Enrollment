@@ -13,7 +13,7 @@ namespace CommonService.Handlers
             base.Initialize();
         }
 
-        protected override StudentResponse Process(StudentRequest request)
+        protected StudentResponse Process(StudentRequest request)
         {
             var context = new EnrollmentEntities();
 
@@ -34,20 +34,9 @@ namespace CommonService.Handlers
 
             var _stud = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
 
-            StudentResponse _response = new StudentResponse
-            {
-                FirstName = _stud.FirstName,
-                LastName = _stud.LastName,
-                Email = _stud.Email,
-                Mobile = _stud.Mobile,
-                Level = _stud.Level,
-                Program = _stud.Program,
-                StudentID = _stud.StudentID,
-                StudentNumber = _stud.StudentNumber,
-                Address = _stud.Address,
-                Birthday = _stud.Birthday,
-            };
+            StudentResponse _response = new StudentResponse();
 
+            
             //var _studentRows = context.Students.ToList();
 
             //var respone = new StudentResponse();
@@ -81,6 +70,13 @@ namespace CommonService.Handlers
         protected override List<ValidationError> Validate(StudentRequest request)
         {
             var validationErrors = new List<ValidationError>();
+
+            if(string.IsNullOrEmpty(request.FirstName))
+                validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "FirstName must have a value" });
+
+            if (string.IsNullOrEmpty(request.LastName))
+                validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "LastName must have a value" });
+
             return validationErrors;
         }
     }
