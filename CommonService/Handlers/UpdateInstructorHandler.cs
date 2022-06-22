@@ -6,41 +6,61 @@ using CommonService.Contracts;
 
 namespace CommonService.Handlers
 {
-    public class UpdateInstructorHandler : RequestHandler<CourseResponse, CourseRequest>
+    public class UpdateInstructorHandler : RequestHandler<InstructorResponse, InstructorRequest>
     {
         protected override void Initialize()
         {
             base.Initialize();
         }
 
-        protected override CourseResponse Process(CourseRequest request)
+        protected override InstructorResponse Process(InstructorRequest request)
         {
             var context = new EnrollmentEntities();
-            var _courseRows = context.Courses.ToList();
 
-            var respone = new CourseResponse();
-            var courseList = new List<Contracts.Course>();
-            foreach (var item in _courseRows)
+            var _instructor = context.Instructors.Where(x => x.InstructorID == request.InstructorID).FirstOrDefault();
+
+            if (string.IsNullOrEmpty(request.ID))
             {
-                Contracts.Course course = new Contracts.Course()
-                {
-                   CourseID = item.CourseID,
-                   CourseName = item.CourseName,
-                   CourseDescription = item.CourseDescription
-                };
+                UpdateInstructor(request, _instructor, context);
+            }
+            else
+            {
+                DeleteInsrtuctor(_instructor, context);
 
-                courseList.Add(course);
+                return new InstructorResponse();
             }
 
-            respone.Courses = courseList;
+            var _courseResponse = new CourseResponse
+            {
+                CourseID = request.CourseID,
+                CourseName = request.CourseName,
+                CourseDescription = request.CourseDescription
+            };
 
-            return respone;
+            return _courseResponse;
         }
 
-        protected override List<ValidationError> Validate(CourseRequest request)
+        protected override List<ValidationError> Validate(InstructorRequest request)
         {
             var validationErrors = new List<ValidationError>();
             return validationErrors;
+        }
+
+        private void UpdateInstructor(InstructorRequest request, Instructor instructor, EnrollmentEntities context)
+        {
+            instructor.InstructorID = request.InstructorID;
+            instructor.FirstName = request.FirstName;
+            instructor.LastName = request.LastName;
+            instructor.Mobile = request.Mobile;
+            instructor.Email = request.Email;
+            context.SaveChanges();
+        }
+
+        private void DeleteInsrtuctor(Instructor instructor, EnrollmentEntities context)
+        {
+            context.Instructors.Remove(instructor);
+
+            context.SaveChanges();
         }
     }
 }

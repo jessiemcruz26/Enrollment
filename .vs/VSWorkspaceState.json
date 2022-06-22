@@ -6,6 +6,6 @@
     "\\WebEnrollment",
     "\\WebEnrollment\\Mediator"
   ],
-  "SelectedNode": "\\WebEnrollment\\Web.config",
+  "SelectedNode": "\\WebEnrollment\\Mediator\\StudentMediator.cs",
   "PreviewInSolutionExplorer": false
 }
