@@ -89,7 +89,16 @@ namespace WebApplication6.Controllers
         public ActionResult Edit(string studentNumber)
         {
             if (string.IsNullOrEmpty(studentNumber))
-                return View(new model.Student() { CourseListItems = new List<SelectListItem>() });
+            {
+                var _CourseListItems = new List<SelectListItem>();
+
+                _CourseListItems.Add(new SelectListItem() { Text = "Northern Cape", Value = "NC" });
+                _CourseListItems.Add(new SelectListItem() { Text = "Free State", Value = "FS" });
+                _CourseListItems.Add(new SelectListItem() { Text = "Western Cape", Value = "WC" });
+
+
+                return View(new model.Student() { CourseListItems = _CourseListItems });
+            }
 
             model.Student student = _studentMediator.GetStudent(studentNumber);
 
