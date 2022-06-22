@@ -168,6 +168,7 @@
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstructorController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Course.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
@@ -195,6 +196,7 @@
     </Compile>
     <Compile Include="Models\IResponse.cs" />
     <Compile Include="Models\Response .cs" />
+    <Compile Include="Models\Instructor.cs" />
     <Compile Include="Models\ValidationError.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -385,6 +387,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Instructor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

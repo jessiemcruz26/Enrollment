@@ -25,10 +25,11 @@ namespace WebEnrollment.Models
         public string CourseID { get; set; }
     }
 
-    public class Course
-    {
-        public string CourseId { get; set; }
-        public string CourseName { get; set; }
-    }
+    //public class Course
+    //{
+    //    public string CourseId { get; set; }
+    //    public string CourseName { get; set; }
+    //    public string CourseDescription { get; set; }
+    //}
 
 }

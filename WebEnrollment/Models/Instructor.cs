@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
-namespace CommonService.Contracts
+namespace WebEnrollment.Models
 {
-    public class InstructorRequest : Request
+    public class Instructor : Response
     {
         public int InstructorID { get; set; }
         public string FirstName { get; set; }
@@ -13,4 +15,11 @@ namespace CommonService.Contracts
         public string Email { get; set; }
         public string Mobile { get; set; }
     }
+
+    public class Course
+    {
+        public string CourseId { get; set; }
+        public string CourseName { get; set; }
+    }
+
 }

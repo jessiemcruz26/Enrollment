@@ -16,11 +16,11 @@ namespace CommonService.Handlers
         protected override StudentResponse Process(StudentRequest request)
         {
             var context = new EnrollmentEntities();
-
             var _student = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
 
             if (string.IsNullOrEmpty(request.Id))
             {
+                //Edit
                 _student.FirstName = request.FirstName;
                 _student.LastName = request.LastName;
                 _student.Email = request.Email;
@@ -31,6 +31,7 @@ namespace CommonService.Handlers
             }
             else
             {
+                //Delete
                 int _id = Convert.ToInt32(request.Id);
                 var _stud = context.Students.Where(x => x.StudentID == _id).FirstOrDefault();
                 context.Students.Remove(_stud);
@@ -59,7 +60,19 @@ namespace CommonService.Handlers
         protected override List<ValidationError> Validate(StudentRequest request)
         {
             var validationErrors = new List<ValidationError>();
-       
+
+            if (!string.IsNullOrEmpty(request.Id))
+            {
+                if (string.IsNullOrEmpty(request.StudentNumber))
+                    validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "StudentNumber must have a value" });
+
+                if (string.IsNullOrEmpty(request.FirstName))
+                    validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "FirstName must have a value" });
+
+                if (string.IsNullOrEmpty(request.LastName))
+                    validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "LastName must have a value" });
+            }
+
             return validationErrors;
         }
     }

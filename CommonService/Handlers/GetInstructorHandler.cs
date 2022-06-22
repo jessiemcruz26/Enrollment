@@ -16,27 +16,19 @@ namespace CommonService.Handlers
         protected override InstructorResponse Process(InstructorRequest request)
         {
             var context = new EnrollmentEntities();
-            var _instructorRows = context.Instructors.ToList();
 
-            var respone = new InstructorResponse();
-            var instructortList = new List<Contracts.Instructor>();
-            foreach (var item in _instructorRows)
+            var _instructorRow = context.Instructors.Where(x => x.InstructorID == request.InstructorID).FirstOrDefault();
+
+            InstructorResponse _response = new InstructorResponse
             {
-                Contracts.Instructor instructor = new Contracts.Instructor()
-                {
-                   InstructorID = item.InstructorID,
-                   FirstName = item.FirstName,
-                   LastName = item.LastName,
-                   Email = item.Email,
-                   Mobile = item.Mobile
-                };
+                InstructorID = _instructorRow.InstructorID,
+                FirstName = _instructorRow.FirstName,
+                LastName = _instructorRow.LastName,
+                Email = _instructorRow.Email,
+                Mobile = _instructorRow.Mobile,
+            };
 
-                instructortList.Add(instructor);
-            }
-
-            respone.Instructors = instructortList;
-
-            return respone;
+            return _response;
         }
 
         protected override List<ValidationError> Validate(InstructorRequest request)

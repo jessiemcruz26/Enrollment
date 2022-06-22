@@ -13,7 +13,7 @@ namespace CommonService.Handlers
             base.Initialize();
         }
 
-        protected StudentResponse Process(StudentRequest request)
+        protected override StudentResponse Process(StudentRequest request)
         {
             var context = new EnrollmentEntities();
 
@@ -34,44 +34,17 @@ namespace CommonService.Handlers
 
             var _stud = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
 
-            StudentResponse _response = new StudentResponse();
-
-            
-            //var _studentRows = context.Students.ToList();
-
-            //var respone = new StudentResponse();
-            //var studentList = new List<Contracts.Student>();
-            //foreach (var item in _studentRows)
-            //{
-            //    Contracts.Student student = new Contracts.Student()
-            //    {
-            //        StudentID = item.StudentID,
-            //        Address = item.Address,
-            //        Birthday = item.Birthday,
-            //        Email = item.Email,
-            //        FirstName = item.FirstName,
-            //        LastName = item.LastName,
-            //        Level = item.Level,
-            //        Mobile = item.Mobile,
-            //        Program = item.Program,
-            //        StudentNumber = item.StudentNumber
-            //    };
-
-            //    studentList.Add(student);
-            //}
-
-
-
-            //respone.Students = studentList;
-
-            return _response;
+            return new StudentResponse();
         }
 
         protected override List<ValidationError> Validate(StudentRequest request)
         {
             var validationErrors = new List<ValidationError>();
 
-            if(string.IsNullOrEmpty(request.FirstName))
+            if (string.IsNullOrEmpty(request.StudentNumber))
+                validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "StudentNumber must have a value" });
+
+            if (string.IsNullOrEmpty(request.FirstName))
                 validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "FirstName must have a value" });
 
             if (string.IsNullOrEmpty(request.LastName))

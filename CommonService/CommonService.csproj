@@ -93,6 +93,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Contracts\Course.cs" />
+    <Compile Include="Contracts\InstructorsResponse.cs" />
     <Compile Include="Contracts\InstructorResponse.cs" />
     <Compile Include="Contracts\InstructorRequest.cs" />
     <Compile Include="Contracts\CourseResponse.cs" />
@@ -112,6 +113,7 @@
     </Compile>
     <Compile Include="Handlers\CreateInstructorHandler.cs" />
     <Compile Include="Handlers\GetCourseHandler.cs" />
+    <Compile Include="Handlers\GetInstructorsHandler.cs" />
     <Compile Include="Handlers\GetInstructorHandler.cs" />
     <Compile Include="Handlers\GetStudentsHandler.cs" />
     <Compile Include="Handlers\UpdateInstructorHandler.cs" />

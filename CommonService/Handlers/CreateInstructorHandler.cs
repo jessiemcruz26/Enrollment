@@ -13,31 +13,31 @@ namespace CommonService.Handlers
             base.Initialize();
         }
 
-        protected override InstructorResponse Process(InstructorRequest request)
-        {
-            var context = new EnrollmentEntities();
-            var _courseRows = context.Instructors.ToList();
+        //protected override InstructorResponse Process(InstructorRequest request)
+        //{
+        //    var context = new EnrollmentEntities();
+        //    var _courseRows = context.Instructors.ToList();
 
-            var respone = new InstructorResponse();
-            var instructorList = new List<Contracts.Instructor>();
-            foreach (var item in _courseRows)
-            {
-                Contracts.Instructor instructor = new Contracts.Instructor()
-                {
-                   InstructorID = item.InstructorID,
-                   FirstName = item.FirstName,
-                   LastName = item.LastName,
-                   Mobile = item.Mobile,
-                   Email = item.Email,
-                };
+        //    var respone = new InstructorResponse();
+        //    var instructorList = new List<Contracts.Instructor>();
+        //    foreach (var item in _courseRows)
+        //    {
+        //        Contracts.Instructor instructor = new Contracts.Instructor()
+        //        {
+        //           InstructorID = item.InstructorID,
+        //           FirstName = item.FirstName,
+        //           LastName = item.LastName,
+        //           Mobile = item.Mobile,
+        //           Email = item.Email,
+        //        };
 
-                instructorList.Add(instructor);
-            }
+        //        instructorList.Add(instructor);
+        //    }
 
-            respone.Instructors = instructorList;
+        //    respone.Instructors = instructorList;
 
-            return respone;
-        }
+        //    return respone;
+        //}
 
         protected override List<ValidationError> Validate(InstructorRequest request)
         {

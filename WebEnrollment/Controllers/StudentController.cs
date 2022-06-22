@@ -14,17 +14,25 @@ namespace WebApplication6.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly IBusiness _business;
-
         private readonly IStudentMediator _studentMediator;
-        public StudentController(IBusiness business, IStudentMediator studentMediator) {
-            _business = business; _studentMediator = studentMediator;
+
+        public StudentController(IStudentMediator studentMediator) 
+        {
+            _studentMediator = studentMediator;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetStudents()
+        {
+            var _listStudents = _studentMediator.GetStudents();
+
+            return Json(new { rows = _listStudents }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -85,15 +93,60 @@ namespace WebApplication6.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult Edit(string studentNumber)
+        public string Edit(Student Model)
         {
-            if (string.IsNullOrEmpty(studentNumber))
-                return View(new model.Student() { CourseListItems = new List<SelectListItem>() });
+            string msg;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    model.Student _student = new model.Student
+                    {
+                        Address = Model.Address,
+                        FirstName = Model.FirstName,
+                        LastName = Model.LastName,
+                        Mobile = Model.Mobile,
+                        Email = Model.Email,
+                        Level = Model.Level,
+                        Program = Model.Program,
+                        StudentNumber = Model.StudentNumber
+                    };
 
-            model.Student student = _studentMediator.GetStudent(studentNumber);
+                    _studentMediator.UpdateStudent(_student, null);
+                    msg = "Saved Successfully";
+                }
+                else
+                {
+                    msg = "Validation data not successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
+        }
 
-            return Json(new { row = student }, JsonRequestBehavior.AllowGet);
+        public string Delete(string Id)
+        {
+            string msg;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _studentMediator.UpdateStudent(new model.Student(), Id);
+                    msg = "Saved Successfully";
+                }
+                else
+                {
+                    msg = "Validation data not successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
         }
 
         private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<Course> elements)

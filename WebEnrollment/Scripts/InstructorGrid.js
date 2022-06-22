@@ -1,14 +1,13 @@
 ﻿$(function () {
     $("#instructorGrid").jqGrid({
-        url: "/Home/GetInstructors",
+        url: "/Instructor/GetInstructors",
         datatype: 'json',
         mtype: 'Get',
         colNames: ["InstructorID", "First Name", "Last Name", "Email", "Mobile"],
         colModel: [
             {
-                key: true, hidden: true, name: 'InstructorID', index: 'InstructorID', sortable: false
+                key: true, name: 'InstructorID', index: 'InstructorID', editable: true
             },
-         
             {
                 name: 'FirstName', index: 'FirstName', sortable: false, editable: true
             },
@@ -63,7 +62,7 @@
     },
         {
             zIndex: 100,
-            url: '/Home/Edit',
+            url: '/Instructor/Edit',
             closeOnEscape: true,
             closeAfterEdit: true,
             recreateForm: true,
@@ -75,7 +74,7 @@
         },
         {
             zIndex: 100,
-            url: "/Home/Create",
+            url: "/Instructor/Create",
             closeOnEscape: true,
             closeAfterAdd: true,
             afterComplete: function (response) {
@@ -86,7 +85,7 @@
         },
         {
             zIndex: 100,
-            url: "/Home/Delete",
+            url: "/Instructor/Delete",
             closeOnEscape: true,
             closeAfterDelete: true,
             recreateForm: true,

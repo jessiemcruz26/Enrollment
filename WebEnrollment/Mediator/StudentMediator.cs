@@ -31,6 +31,7 @@ namespace WebEnrollment.Mediator
             var _response = _service.GetStudent(new contract.StudentRequest() { StudentNumber = studentNumber });
 
             return ConvertResponseToModel(_response);
+
             //model.Student _student = new model.Student()
             //{
             //    FirstName = _response.FirstName,
@@ -44,7 +45,6 @@ namespace WebEnrollment.Mediator
             //    StudentID = _response.StudentID,
             //    Level   = _response.Level,
             //};
-
             //return _student;
         }
 
@@ -207,9 +207,6 @@ namespace WebEnrollment.Mediator
                 Level = _response.Level,
                 ValidationErrors = MapValidationErrors(_response.ValidationErrors)
             };
-            
-
-
 
             return _student;
         }

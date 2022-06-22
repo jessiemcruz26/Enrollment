@@ -1,6 +1,6 @@
 ﻿$(function () {
     $("#studentGrid").jqGrid({
-        url: "/Home/GetStudents",
+        url: "/Student/GetStudents",
         datatype: 'json',
         mtype: 'Get',
         colNames: ["StudentID", "StudentNumber", "First Name", "Last Name", "Email", "Mobile", "Program", "Level"],
@@ -65,7 +65,7 @@
     },
         {
             zIndex: 100,
-            url: '/Home/Edit',
+            url: '/Student/Edit',
             closeOnEscape: true,
             closeAfterEdit: true,
             recreateForm: true,
@@ -77,7 +77,7 @@
         },
         {
             zIndex: 100,
-            url: "/Home/Create",
+            url: "/Student/Create",
             closeOnEscape: true,
             closeAfterAdd: true,
             afterComplete: function (response) {
@@ -88,7 +88,7 @@
         },
         {
             zIndex: 100,
-            url: "/Home/Delete",
+            url: "/Student/Delete",
             closeOnEscape: true,
             closeAfterDelete: true,
             recreateForm: true,
