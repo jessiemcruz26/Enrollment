@@ -1,11 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CommonService",
-    "\\CommonService\\Handlers",
     "\\WebEnrollment",
-    "\\WebEnrollment\\Models"
+    "\\WebEnrollment\\Controllers"
   ],
-  "SelectedNode": "\\CommonService\\Handlers\\UpdateInstructorHandler.cs",
+  "SelectedNode": "\\WebEnrollment\\Controllers\\StudentController.cs",
   "PreviewInSolutionExplorer": false
 }

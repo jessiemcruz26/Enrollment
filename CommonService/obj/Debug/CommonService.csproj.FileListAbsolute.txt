@@ -186,4 +186,3 @@ C:\Users\JessieCruz\Source\Repos\Enrollment6\CommonService\obj\Debug\CommonServi
 C:\Users\JessieCruz\Source\Repos\Enrollment6\CommonService\obj\Debug\CommonService.csproj.CopyComplete
 C:\Users\JessieCruz\Source\Repos\Enrollment6\CommonService\obj\Debug\CommonService.dll
 C:\Users\JessieCruz\Source\Repos\Enrollment6\CommonService\obj\Debug\CommonService.pdb
-C:\Users\JessieCruz\Source\Repos\Enrollment6\CommonService\obj\Debug\CommonService.csproj.AssemblyReference.cache
