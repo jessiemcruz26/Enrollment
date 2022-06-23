@@ -17,7 +17,7 @@ namespace WebEnrollment.Mediator
         model.Instructor GetInstructor(int instructorID);
         List<model.Instructor> GetInstructors();
         model.Instructor UpdateInstructor(model.Instructor instructor);
-        //model.Student CreateInstructor(Student student);
+        model.Instructor CreateInstructor(Instructor student);
     }
 
     public class InstructorMediator : IInstructorMediator
@@ -52,6 +52,15 @@ namespace WebEnrollment.Mediator
             return _instructorsList;
         }
 
+        public model.Instructor CreateInstructor(Instructor instructor)
+        {
+            var _instructorRequest = ConvertWebToRequest(instructor);
+
+            var _response = _service.CreateInstructor(_instructorRequest);
+
+            return ConvertResponseToModel(_response);
+        }
+
         public model.Instructor UpdateInstructor(model.Instructor instructor)
         {
             var _request = ConvertModelToRequest(instructor);
@@ -70,9 +79,24 @@ namespace WebEnrollment.Mediator
                 LastName = instructor.LastName,
                 Mobile = instructor.Mobile,
                 Email = instructor.Email,
+                ID = instructor.ID,
             };
 
             return _studentRequest;
+        }
+
+        private contract.InstructorRequest ConvertWebToRequest(Instructor instructor)
+        {
+            contract.InstructorRequest _request = new contract.InstructorRequest()
+            {
+                InstructorID = instructor.InstructorID,
+                FirstName = instructor.FirstName,
+                LastName = instructor.LastName,
+                Mobile = instructor.Mobile,
+                Email = instructor.Email,
+            };
+
+            return _request;
         }
 
         private model.Instructor ConvertResponseToModel(contract.InstructorResponse _response)

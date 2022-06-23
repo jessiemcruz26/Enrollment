@@ -13,35 +13,33 @@ namespace CommonService.Handlers
             base.Initialize();
         }
 
-        //protected override InstructorResponse Process(InstructorRequest request)
-        //{
-        //    var context = new EnrollmentEntities();
-        //    var _courseRows = context.Instructors.ToList();
+        protected override InstructorResponse Process(InstructorRequest request)
+        {
+            var context = new EnrollmentEntities();
 
-        //    var respone = new InstructorResponse();
-        //    var instructorList = new List<Contracts.Instructor>();
-        //    foreach (var item in _courseRows)
-        //    {
-        //        Contracts.Instructor instructor = new Contracts.Instructor()
-        //        {
-        //           InstructorID = item.InstructorID,
-        //           FirstName = item.FirstName,
-        //           LastName = item.LastName,
-        //           Mobile = item.Mobile,
-        //           Email = item.Email,
-        //        };
+            Instructor _instructor = new Instructor() {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                Mobile = request.Mobile
+            };
 
-        //        instructorList.Add(instructor);
-        //    }
+            context.Instructors.Add(_instructor);
+            context.SaveChanges();
 
-        //    respone.Instructors = instructorList;
-
-        //    return respone;
-        //}
+            return new InstructorResponse();
+        }
 
         protected override List<ValidationError> Validate(InstructorRequest request)
         {
             var validationErrors = new List<ValidationError>();
+
+            if (string.IsNullOrEmpty(request.FirstName))
+                validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "FirstName must have a value" });
+
+            if (string.IsNullOrEmpty(request.LastName))
+                validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "LastName must have a value" });
+
             return validationErrors;
         }
     }

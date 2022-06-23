@@ -19,13 +19,6 @@ namespace CommonService.Handlers
 
             Student _student = null;
 
-            if (request.Id != null)
-            {
-                int _id = Convert.ToInt32(request.Id);
-
-                _student = context.Students.Where(x => x.StudentID == _id).FirstOrDefault();
-            }
-
             if (string.IsNullOrEmpty(request.Id))
             {
                 _student = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();

@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\WebEnrollment",
-    "\\WebEnrollment\\Controllers",
     "\\WebEnrollment\\Scripts"
   ],
-  "SelectedNode": "\\WebEnrollment.sln",
+  "SelectedNode": "\\WebEnrollment\\Scripts\\StudentGrid.js",
   "PreviewInSolutionExplorer": false
 }

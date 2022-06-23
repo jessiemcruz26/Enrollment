@@ -27,39 +27,38 @@ namespace WebEnrollment.Controllers
             return View();
         }
 
-        // GET: Instructor/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Instructor/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         // POST: Instructor/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public string Create([Bind(Exclude = "InstructorId")] Instructor Model)
         {
+            string msg = "";
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var _student = _instructorMediator.CreateInstructor(Model);
 
-                return RedirectToAction("Index");
+                    if (_student.ValidationErrors.Any())
+                    {
+                        foreach (var item in _student.ValidationErrors)
+                        {
+                            msg = msg + Environment.NewLine + item.Code + " : " + item.Message;
+                        }
+                    }
+                    else
+                        msg = "Saved Successfully";
+                }
+                else
+                {
+                    msg = "Validation data not successfully";
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                msg = "Error occured:" + ex.Message;
             }
+            return msg;
         }
-
-        // GET: Instructor/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
 
         [HttpGet]
         public ActionResult GetInstructors()
@@ -113,7 +112,7 @@ namespace WebEnrollment.Controllers
         //    return msg;
         //}
 
-        public string Edit(Instructor Model)
+        public string EditGrid(Instructor Model)
         {
             string msg;
             try
@@ -144,6 +143,37 @@ namespace WebEnrollment.Controllers
             return msg;
         }
 
+        //public string EditGrid(Instructor Model)
+        //{
+        //    string msg;
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            model.Instructor _instructor = new model.Instructor
+        //            {
+        //                InstructorID = Model.InstructorID,
+        //                FirstName = Model.FirstName,
+        //                LastName = Model.LastName,
+        //                Mobile = Model.Mobile,
+        //                Email = Model.Email
+        //            };
+
+        //            _instructorMediator.UpdateInstructor(_instructor);
+        //            msg = "Saved Successfully";
+        //        }
+        //        else
+        //        {
+        //            msg = "Validation data not successfully";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        msg = "Error occured:" + ex.Message;
+        //    }
+        //    return msg;
+        //}
+
         public string Delete(string Id)
         {
             string msg;
@@ -151,7 +181,7 @@ namespace WebEnrollment.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _instructorMediator.UpdateInstructor(new model.Instructor { InstructorID = Convert.ToInt32(Id) });
+                    _instructorMediator.UpdateInstructor(new model.Instructor { ID = Id });
                     msg = "Saved Successfully";
                 }
                 else
@@ -164,30 +194,6 @@ namespace WebEnrollment.Controllers
                 msg = "Error occured:" + ex.Message;
             }
             return msg;
-        }
-
-
-
-        // GET: Instructor/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Instructor/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

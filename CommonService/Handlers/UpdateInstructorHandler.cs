@@ -16,38 +16,32 @@ namespace CommonService.Handlers
         protected override InstructorResponse Process(InstructorRequest request)
         {
             var context = new EnrollmentEntities();
-            var _student = context.Instructors.Where(x => x.InstructorID == request.InstructorID).FirstOrDefault();
 
-            if (request.InstructorID != 0)
+            Instructor _instructor = null;
+
+            if (string.IsNullOrEmpty(request.ID))
             {
-                //Edit
-                _student.FirstName = request.FirstName;
-                _student.LastName = request.LastName;
-                _student.Email = request.Email;
-                _student.Mobile = request.Mobile;
-             
-                context.SaveChanges();
+                _instructor = context.Instructors.Where(x => x.InstructorID == request.InstructorID).FirstOrDefault();
+
+                UpdateInstructor(request, _instructor, context);
             }
             else
             {
-                //Delete
-                var _instructor = context.Instructors.Where(x => x.InstructorID == request.InstructorID).FirstOrDefault();
-                context.Instructors.Remove(_instructor);
-                context.SaveChanges();
+                int _id = Convert.ToInt32(request.ID);
+                _instructor = context.Instructors.Where(x => x.InstructorID == _id).FirstOrDefault();
 
-                return new InstructorResponse();
+                DeleteInsrtuctor(_instructor, context);
             }
 
             var _instructorResponse = new InstructorResponse()
             {
-                InstructorID = _student.InstructorID,
-                Email = _student.Email,
-                FirstName = _student.FirstName,
-                LastName = _student.LastName,
-                Mobile = _student.Mobile,
+                Email = _instructor.Email,
+                FirstName = _instructor.FirstName,
+                LastName = _instructor.LastName,
+                Mobile = _instructor.Mobile,
             };
 
-            return new InstructorResponse();
+            return _instructorResponse;
         }
 
         protected override List<ValidationError> Validate(InstructorRequest request)

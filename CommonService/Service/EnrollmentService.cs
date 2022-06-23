@@ -16,6 +16,8 @@ namespace CommonService.Service
         InstructorResponse GetInstructor(InstructorRequest request);
         InstructorResponse UpdateInstructor(InstructorRequest request);
 
+        InstructorResponse CreateInstructor(InstructorRequest request);
+
         CourseResponse GetCourse(CourseRequest request);
         CourseResponse CreateCourse(CourseRequest request);
         CourseResponse UpdateCourse(CourseRequest request);
@@ -50,6 +52,12 @@ namespace CommonService.Service
         public InstructorResponse UpdateInstructor(InstructorRequest request)
         {
             var serviceHandler = new UpdateInstructorHandler();
+            return serviceHandler.Execute(request);
+        }
+
+        public InstructorResponse CreateInstructor(InstructorRequest request)
+        {
+            var serviceHandler = new CreateInstructorHandler();
             return serviceHandler.Execute(request);
         }
 

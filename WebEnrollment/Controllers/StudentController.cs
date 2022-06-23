@@ -35,35 +35,35 @@ namespace WebApplication6.Controllers
             return Json(new { rows = _listStudents }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult Index(string studentNumber)
-        {
-            if (studentNumber == null)
-                return View();
+        //[HttpPost]
+        //public ActionResult Index(string studentNumber)
+        //{
+        //    if (studentNumber == null)
+        //        return View();
 
-            var context = new EnrollmentEntities();
-            var _student = context.Students.Where(x => x.StudentNumber == studentNumber).FirstOrDefault();
+        //    var context = new EnrollmentEntities();
+        //    var _student = context.Students.Where(x => x.StudentNumber == studentNumber).FirstOrDefault();
 
-            if (_student == null)
-                return View();
-            else
-            {
-                var student = new model.Student
-                {
-                    StudentNumber = _student.StudentNumber,
-                    Program = _student.Program,
-                    Level = _student.Level,
-                    FirstName = _student.FirstName,
-                    LastName = _student.LastName,
-                    Birthday = _student.Birthday?.ToString(),
-                    Email = _student.Email,
-                    Mobile = _student.Mobile,
-                    Address = _student.Address,
-                };
+        //    if (_student == null)
+        //        return View();
+        //    else
+        //    {
+        //        var student = new model.Student
+        //        {
+        //            StudentNumber = _student.StudentNumber,
+        //            Program = _student.Program,
+        //            Level = _student.Level,
+        //            FirstName = _student.FirstName,
+        //            LastName = _student.LastName,
+        //            Birthday = _student.Birthday?.ToString(),
+        //            Email = _student.Email,
+        //            Mobile = _student.Mobile,
+        //            Address = _student.Address,
+        //        };
 
-                return RedirectToAction("Edit", "Student", new { id = 1 });
-            }
-        }
+        //        return RedirectToAction("Edit", "Student", new { id = 1 });
+        //    }
+        //}
 
         [HttpGet]
         public ActionResult Edit(string studentNumber)

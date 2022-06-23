@@ -62,7 +62,7 @@
     },
         {
             zIndex: 100,
-            url: '/Instructor/Edit',
+            url: '/Instructor/EditGrid',
             closeOnEscape: true,
             closeAfterEdit: true,
             recreateForm: true,

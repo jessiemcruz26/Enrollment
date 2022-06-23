@@ -32,8 +32,6 @@ namespace CommonService.Handlers
             context.Students.Add(_student);
             context.SaveChanges();
 
-            var _stud = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
-
             return new StudentResponse();
         }
 
