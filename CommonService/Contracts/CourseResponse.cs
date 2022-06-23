@@ -7,6 +7,15 @@ namespace CommonService.Contracts
 {
     public class CourseResponse : Response
     {
-        public List<Course> Courses { get; set; }
+        public CourseResponse()
+        {
+            Courses = new List<CourseResponse>();
+        }
+
+        public int CourseID { get; set; }
+        public string CourseName { get; set; }
+        public string CourseDescription { get; set; }
+
+        public List<CourseResponse> Courses;
     }
 }

@@ -16,31 +16,51 @@ namespace CommonService.Handlers
         protected override CourseResponse Process(CourseRequest request)
         {
             var context = new EnrollmentEntities();
-            var _courseRows = context.Courses.ToList();
 
-            var respone = new CourseResponse();
-            var courseList = new List<Contracts.Course>();
-            foreach (var item in _courseRows)
+            var _course = context.Courses.Where(x => x.CourseID == request.CourseID).FirstOrDefault();
+
+            if (string.IsNullOrEmpty(request.Id))
             {
-                Contracts.Course course = new Contracts.Course()
-                {
-                   CourseID = item.CourseID,
-                   CourseName = item.CourseName,
-                   CourseDescription = item.CourseDescription
-                };
+                UpdateCourse(request, _course, context);
+            }
+            else
+            {
+                DeleteCourse(_course, context);
 
-                courseList.Add(course);
+                return new CourseResponse();
             }
 
-            respone.Courses = courseList;
+            var _courseResponse = new CourseResponse
+            {
+                CourseID = request.CourseID,
+                CourseName = request.CourseName,
+                CourseDescription = request.CourseDescription
+            };
 
-            return respone;
+            return _courseResponse;
         }
 
         protected override List<ValidationError> Validate(CourseRequest request)
         {
             var validationErrors = new List<ValidationError>();
+
             return validationErrors;
+        }
+
+        private void UpdateCourse(CourseRequest request, Course course, EnrollmentEntities context)
+        {
+            course.CourseID = request.CourseID;
+            course.CourseName = request.CourseName;
+            course.CourseDescription = request.CourseDescription;
+
+            context.SaveChanges();
+        }
+
+        private void DeleteCourse(Course course, EnrollmentEntities context)
+        {
+            context.Courses.Remove(course);
+
+            context.SaveChanges();
         }
     }
 }

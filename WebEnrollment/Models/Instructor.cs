@@ -15,11 +15,4 @@ namespace WebEnrollment.Models
         public string Email { get; set; }
         public string Mobile { get; set; }
     }
-
-    public class Course
-    {
-        public string CourseId { get; set; }
-        public string CourseName { get; set; }
-    }
-
 }

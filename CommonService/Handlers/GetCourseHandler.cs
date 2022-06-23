@@ -16,25 +16,50 @@ namespace CommonService.Handlers
         protected override CourseResponse Process(CourseRequest request)
         {
             var context = new EnrollmentEntities();
+
+            //get list of courses
+            if (request == null)
+            {
+                return GetCourses(context);
+            }
+            else // get course
+            {
+                return GetCourse(request, context);
+            }
+        }
+
+        private CourseResponse GetCourse(CourseRequest request, EnrollmentEntities context)
+        {
+            var _courseRow = context.Courses.Where(x => x.CourseID == request.CourseID).FirstOrDefault();
+
+            CourseResponse _response = new CourseResponse
+            {
+                CourseID = _courseRow.CourseID,
+                CourseName = _courseRow.CourseName,
+                CourseDescription = _courseRow.CourseDescription
+            };
+
+            return _response;
+        }
+
+        private CourseResponse GetCourses(EnrollmentEntities context)
+        {
             var _courseRows = context.Courses.ToList();
 
-            var respone = new CourseResponse();
-            var coursetList = new List<Contracts.Course>();
+            var response = new CourseResponse();
             foreach (var item in _courseRows)
             {
-                Contracts.Course course = new Contracts.Course()
+                CourseResponse course = new CourseResponse()
                 {
                     CourseID = item.CourseID,
                     CourseName = item.CourseName,
                     CourseDescription = item.CourseDescription
                 };
 
-                coursetList.Add(course);
+                response.Courses.Add(course);
             }
 
-            respone.Courses = coursetList;
-
-            return respone;
+            return response;
         }
 
         protected override List<ValidationError> Validate(CourseRequest request)

@@ -93,39 +93,71 @@ namespace WebApplication6.Controllers
             }
         }
 
-        public string Edit(Student Model)
+        [HttpGet]
+        public ActionResult Edit(string studentNumber)
         {
-            string msg;
-            try
+            if (string.IsNullOrEmpty(studentNumber))
             {
-                if (ModelState.IsValid)
-                {
-                    model.Student _student = new model.Student
-                    {
-                        Address = Model.Address,
-                        FirstName = Model.FirstName,
-                        LastName = Model.LastName,
-                        Mobile = Model.Mobile,
-                        Email = Model.Email,
-                        Level = Model.Level,
-                        Program = Model.Program,
-                        StudentNumber = Model.StudentNumber
-                    };
+                var _CourseListItems = new List<SelectListItem>();
 
-                    _studentMediator.UpdateStudent(_student, null);
-                    msg = "Saved Successfully";
-                }
-                else
-                {
-                    msg = "Validation data not successfully";
-                }
+                _CourseListItems.Add(new SelectListItem() { Text = "Northern Cape", Value = "NC" });
+                _CourseListItems.Add(new SelectListItem() { Text = "Free State", Value = "FS" });
+                _CourseListItems.Add(new SelectListItem() { Text = "Western Cape", Value = "WC" });
+
+                return View(new model.Student() { CourseListItems = _CourseListItems });
             }
-            catch (Exception ex)
-            {
-                msg = "Error occured:" + ex.Message;
-            }
-            return msg;
+
+            model.Student student = _studentMediator.GetStudent(studentNumber);
+
+            return Json(new { row = student }, JsonRequestBehavior.AllowGet);
         }
+
+        
+
+        //public string Edit(Student Model)
+        //{
+        //    string msg;
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            model.Student _student = new model.Student
+        //            {
+        //                Address = Model.Address,
+        //                FirstName = Model.FirstName,
+        //                LastName = Model.LastName,
+        //                Mobile = Model.Mobile,
+        //                Email = Model.Email,
+        //                Level = Model.Level,
+        //                Program = Model.Program,
+        //                StudentNumber = Model.StudentNumber
+        //            };
+        //            if (string.IsNullOrEmpty(Model.StudentNumberstudentNumber))
+        //            {
+        //                var _CourseListItems = new List<SelectListItem>();
+
+        //                _CourseListItems.Add(new SelectListItem() { Text = "Northern Cape", Value = "NC" });
+        //                _CourseListItems.Add(new SelectListItem() { Text = "Free State", Value = "FS" });
+        //                _CourseListItems.Add(new SelectListItem() { Text = "Western Cape", Value = "WC" });
+
+
+        //                return View(new model.Student() { CourseListItems = _CourseListItems });
+        //            }
+
+        //            _studentMediator.UpdateStudent(_student, null);
+        //            msg = "Saved Successfully";
+        //        }
+        //        else
+        //        {
+        //            msg = "Validation data not successfully";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        msg = "Error occured:" + ex.Message;
+        //    }
+        //    return msg;
+        //}
 
         public string Delete(string Id)
         {
@@ -163,7 +195,6 @@ namespace WebApplication6.Controllers
             return selectList;
         }
 
-        // POST: Student/Edit/5
         [HttpPost]
         public ActionResult Edit(FormCollection form)
         {

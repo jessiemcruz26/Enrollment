@@ -98,7 +98,6 @@
     <Compile Include="Contracts\InstructorRequest.cs" />
     <Compile Include="Contracts\CourseResponse.cs" />
     <Compile Include="Contracts\CourseRequest.cs" />
-    <Compile Include="Contracts\Instructor.cs" />
     <Compile Include="Contracts\StudentRequest.cs" />
     <Compile Include="Contracts\StudentsResponse.cs" />
     <Compile Include="Contracts\StudentResponse.cs" />
@@ -106,7 +105,6 @@
     <Compile Include="Contracts\IResponse.cs" />
     <Compile Include="Contracts\Request.cs" />
     <Compile Include="Contracts\Response.cs" />
-    <Compile Include="Contracts\Student.cs" />
     <Compile Include="Contracts\ValidationError.cs" />
     <Compile Include="Course.cs">
       <DependentUpon>Model.tt</DependentUpon>

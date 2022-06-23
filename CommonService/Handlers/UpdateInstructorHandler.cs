@@ -47,7 +47,7 @@ namespace CommonService.Handlers
                 Mobile = _student.Mobile,
             };
 
-            return _instructorResponse;
+            return new InstructorResponse();
         }
 
         protected override List<ValidationError> Validate(InstructorRequest request)
@@ -70,6 +70,23 @@ namespace CommonService.Handlers
             }
 
             return validationErrors;
+        }
+
+        private void UpdateInstructor(InstructorRequest request, Instructor instructor, EnrollmentEntities context)
+        {
+            instructor.InstructorID = request.InstructorID;
+            instructor.FirstName = request.FirstName;
+            instructor.LastName = request.LastName;
+            instructor.Mobile = request.Mobile;
+            instructor.Email = request.Email;
+            context.SaveChanges();
+        }
+
+        private void DeleteInsrtuctor(Instructor instructor, EnrollmentEntities context)
+        {
+            context.Instructors.Remove(instructor);
+
+            context.SaveChanges();
         }
     }
 }
