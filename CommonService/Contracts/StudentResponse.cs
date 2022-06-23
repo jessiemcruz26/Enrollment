@@ -8,6 +8,12 @@ namespace CommonService.Contracts
 {
     public class StudentResponse : Response
     {
+        public StudentResponse()
+        {
+            Students = new List<StudentResponse>();
+        }
+
+        public List<StudentResponse> Students;
         public int MyProperty { get; set; }
         public int StudentID { get; set; }
         public string StudentNumber { get; set; }

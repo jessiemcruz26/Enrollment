@@ -64,7 +64,7 @@ namespace WebApplication.Controllers
         //    {
         //        if (ModelState.IsValid)
         //        {
-        //            model.Student _student = new model.Student
+        //            StudentProfile _student = new StudentProfile
         //            {
         //                Address = Model.Address,
         //                FirstName = Model.FirstName,
@@ -73,7 +73,7 @@ namespace WebApplication.Controllers
         //                Email = Model.Email,
         //                Level = Model.Level,
         //                Program = Model.Program,
-        //                StudentNumber = Model.StudentNumber
+        //                StudentNumber = StudentProfileNumber
         //            };
 
         //            _studentMediator.UpdateStudent(_student, null);
@@ -91,37 +91,7 @@ namespace WebApplication.Controllers
         //    return msg;
         //}
 
-        [HttpPost]
-        public string Create([Bind(Exclude = "StudentId")] Student Model)
-        {
-            string msg = "";
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var _student = _studentMediator.CreateStudent(Model);
-
-                    if (_student.ValidationErrors.Any())
-                    {
-                        foreach (var item in _student.ValidationErrors)
-                        {
-                            msg = msg + Environment.NewLine + item.Code + " : " + item.Message;
-                        }
-                    } 
-                    else 
-                        msg = "Saved Successfully";
-                }
-                else
-                {
-                    msg = "Validation data not successfully";
-                }
-            }
-            catch (Exception ex)
-            {
-                msg = "Error occured:" + ex.Message;
-            }
-            return msg;
-        }
+       
 
         //public string Delete(string Id)
         //{
@@ -130,7 +100,7 @@ namespace WebApplication.Controllers
         //    {
         //        if (ModelState.IsValid)
         //        {
-        //            _studentMediator.UpdateStudent(new model.Student(), Id);
+        //            _studentMediator.UpdateStudent(new StudentProfile(), Id);
         //            msg = "Saved Successfully";
         //        }
         //        else

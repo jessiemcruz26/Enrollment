@@ -65,34 +65,6 @@ namespace WebApplication6.Controllers
             }
         }
 
-        // GET: Student/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Student/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Student/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         [HttpGet]
         public ActionResult Edit(string studentNumber)
         {
@@ -112,52 +84,83 @@ namespace WebApplication6.Controllers
             return Json(new { row = student }, JsonRequestBehavior.AllowGet);
         }
 
-        
+        public string EditGrid(Student Model)
+        {
+            string msg;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    model.Student _student = new model.Student
+                    {
+                        Address = Model.Address,
+                        FirstName = Model.FirstName,
+                        LastName = Model.LastName,
+                        Mobile = Model.Mobile,
+                        Email = Model.Email,
+                        Level = Model.Level,
+                        Program = Model.Program,
+                        StudentNumber = Model.StudentNumber
+                    };
 
-        //public string Edit(Student Model)
-        //{
-        //    string msg;
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            model.Student _student = new model.Student
-        //            {
-        //                Address = Model.Address,
-        //                FirstName = Model.FirstName,
-        //                LastName = Model.LastName,
-        //                Mobile = Model.Mobile,
-        //                Email = Model.Email,
-        //                Level = Model.Level,
-        //                Program = Model.Program,
-        //                StudentNumber = Model.StudentNumber
-        //            };
-        //            if (string.IsNullOrEmpty(Model.StudentNumberstudentNumber))
-        //            {
-        //                var _CourseListItems = new List<SelectListItem>();
+                    if (string.IsNullOrEmpty(Model.StudentNumber))
+                    {
+                        var _CourseListItems = new List<SelectListItem>();
 
-        //                _CourseListItems.Add(new SelectListItem() { Text = "Northern Cape", Value = "NC" });
-        //                _CourseListItems.Add(new SelectListItem() { Text = "Free State", Value = "FS" });
-        //                _CourseListItems.Add(new SelectListItem() { Text = "Western Cape", Value = "WC" });
+                        _CourseListItems.Add(new SelectListItem() { Text = "Northern Cape", Value = "NC" });
+                        _CourseListItems.Add(new SelectListItem() { Text = "Free State", Value = "FS" });
+                        _CourseListItems.Add(new SelectListItem() { Text = "Western Cape", Value = "WC" });
 
 
-        //                return View(new model.Student() { CourseListItems = _CourseListItems });
-        //            }
+                        //return View(new model.Student() {  = _CourseListItems });
+                    }
 
-        //            _studentMediator.UpdateStudent(_student, null);
-        //            msg = "Saved Successfully";
-        //        }
-        //        else
-        //        {
-        //            msg = "Validation data not successfully";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        msg = "Error occured:" + ex.Message;
-        //    }
-        //    return msg;
-        //}
+                    _studentMediator.UpdateStudent(_student);
+                    msg = "Saved Successfully";
+                }
+                else
+                {
+                    msg = "Validation data not successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
+        }
+
+        [HttpPost]
+        public string Create([Bind(Exclude = "StudentId")] Student Model)
+        {
+            string msg = "";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var _student = _studentMediator.CreateStudent(Model);
+
+                    if (_student.ValidationErrors.Any())
+                    {
+                        foreach (var item in _student.ValidationErrors)
+                        {
+                            msg = msg + Environment.NewLine + item.Code + " : " + item.Message;
+                        }
+                    }
+                    else
+                        msg = "Saved Successfully";
+                }
+                else
+                {
+                    msg = "Validation data not successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
+        }
 
         public string Delete(string Id)
         {
@@ -166,7 +169,7 @@ namespace WebApplication6.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _studentMediator.UpdateStudent(new model.Student(), Id);
+                    _studentMediator.UpdateStudent(new model.Student { ID = Id });
                     msg = "Saved Successfully";
                 }
                 else
@@ -195,6 +198,7 @@ namespace WebApplication6.Controllers
             return selectList;
         }
 
+        //Edit fields
         [HttpPost]
         public ActionResult Edit(FormCollection form)
         {
@@ -211,56 +215,9 @@ namespace WebApplication6.Controllers
                     Birthday = form["Birthday"],
                 };
 
-                var response = _studentMediator.UpdateStudent(student, string.Empty);
+                var response = _studentMediator.UpdateStudent(student);
 
                 return View(response);
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        [HttpPost]
-        public string Save(Student Model)
-        {
-            EnrollmentEntities db = new EnrollmentEntities();
-            string msg;
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    db.Entry(Model).State = EntityState.Modified;
-                    db.SaveChanges();
-                    msg = "Saved Successfully";
-                }
-                else
-                {
-                    msg = "Validation data not successfully";
-                }
-            }
-            catch (Exception ex)
-            {
-                msg = "Error occured:" + ex.Message;
-            }
-            return msg;
-        }
-
-        // GET: Student/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Student/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
             }
             catch
             {

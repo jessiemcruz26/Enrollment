@@ -14,7 +14,7 @@ namespace WebEnrollment.Mediator
     {
         model.Student GetStudent(string studentNumber);
         List<model.Student> GetStudents();
-        model.Student UpdateStudent(model.Student student, string id);
+        model.Student UpdateStudent(model.Student student);
         model.Student CreateStudent(Student student);
     }
 
@@ -31,47 +31,18 @@ namespace WebEnrollment.Mediator
             var _response = _service.GetStudent(new contract.StudentRequest() { StudentNumber = studentNumber });
 
             return ConvertResponseToModel(_response);
-
-            //model.Student _student = new model.Student()
-            //{
-            //    FirstName = _response.FirstName,
-            //    LastName = _response.LastName,
-            //    Address = _response.Address,
-            //    Mobile = _response.Mobile,  
-            //    Birthday = _response.Birthday != null ? _response.Birthday.ToString() : null,
-            //    Email = _response.Email,
-            //    Program = _response.Program,
-            //    StudentNumber = _response.StudentNumber,
-            //    StudentID = _response.StudentID,
-            //    Level   = _response.Level,
-            //};
-            //return _student;
         }
 
         public List<model.Student> GetStudents()
         {
-            EnrollmentService service = new EnrollmentService();
 
-            var _service = service.GetStudents(new contract.StudentRequest());
+            var _response = _service.GetStudent(new contract.StudentRequest());
 
             List<model.Student> _studentsList = new List<model.Student>();
 
-            foreach (var item in _service.Students)
+            foreach (var item in _response.Students)
             {
                 var model = ConvertResponseToModel(item);
-                //model.Student _student = new model.Student()
-                //{
-                //    FirstName = item.FirstName,
-                //    LastName = item.LastName,
-                //    Address = item.Address,
-                //    Mobile = item.Mobile,
-                //    Birthday = item.Birthday != null ? item.Birthday.ToString() : null,
-                //    Email = item.Email,
-                //    Level = item.Level,
-                //    Program = item.Program,
-                //    StudentID = item.StudentID,
-                //    StudentNumber = item.StudentNumber
-                //};
 
                 _studentsList.Add(model);
             }
@@ -79,43 +50,13 @@ namespace WebEnrollment.Mediator
             return _studentsList;
         }
 
-        public model.Student UpdateStudent(model.Student student, string id)
+        public model.Student UpdateStudent(model.Student student)
         {
-            //contract.StudentRequest _studentRequest = new contract.StudentRequest()
-            //{
-            //    FirstName = student.FirstName,
-            //    LastName = student.LastName,
-            //    Address = student.Address,
-            //    Mobile = student.Mobile,
-            //    Birthday = null,
-            //    Email = student.Email,
-            //    Program = student.Program,
-            //    StudentNumber = student.StudentNumber,
-            //    StudentID = student.StudentID,
-            //    Level = student.Level,
-            //    Id = id
-            //};
-
             var _studentRequest = ConvertModelToRequest(student);
 
             var _response = _service.UpdateStudent(_studentRequest);
 
             return ConvertResponseToModel(_response);
-            //model.Student _student = new model.Student()
-            //{
-            //    FirstName = _response.FirstName,
-            //    LastName = _response.LastName,
-            //    Address = _response.Address,
-            //    Mobile = _response.Mobile,
-            //    Birthday = _response.Birthday != null ? _response.Birthday.ToString() : null,
-            //    Email = _response.Email,
-            //    Program = _response.Program,
-            //    StudentNumber = _response.StudentNumber,
-            //    StudentID = _response.StudentID,
-            //    Level = _response.Level,
-            //};
-
-            //return _student;
         }
 
         private static List<ValidationError> MapValidationErrors(List<contract.ValidationError> errorList)
@@ -132,20 +73,6 @@ namespace WebEnrollment.Mediator
 
         public model.Student CreateStudent(Student student)
         {
-            //contract.StudentRequest _studentRequest = new contract.StudentRequest()
-            //{
-            //    FirstName = student.FirstName,
-            //    LastName = student.LastName,
-            //    Address = student.Address,
-            //    Mobile = student.Mobile,
-            //    Birthday = null,
-            //    Email = student.Email,
-            //    Program = student.Program,
-            //    StudentNumber = student.StudentNumber,
-            //    StudentID = student.StudentID,
-            //    Level = student.Level,
-            //};
-
             var _studentRequest = ConvertWebToRequest(student);
 
             var _response = _service.CreateStudent(_studentRequest);
@@ -186,6 +113,7 @@ namespace WebEnrollment.Mediator
                 StudentNumber = student.StudentNumber,
                 StudentID = student.StudentID,
                 Level = student.Level,
+                Id = student.ID
             };
 
             return _studentRequest;

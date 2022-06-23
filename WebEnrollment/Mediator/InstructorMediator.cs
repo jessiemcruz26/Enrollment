@@ -38,13 +38,11 @@ namespace WebEnrollment.Mediator
 
         public List<model.Instructor> GetInstructors()
         {
-            EnrollmentService service = new EnrollmentService();
-
-            var _service = service.GetInstructors(new contract.InstructorRequest());
+            var _response = _service.GetInstructor(new contract.InstructorRequest());
 
             List<model.Instructor> _instructorsList = new List<model.Instructor>();
 
-            foreach (var item in _service.Instructors)
+            foreach (var item in _response.Instructors)
             {
                 var model = ConvertResponseToModel(item);
                 

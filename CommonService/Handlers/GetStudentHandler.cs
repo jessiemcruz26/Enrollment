@@ -16,30 +16,27 @@ namespace CommonService.Handlers
         protected override StudentResponse Process(StudentRequest request)
         {
             var context = new EnrollmentEntities();
+
+            //get list of courses
+            if (request.StudentNumber == null)
+            {
+                return GetStudents(context);
+            }
+            else // get course
+            {
+                return GetStudent(request, context);
+            }
+        }
+
+        protected override List<ValidationError> Validate(StudentRequest request)
+        {
+            var validationErrors = new List<ValidationError>();
+            return validationErrors;
+        }
+
+        private StudentResponse GetStudent(StudentRequest request, EnrollmentEntities context)
+        {
             var _studentRow = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
-
-            //var respone = new StudentResponse();
-            //var studentList = new List<Contracts.Student>();
-            //foreach (var item in _studentRows)
-            //{
-            //    Contracts.Student student = new Contracts.Student()
-            //    {
-            //        StudentID = item.StudentID,
-            //        Address = item.Address,
-            //        Birthday = item.Birthday,
-            //        Email = item.Email,
-            //        FirstName = item.FirstName,
-            //        LastName = item.LastName,
-            //        Level = item.Level,
-            //        Mobile = item.Mobile,
-            //        Program = item.Program,
-            //        StudentNumber = item.StudentNumber
-            //    };
-
-            //    studentList.Add(student);
-            //}
-
-            //respone.Students = studentList;
 
             StudentResponse _response = new StudentResponse
             {
@@ -58,10 +55,32 @@ namespace CommonService.Handlers
             return _response;
         }
 
-        protected override List<ValidationError> Validate(StudentRequest request)
+        private StudentResponse GetStudents(EnrollmentEntities context)
         {
-            var validationErrors = new List<ValidationError>();
-            return validationErrors;
+            var _studentRow = context.Students.ToList();
+
+            var response = new StudentResponse();
+            foreach (var item in _studentRow)
+            {
+                StudentResponse _student = new StudentResponse
+                {
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
+                    Email = item.Email,
+                    Mobile = item.Mobile,
+                    Level = item.Level,
+                    Program = item.Program,
+                    StudentID = item.StudentID,
+                    StudentNumber = item.StudentNumber,
+                    Address = item.Address,
+                    Birthday = item?.Birthday,
+                };
+
+                response.Students.Add(_student);
+            }
+
+            return response;
         }
+       
     }
 }

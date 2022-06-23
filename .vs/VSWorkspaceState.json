@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\WebEnrollment",
-    "\\WebEnrollment\\Controllers"
+    "\\WebEnrollment\\Controllers",
+    "\\WebEnrollment\\Scripts"
   ],
-  "SelectedNode": "\\WebEnrollment\\Controllers\\StudentController.cs",
+  "SelectedNode": "\\WebEnrollment.sln",
   "PreviewInSolutionExplorer": false
 }

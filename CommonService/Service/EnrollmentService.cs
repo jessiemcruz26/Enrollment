@@ -11,12 +11,9 @@ namespace CommonService.Service
     {
         StudentResponse GetStudent(StudentRequest request);
         StudentResponse CreateStudent(StudentRequest request);
-        StudentsResponse GetStudents(StudentRequest request);
         StudentResponse UpdateStudent(StudentRequest request);
 
-
         InstructorResponse GetInstructor(InstructorRequest request);
-        InstructorsResponse GetInstructors(InstructorRequest request);
         InstructorResponse UpdateInstructor(InstructorRequest request);
 
         CourseResponse GetCourse(CourseRequest request);
@@ -29,12 +26,6 @@ namespace CommonService.Service
         public StudentResponse GetStudent(StudentRequest request)
         {
             var serviceHandler = new GetStudentHandler();
-            return serviceHandler.Execute(request);
-        }
-
-        public StudentsResponse GetStudents(StudentRequest request)
-        {
-            var serviceHandler = new GetStudentsHandler();
             return serviceHandler.Execute(request);
         }
 
@@ -56,16 +47,9 @@ namespace CommonService.Service
             return serviceHandler.Execute(request);
         }
 
-        public InstructorsResponse GetInstructors(InstructorRequest request)
-        {
-            var serviceHandler = new GetInstructorsHandler();
-            return serviceHandler.Execute(request);
-        }
-
         public InstructorResponse UpdateInstructor(InstructorRequest request)
         {
             var serviceHandler = new UpdateInstructorHandler();
-
             return serviceHandler.Execute(request);
         }
 
@@ -84,7 +68,6 @@ namespace CommonService.Service
         public CourseResponse UpdateCourse(CourseRequest request)
         {
             var serviceHandler = new UpdateCourseHandler();
-
             return serviceHandler.Execute(request);
         }
     }

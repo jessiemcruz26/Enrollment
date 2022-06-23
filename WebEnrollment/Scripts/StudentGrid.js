@@ -65,7 +65,7 @@
     },
         {
             zIndex: 100,
-            url: '/Student/Edit',
+            url: '/Student/EditGrid',
             closeOnEscape: true,
             closeAfterEdit: true,
             recreateForm: true,
