@@ -26,41 +26,20 @@ namespace WebEnrollment.Mediator
             _service = service;
         }
 
-        public model.Course GetCourse(model.Course course)
+        public model.Course GetCourse(string courseID)
         {
-            var _course = _service.GetCourse(ConvertModelToRequest(course));
+            var _course = _service.GetCourse(new contract.CourseRequest() { CourseID = Convert.ToInt32(courseID) });
 
-            Conver
-
-            if (courseID != null)
-            {
-                var _response = _service.GetCourse(new contract.CourseRequest() { CourseID = Convert.ToInt32(courseID) });
-
-                return ConvertResponseToModel(_response);
-            }
-            else {
-
-                var _service = _service.GetCourses(new contract.CourseRequest());
-
-                List<model.Student> _studentsList = new List<model.Student>();
-
-                foreach (var item in _service.Students)
-                {
-                    var model = ConvertResponseToModel(item);
-
-                    _studentsList.Add(model);
-                }
-
-                return _studentsList;
-            }
-
+            return ConvertResponseToModel(_course);
         }
 
-        public model.Student UpdateStudent(model.Student student, string id)
+        public model.Course UpdateCourse(model.Course course, string id)
         {
-            var _studentRequest = ConvertModelToRequest(student);
+            course.ID = id;
 
-            var _response = _service.UpdateStudent(_studentRequest);
+            var _courseRequest = ConvertModelToRequest(course);
+
+            var _response = _service.UpdateCourse(_courseRequest);
 
             return ConvertResponseToModel(_response);
         }
@@ -77,29 +56,23 @@ namespace WebEnrollment.Mediator
             return modelErrorList;
         }
 
-        public model.Student CreateStudent(Student student)
+        public model.Course CreateCourse(Course course)
         {
-            var _studentRequest = ConvertWebToRequest(student);
+            var _courseRequest = ConvertWebToRequest(course);
 
-            var _response = _service.CreateStudent(_studentRequest);
+            var _response = _service.CreateCourse(_courseRequest);
 
             return ConvertResponseToModel(_response);
         }
 
-        private contract.StudentRequest ConvertWebToRequest(Student student)
+        private contract.CourseRequest ConvertWebToRequest(Course course)
         {
-            contract.StudentRequest _studentRequest = new contract.StudentRequest()
+            contract.CourseRequest _studentRequest = new contract.CourseRequest()
             {
-                FirstName = student.FirstName,
-                LastName = student.LastName,
-                Address = student.Address,
-                Mobile = student.Mobile,
-                Birthday = null,
-                Email = student.Email,
-                Program = student.Program,
-                StudentNumber = student.StudentNumber,
-                StudentID = student.StudentID,
-                Level = student.Level,
+                CourseID = course.CourseID,
+                CourseName = course.CourseName,
+                CourseDescription = course.CourseDescription,
+              
             };
 
             return _studentRequest;
@@ -111,7 +84,8 @@ namespace WebEnrollment.Mediator
             {
                 CourseID = course.CourseID,
                 CourseName = course.CourseName,
-                CourseDescription = course.CourseDescription
+                CourseDescription = course.CourseDescription,
+                Id = course.ID
             };
 
             return _courseRequest;
