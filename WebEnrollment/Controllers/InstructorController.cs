@@ -21,12 +21,6 @@ namespace WebEnrollment.Controllers
             _instructorMediator = instructorMediator;
         }
 
-        // GET: Instructor
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         // POST: Instructor/Create
         [HttpPost]
         public string Create([Bind(Exclude = "InstructorId")] Instructor Model)
@@ -68,49 +62,30 @@ namespace WebEnrollment.Controllers
             return Json(new { rows = _listInstructors }, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpGet]
-        //public ActionResult Edit(string firstName, string lastName)
-        //{
-        //    if (string.IsNullOrEmpty(firstName) && string.IsNullOrEmpty(lastName))
-        //        return View(new model.Instructor() { InstructorListItems = new List<SelectListItem>() });
 
-        //    model.Student student = _studentMediator.GetStudent(studentNumber);
+        [HttpPost]
+        public ActionResult Edit(FormCollection form)
+        {
+            try
+            {
+                model.Instructor _instructor = new model.Instructor
+                {
+                    InstructorID = Convert.ToInt32(form["InstructorID"]),
+                    FirstName = form["FirstName"],
+                    LastName = form["LastName"],
+                    Email = form["Email"],
+                    Mobile = form["Mobile"]
+                };
 
-        //    return Json(new { row = student }, JsonRequestBehavior.AllowGet);
-        //}
+                var response = _instructorMediator.UpdateInstructor(_instructor);
 
-
-        //public string Edit(Student Model)
-        //{
-        //    string msg;
-        //    try
-        //    {
-        //        msg = "Validation data not successfully";
-        //        //if (ModelState.IsValid)
-        //        //{
-        //        //    model.Instructor _instructor = new model.Instructor
-        //        //    {
-        //        //        InstructorID = Model.InstructorID,
-        //        //        FirstName = Model.FirstName,
-        //        //        LastName = Model.LastName,
-        //        //        Mobile = Model.Mobile,
-        //        //        Email = Model.Email,
-        //        //    };
-
-        //        //    _instructorMediator.GetInstructor(_instructor.InstructorID);
-        //        //    msg = "Saved Successfully";
-        //        //}
-        //        //else
-        //        //{
-        //        //    msg = "Validation data not successfully";
-        //        //}
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        msg = "Error occured:" + ex.Message;
-        //    }
-        //    return msg;
-        //}
+                return View(response);
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         public string EditGrid(Instructor Model)
         {

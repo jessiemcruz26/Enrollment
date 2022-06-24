@@ -92,7 +92,6 @@
     <Compile Include="Class.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Contracts\Course.cs" />
     <Compile Include="Contracts\InstructorResponse.cs" />
     <Compile Include="Contracts\InstructorRequest.cs" />
     <Compile Include="Contracts\CourseResponse.cs" />

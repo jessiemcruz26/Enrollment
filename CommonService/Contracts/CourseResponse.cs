@@ -12,10 +12,9 @@ namespace CommonService.Contracts
             Courses = new List<CourseResponse>();
         }
 
+        public List<CourseResponse> Courses;
         public int CourseID { get; set; }
         public string CourseName { get; set; }
         public string CourseDescription { get; set; }
-
-        public List<CourseResponse> Courses;
     }
 }

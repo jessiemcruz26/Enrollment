@@ -12,9 +12,10 @@ namespace WebEnrollment.Mediator
 {
     public interface ICourseMediator
     {
-        model.Course GetCourse(string courseID);
-        model.Course UpdateCourse(model.Course course, string id);
-        model.Course CreateCourse(Course student);
+        model.Course GetCourse(int courseID);
+        List<model.Course> GetCourses();
+        model.Course UpdateCourse(model.Course course);
+        model.Course CreateCourse(Course course);
     }
 
     public class CourseMediator : ICourseMediator
@@ -26,17 +27,31 @@ namespace WebEnrollment.Mediator
             _service = service;
         }
 
-        public model.Course GetCourse(string courseID)
+        public model.Course GetCourse(int courseID)
         {
-            var _course = _service.GetCourse(new contract.CourseRequest() { CourseID = Convert.ToInt32(courseID) });
+            var _course = _service.GetCourse(new contract.CourseRequest() { CourseID = courseID });
 
             return ConvertResponseToModel(_course);
         }
 
-        public model.Course UpdateCourse(model.Course course, string id)
+        public List<model.Course> GetCourses()
         {
-            course.ID = id;
+            var _response = _service.GetCourse(new contract.CourseRequest());
 
+            List<model.Course> _coursesList = new List<model.Course>();
+
+            foreach (var item in _response.Courses)
+            {
+                var model = ConvertResponseToModel(item);
+
+                _coursesList.Add(model);
+            }
+
+            return _coursesList;
+        }
+
+        public model.Course UpdateCourse(model.Course course)
+        {
             var _courseRequest = ConvertModelToRequest(course);
 
             var _response = _service.UpdateCourse(_courseRequest);
@@ -67,7 +82,7 @@ namespace WebEnrollment.Mediator
 
         private contract.CourseRequest ConvertWebToRequest(Course course)
         {
-            contract.CourseRequest _studentRequest = new contract.CourseRequest()
+            contract.CourseRequest _courseRequest = new contract.CourseRequest()
             {
                 CourseID = course.CourseID,
                 CourseName = course.CourseName,
@@ -75,9 +90,8 @@ namespace WebEnrollment.Mediator
               
             };
 
-            return _studentRequest;
+            return _courseRequest;
         }
-
         private contract.CourseRequest ConvertModelToRequest(model.Course course)
         {
             contract.CourseRequest _courseRequest = new contract.CourseRequest()

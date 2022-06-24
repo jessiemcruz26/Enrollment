@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\CommonService",
+    "\\CommonService\\Service",
     "\\WebEnrollment",
+    "\\WebEnrollment\\Controllers",
     "\\WebEnrollment\\Scripts"
   ],
   "SelectedNode": "\\WebEnrollment\\Scripts\\StudentGrid.js",

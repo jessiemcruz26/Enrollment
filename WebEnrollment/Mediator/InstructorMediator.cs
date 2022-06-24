@@ -17,12 +17,11 @@ namespace WebEnrollment.Mediator
         model.Instructor GetInstructor(int instructorID);
         List<model.Instructor> GetInstructors();
         model.Instructor UpdateInstructor(model.Instructor instructor);
-        model.Instructor CreateInstructor(Instructor student);
+        model.Instructor CreateInstructor(Instructor instructor);
     }
 
     public class InstructorMediator : IInstructorMediator
     {
-        //private readonly IInstructorMediator _mediator;
         private readonly IEnrollmentService _service;
         public InstructorMediator(IEnrollmentService service)
         {

@@ -18,7 +18,7 @@ namespace CommonService.Handlers
             var context = new EnrollmentEntities();
 
             Student _student = null;
-
+     
             if (string.IsNullOrEmpty(request.Id))
             {
                 _student = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();

@@ -18,7 +18,7 @@ namespace CommonService.Handlers
             var context = new EnrollmentEntities();
 
             //get list of courses
-            if (request == null)
+            if (request.Id == null)
             {
                 return GetCourses(context);
             }
