@@ -14,7 +14,7 @@ namespace WebEnrollment.Mediator
 {
     public interface IInstructorMediator
     {
-        model.Instructor GetInstructor(int instructorID);
+        model.Instructor GetInstructor(string instructorID);
         List<model.Instructor> GetInstructors();
         model.Instructor UpdateInstructor(model.Instructor instructor);
         model.Instructor CreateInstructor(Instructor instructor);
@@ -28,9 +28,9 @@ namespace WebEnrollment.Mediator
             _service = service;
         }
 
-        public model.Instructor GetInstructor(int instructorID)
+        public model.Instructor GetInstructor(string instructorID)
         {
-            var _response = _service.GetInstructor(new contract.InstructorRequest() { InstructorID = instructorID });
+            var _response = _service.GetInstructor(new contract.InstructorRequest() { ID = instructorID });
 
             return ConvertResponseToModel(_response);
         }
@@ -44,7 +44,7 @@ namespace WebEnrollment.Mediator
             foreach (var item in _response.Instructors)
             {
                 var model = ConvertResponseToModel(item);
-                
+
                 _instructorsList.Add(model);
             }
 
@@ -73,7 +73,7 @@ namespace WebEnrollment.Mediator
         {
             contract.InstructorRequest _studentRequest = new contract.InstructorRequest()
             {
-                InstructorID = instructor.InstructorID,
+                InstructorID = Convert.ToInt32(instructor.InstructorID),
                 FirstName = instructor.FirstName,
                 LastName = instructor.LastName,
                 Mobile = instructor.Mobile,
@@ -102,7 +102,7 @@ namespace WebEnrollment.Mediator
         {
             model.Instructor _instructor = new model.Instructor
             {
-                InstructorID = _response.InstructorID,
+                InstructorID = _response.InstructorID.ToString(),
                 FirstName = _response.FirstName,
                 LastName = _response.LastName,
                 Email = _response.Email,

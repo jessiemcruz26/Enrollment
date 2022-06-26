@@ -5,8 +5,10 @@
     "\\CommonService\\Service",
     "\\WebEnrollment",
     "\\WebEnrollment\\Controllers",
-    "\\WebEnrollment\\Scripts"
+    "\\WebEnrollment\\Scripts",
+    "\\WebEnrollment\\Views",
+    "\\WebEnrollment\\Views\\Student"
   ],
-  "SelectedNode": "\\WebEnrollment\\Scripts\\StudentGrid.js",
+  "SelectedNode": "\\WebEnrollment\\Controllers\\InstructorController.cs",
   "PreviewInSolutionExplorer": false
 }

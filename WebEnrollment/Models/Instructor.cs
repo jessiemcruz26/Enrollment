@@ -9,7 +9,8 @@ namespace WebEnrollment.Models
 {
     public class Instructor : Response
     {
-        public int InstructorID { get; set; }
+        public string InstructorID { get; set; }
+        public int InstructorCode { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
