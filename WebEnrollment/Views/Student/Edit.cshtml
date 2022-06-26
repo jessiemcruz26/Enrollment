@@ -61,66 +61,69 @@
         {
 
 
-<div class="form-group row">
-    <label for="staticStudentNumber" class="col-sm-2 col-form-label">Student Number</label>
-    <div class="col-sm-10">
-        <input type="text" readonly class="form-control-plaintext" id="StudentNumber" name="StudentNumber" value="@Model.StudentNumber">
-    </div>
-</div>
-                <div class="form-group row">
-                    <label for="staticProgram" class="col-sm-2 col-form-label">Program</label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="Program" name="Program" value="@Model.Program">
-                    </div>
+            <div class="form-group row">
+                <label for="staticStudentNumber" class="col-sm-2 col-form-label">Student Number</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="StudentNumber" name="StudentNumber" value="@Model.StudentNumber">
                 </div>
-                                <div class="form-group row">
-                                    <label for="staticProgram" class="col-sm-2 col-form-label">Level</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control-plaintext" id="Level" name="Level" value="@Model.Level">
-                                    </div>
-                                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticProgram" class="col-sm-2 col-form-label">Program</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(x => Model.Program, Model.ProgramListItems )
+                    @*<input type="text" readonly class="form-control-plaintext" id="Program" name="Program" value="@Model.Program">*@
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticProgram" class="col-sm-2 col-form-label">Level</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="Level" name="Level" value="@Model.Level">
+                </div>
+            </div>
 
-                                                <div class="form-group row">
-                                                    <label for="staticFirstName" class="col-sm-2 col-form-label">First Name</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control-plaintext" id="FirstName" name="FirstName" value="@Model.FirstName">
-                                                    </div>
-                                                </div>
-                                                                <div class="form-group row">
-                                                                    <label for="staticLastName" class="col-sm-2 col-form-label">Last Name</label>
-                                                                    <div class="col-sm-10">
-                                                                        <input type="text" class="form-control-plaintext" id="LastName" name="LastName" value="@Model.LastName">
-                                                                    </div>
-                                                                </div>
-                                                                                <div class="form-group row">
-                                                                                    <label for="staticBirthday" class="col-sm-2 col-form-label">Birthday</label>
-                                                                                    <div class="col-sm-10">
-                                                                                        <input type="text" class="form-control-plaintext" id="datepicker" name="Birthday" value="@Model.Birthday">
-                                                                                    </div>
-                                                                                </div>
+            <div class="form-group row">
+                <label for="staticFirstName" class="col-sm-2 col-form-label">First Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control-plaintext" id="FirstName" name="FirstName" value="@Model.FirstName">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticLastName" class="col-sm-2 col-form-label">Last Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control-plaintext" id="LastName" name="LastName" value="@Model.LastName">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticBirthday" class="col-sm-2 col-form-label">Birthday</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control-plaintext" id="datepicker" name="Birthday" value="@Model.Birthday">
+                </div>
+            </div>
 
-                                                                                                <div class="form-group row">
-                                                                                                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                                                                                                    <div class="col-sm-10">
-                                                                                                        <input type="text" class="form-control-plaintext" id="Email" name="Email" value="@Model.Email">
-                                                                                                    </div>
-                                                                                                </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control-plaintext" id="Email" name="Email" value="@Model.Email">
+                </div>
+            </div>
 
-                                                                                                                <div class="form-group row">
-                                                                                                                    <label for="staticMobile" class="col-sm-2 col-form-label">Mobile</label>
-                                                                                                                    <div class="col-sm-10">
-                                                                                                                        <input type="text" class="form-control-plaintext" id="Mobile" name="Mobile" value="@Model.Mobile">
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                                <div class="form-group row">
-                                                                                                                                    <label for="staticAddress" class="col-sm-2 col-form-label">Address</label>
-                                                                                                                                    <div class="col-sm-10">
-                                                                                                                                        <input type="text" class="form-control-plaintext" id="Address" name="Address" value="@Model.Address">
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                                                <span class="col-right">
-                                                                                                                                                    <input name="" value="Save" class="buttonUpdate" type="submit" />
-                                                                                                                                                </span>}
+            <div class="form-group row">
+                <label for="staticMobile" class="col-sm-2 col-form-label">Mobile</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control-plaintext" id="Mobile" name="Mobile" value="@Model.Mobile">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticAddress" class="col-sm-2 col-form-label">Address</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control-plaintext" id="Address" name="Address" value="@Model.Address">
+                </div>
+            </div>
+            <span class="col-right">
+                <input name="" value="Save" class="buttonUpdate" type="submit" />
+            </span>
+
+        }
     </div>
 </div>
 <div class="collapse jumbotron" id="collapseCourses">
@@ -137,9 +140,9 @@
                 <div class="form-group row">
                     <label for="staticStudentNumber1" class="col-sm-2 col-form-label">Courses</label>
                     <div class="col-sm-10">
-                        @*@Html.DropDownList("Course", Model.CourseListItems)*@
-                        @*@Html.DropDownList("Course", Model.CourseListItems)*@
-                        @*@Html.DropDownListFor(x => Model.CourseID, Model.CourseListItems)*@
+                        @Html.DropDownList("Course", Model.ProgramListItems)
+                      
+                        @Html.DropDownListFor(x => Model.Program, Model.ProgramListItems)
                         <div class="dropdown">
 
 

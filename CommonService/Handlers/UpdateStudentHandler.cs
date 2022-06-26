@@ -77,6 +77,7 @@ namespace CommonService.Handlers
             student.Mobile = request.Mobile;
             student.Address = request.Address;
             student.Birthday = request.Birthday;
+            student.Program = request.Program;
 
             context.SaveChanges();
         }

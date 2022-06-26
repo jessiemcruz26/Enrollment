@@ -35,48 +35,17 @@ namespace WebApplication6.Controllers
             return Json(new { rows = _listStudents }, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpPost]
-        //public ActionResult Index(string studentNumber)
-        //{
-        //    if (studentNumber == null)
-        //        return View();
-
-        //    var context = new EnrollmentEntities();
-        //    var _student = context.Students.Where(x => x.StudentNumber == studentNumber).FirstOrDefault();
-
-        //    if (_student == null)
-        //        return View();
-        //    else
-        //    {
-        //        var student = new model.Student
-        //        {
-        //            StudentNumber = _student.StudentNumber,
-        //            Program = _student.Program,
-        //            Level = _student.Level,
-        //            FirstName = _student.FirstName,
-        //            LastName = _student.LastName,
-        //            Birthday = _student.Birthday?.ToString(),
-        //            Email = _student.Email,
-        //            Mobile = _student.Mobile,
-        //            Address = _student.Address,
-        //        };
-
-        //        return RedirectToAction("Edit", "Student", new { id = 1 });
-        //    }
-        //}
-
         [HttpGet]
         public ActionResult Edit(string studentNumber)
         {
             if (string.IsNullOrEmpty(studentNumber))
             {
-                var _CourseListItems = new List<SelectListItem>();
+                var _programListItems = new List<SelectListItem>();
+                _programListItems.Add(new SelectListItem() { Text = "Electronics", Value = "Electronics", Selected = true });
+                _programListItems.Add(new SelectListItem() { Text = "Civil", Value = "Civil" });
+                _programListItems.Add(new SelectListItem() { Text = "Mechanical", Value = "Mechanical" });
 
-                _CourseListItems.Add(new SelectListItem() { Text = "Northern Cape", Value = "NC" });
-                _CourseListItems.Add(new SelectListItem() { Text = "Free State", Value = "FS" });
-                _CourseListItems.Add(new SelectListItem() { Text = "Western Cape", Value = "WC" });
-
-                return View(new model.Student() { CourseListItems = _CourseListItems });
+                return View(new model.Student() { ProgramListItems = _programListItems });
             }
 
             model.Student student = _studentMediator.GetStudent(studentNumber);
@@ -102,18 +71,6 @@ namespace WebApplication6.Controllers
                         Program = Model.Program,
                         StudentNumber = Model.StudentNumber
                     };
-
-                    if (string.IsNullOrEmpty(Model.StudentNumber))
-                    {
-                        var _CourseListItems = new List<SelectListItem>();
-
-                        _CourseListItems.Add(new SelectListItem() { Text = "Northern Cape", Value = "NC" });
-                        _CourseListItems.Add(new SelectListItem() { Text = "Free State", Value = "FS" });
-                        _CourseListItems.Add(new SelectListItem() { Text = "Western Cape", Value = "WC" });
-
-
-                        //return View(new model.Student() {  = _CourseListItems });
-                    }
 
                     _studentMediator.UpdateStudent(_student);
                     msg = "Saved Successfully";
@@ -213,6 +170,7 @@ namespace WebApplication6.Controllers
                     Mobile = form["Mobile"],
                     Address = form["Address"],
                     Birthday = form["Birthday"],
+                    Program = form["Program"],
                 };
 
                 var response = _studentMediator.UpdateStudent(student);

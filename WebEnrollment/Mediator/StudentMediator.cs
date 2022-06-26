@@ -59,6 +59,24 @@ namespace WebEnrollment.Mediator
             return ConvertResponseToModel(_response);
         }
 
+        private List<SelectListItem> GetProgramList(string program)
+        {
+            string[] _programs = { "Electronics", "Civil", "Mechanical" };
+
+            var _programListItems = new List<SelectListItem>();
+            foreach (var item in _programs)
+            {
+                _programListItems.Add(new SelectListItem()
+                {
+                    Text = item,
+                    Value = item,
+                    Selected = item == program
+                });
+            }
+            
+            return _programListItems;
+        }
+
         private static List<ValidationError> MapValidationErrors(List<contract.ValidationError> errorList)
         {
             List<ValidationError> modelErrorList = new List<ValidationError>();
@@ -133,6 +151,7 @@ namespace WebEnrollment.Mediator
                 StudentNumber = _response.StudentNumber,
                 StudentID = _response.StudentID,
                 Level = _response.Level,
+                ProgramListItems = GetProgramList(_response.Program),
                 ValidationErrors = MapValidationErrors(_response.ValidationErrors)
             };
 
