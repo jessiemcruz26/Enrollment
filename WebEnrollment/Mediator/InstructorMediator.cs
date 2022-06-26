@@ -14,7 +14,7 @@ namespace WebEnrollment.Mediator
 {
     public interface IInstructorMediator
     {
-        model.Instructor GetInstructor(string instructorID);
+        model.Instructor GetInstructor(int instructorID);
         List<model.Instructor> GetInstructors();
         model.Instructor UpdateInstructor(model.Instructor instructor);
         model.Instructor CreateInstructor(Instructor instructor);
@@ -28,9 +28,9 @@ namespace WebEnrollment.Mediator
             _service = service;
         }
 
-        public model.Instructor GetInstructor(string instructorID)
+        public model.Instructor GetInstructor(int instructorID)
         {
-            var _response = _service.GetInstructor(new contract.InstructorRequest() { ID = instructorID });
+            var _response = _service.GetInstructor(new contract.InstructorRequest() { InstructorID = instructorID });
 
             return ConvertResponseToModel(_response);
         }
@@ -73,7 +73,7 @@ namespace WebEnrollment.Mediator
         {
             contract.InstructorRequest _studentRequest = new contract.InstructorRequest()
             {
-                InstructorID = Convert.ToInt32(instructor.InstructorID),
+                InstructorID = instructor.InstructorID,
                 FirstName = instructor.FirstName,
                 LastName = instructor.LastName,
                 Mobile = instructor.Mobile,
@@ -102,7 +102,7 @@ namespace WebEnrollment.Mediator
         {
             model.Instructor _instructor = new model.Instructor
             {
-                InstructorID = _response.InstructorID.ToString(),
+                InstructorID = _response.InstructorID,
                 FirstName = _response.FirstName,
                 LastName = _response.LastName,
                 Email = _response.Email,

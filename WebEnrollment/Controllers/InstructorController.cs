@@ -70,7 +70,7 @@ namespace WebEnrollment.Controllers
             {
                 model.Instructor _instructor = new model.Instructor
                 {
-                    InstructorID = form["InstructorID"],
+                    InstructorID = Convert.ToInt32(form["InstructorID"]),
                     FirstName = form["FirstName"],
                     LastName = form["LastName"],
                     Email = form["Email"],
@@ -87,25 +87,6 @@ namespace WebEnrollment.Controllers
             }
         }
 
-
-        [HttpGet]
-        public ActionResult Edit(string instructorId)
-        {
-            if (string.IsNullOrEmpty(instructorId))
-            {
-                //var _programListItems = new List<SelectListItem>();
-                //_programListItems.Add(new SelectListItem() { Text = "Electronics", Value = "Electronics", Selected = true });
-                //_programListItems.Add(new SelectListItem() { Text = "Civil", Value = "Civil" });
-                //_programListItems.Add(new SelectListItem() { Text = "Mechanical", Value = "Mechanical" });
-
-                return View(new model.Instructor() { });
-            }
-
-            model.Instructor _instructor = _instructorMediator.GetInstructor(instructorId);
-
-            return Json(new { row = _instructor }, JsonRequestBehavior.AllowGet);
-        }
-
         public string EditGrid(Instructor Model)
         {
             string msg;
@@ -115,7 +96,7 @@ namespace WebEnrollment.Controllers
                 {
                     model.Instructor _instructor = new model.Instructor
                     {
-                        InstructorID = Model.InstructorID.ToString(),
+                       InstructorID = Model.InstructorID,
                         FirstName = Model.FirstName,
                         LastName = Model.LastName,
                         Mobile = Model.Mobile,

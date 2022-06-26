@@ -386,11 +386,10 @@
     <Content Include="Views\Shared\_StudentPartialView.cshtml" />
     <Content Include="Views\Home\_StudentGridPartialView.cshtml" />
     <Content Include="Views\Home\_InstructorGridPartialVIew.cshtml" />
-    <Content Include="Views\Instructor\Edit.cshtml" />
-    <Content Include="Views\Course\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Instructor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

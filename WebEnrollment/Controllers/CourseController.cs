@@ -30,14 +30,20 @@ namespace WebApplication6.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(string courseId)
+        public ActionResult Edit(string id)
         {
-            if (string.IsNullOrEmpty(courseId))
-            {
-                return View(new model.Course() { });
-            }
+            //if (string.IsNullOrEmpty(id))
+            //{
+            //    var _CourseListItems = new List<SelectListItem>();
 
-            model.Course course = _courseMediator.GetCourse(Convert.ToInt32(courseId));
+            //    _CourseListItems.Add(new SelectListItem() { Text = "Northern Cape", Value = "NC" });
+            //    _CourseListItems.Add(new SelectListItem() { Text = "Free State", Value = "FS" });
+            //    _CourseListItems.Add(new SelectListItem() { Text = "Western Cape", Value = "WC" });
+
+            //    return View(new model.Course() { CourseListItems = _CourseListItems });
+            //}
+
+            model.Course course = _courseMediator.GetCourse(Convert.ToInt32(id));
 
             return Json(new { row = course }, JsonRequestBehavior.AllowGet);
         }
