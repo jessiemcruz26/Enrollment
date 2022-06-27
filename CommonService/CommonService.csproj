@@ -92,6 +92,8 @@
     <Compile Include="Class.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Contracts\ClassRequest.cs" />
+    <Compile Include="Contracts\ClassResponse.cs" />
     <Compile Include="Contracts\InstructorResponse.cs" />
     <Compile Include="Contracts\InstructorRequest.cs" />
     <Compile Include="Contracts\CourseResponse.cs" />
@@ -106,9 +108,12 @@
     <Compile Include="Course.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\CreateClassHandler.cs" />
     <Compile Include="Handlers\CreateInstructorHandler.cs" />
+    <Compile Include="Handlers\GetClassHandler.cs" />
     <Compile Include="Handlers\GetCourseHandler.cs" />
     <Compile Include="Handlers\GetInstructorHandler.cs" />
+    <Compile Include="Handlers\UpdateClassHandler.cs" />
     <Compile Include="Handlers\UpdateInstructorHandler.cs" />
     <Compile Include="Handlers\UpdateCourseHandler.cs" />
     <Compile Include="Handlers\CreateCourseHandler .cs" />

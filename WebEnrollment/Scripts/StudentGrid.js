@@ -27,7 +27,10 @@
             //    key: false, name: 'Birthday', index: 'Birthday', editable: true, formatter: 'date', formatoptions: { newformat: 'd/m/Y' }
             //},
             {
-                key: false, name: 'Program', index: 'Program', editable: true
+                key: false, name: 'Program', index: 'Program', editable: true, cellEdit: false, edittype: 'select',
+                formatter: function (cellvalue, options, rowObj) {
+                    return cellvalue;
+                }, editoptions: { value: getAllOptions() }
             },
             {
                 key: false, name: 'Level', index: 'Level', editable: true
@@ -105,3 +108,10 @@
             sopt: ['cn']
         });
 });
+
+
+function getAllOptions() {
+    //var _programs = ['Electronics', 'Civil', 'Mechanical'];
+    var _programs = { 'Electronics': 'Electronics', 'Civil': 'Civil' };
+    return _programs;
+}

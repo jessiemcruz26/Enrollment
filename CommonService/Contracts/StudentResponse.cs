@@ -14,6 +14,7 @@ namespace CommonService.Contracts
         }
 
         public List<StudentResponse> Students;
+
         public int MyProperty { get; set; }
         public int StudentID { get; set; }
         public string StudentNumber { get; set; }

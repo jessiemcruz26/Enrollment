@@ -21,8 +21,8 @@ namespace CommonService
         }
     
         public int ClassID { get; set; }
-        public Nullable<int> CourseID { get; set; }
-        public Nullable<int> InstructorID { get; set; }
+        public int CourseID { get; set; }
+        public int InstructorID { get; set; }
         public string ClassTime { get; set; }
         public string ClassDate { get; set; }
         public string RoomNumber { get; set; }

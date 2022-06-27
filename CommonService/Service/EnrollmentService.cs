@@ -21,6 +21,10 @@ namespace CommonService.Service
         CourseResponse GetCourse(CourseRequest request);
         CourseResponse CreateCourse(CourseRequest request);
         CourseResponse UpdateCourse(CourseRequest request);
+
+        ClassResponse GetClass(ClassRequest request);
+        ClassResponse CreateClass(ClassRequest request);
+        ClassResponse UpdateClass(ClassRequest request);
     }
 
     public class EnrollmentService : IEnrollmentService
@@ -76,6 +80,24 @@ namespace CommonService.Service
         public CourseResponse UpdateCourse(CourseRequest request)
         {
             var serviceHandler = new UpdateCourseHandler();
+            return serviceHandler.Execute(request);
+        }
+
+        public ClassResponse GetClass(ClassRequest request)
+        {
+            var serviceHandler = new GetClassHandler();
+            return serviceHandler.Execute(request);
+        }
+
+        public ClassResponse CreateClass(ClassRequest request)
+        {
+            var serviceHandler = new CreateClassHandler();
+            return serviceHandler.Execute(request);
+        }
+
+        public ClassResponse UpdateClass(ClassRequest request)
+        {
+            var serviceHandler = new UpdateClassHandler();
             return serviceHandler.Execute(request);
         }
     }

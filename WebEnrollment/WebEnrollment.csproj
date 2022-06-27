@@ -167,6 +167,7 @@
     <Compile Include="Class.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
@@ -195,6 +196,8 @@
     <Compile Include="Instructor.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Mediator\ClassMediator.cs" />
+    <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\IResponse.cs" />
     <Compile Include="Models\Response .cs" />
@@ -308,6 +311,7 @@
       <DependentUpon>EnrollmentModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\ClassGrid.js" />
     <Content Include="Scripts\i18n\grid.locale-ar.js" />
     <Content Include="Scripts\i18n\grid.locale-bg.js" />
     <Content Include="Scripts\i18n\grid.locale-bg1251.js" />
@@ -390,6 +394,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Class\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
