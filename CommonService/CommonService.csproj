@@ -76,21 +76,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model.Context.tt">
+    <Content Include="EnrollmentModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.Context.cs</LastGenOutput>
+      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
+      <LastGenOutput>EnrollmentModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model.tt">
+    <Content Include="EnrollmentModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.cs</LastGenOutput>
+      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
+      <LastGenOutput>EnrollmentModel.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Contracts\ClassRequest.cs" />
     <Compile Include="Contracts\ClassResponse.cs" />
@@ -106,7 +106,22 @@
     <Compile Include="Contracts\Response.cs" />
     <Compile Include="Contracts\ValidationError.cs" />
     <Compile Include="Course.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EnrollmentModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnrollmentModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EnrollmentModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EnrollmentModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Handlers\CreateClassHandler.cs" />
     <Compile Include="Handlers\CreateInstructorHandler.cs" />
@@ -122,39 +137,24 @@
     <Compile Include="Handlers\CreateStudentHandler.cs" />
     <Compile Include="Handlers\RequestHandler.cs" />
     <Compile Include="Instructor.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.edmx</DependentUpon>
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Service\EnrollmentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Student.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StudentClass.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Model.edmx">
+    <EntityDeploy Include="EnrollmentModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+      <LastGenOutput>EnrollmentModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Model.edmx.diagram">
-      <DependentUpon>Model.edmx</DependentUpon>
+    <Content Include="EnrollmentModel.edmx.diagram">
+      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">

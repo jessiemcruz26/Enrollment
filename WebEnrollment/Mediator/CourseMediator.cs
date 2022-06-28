@@ -99,7 +99,7 @@ namespace WebEnrollment.Mediator
                 CourseID = course.CourseID,
                 CourseName = course.CourseName,
                 CourseDescription = course.CourseDescription,
-                Id = course.ID
+                SelectedRow = course.SelectedRow
             };
 
             return _courseRequest;

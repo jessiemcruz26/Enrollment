@@ -6,7 +6,7 @@
         colNames: ["CourseID", "Course Name", "Course Description"],
         colModel: [
             {
-                key: true, name: 'CourseID', index: 'CourseID', sortable: false, editable: true
+                key: true, name: 'CourseID', index: 'CourseID', sortable: false, editable: true, hidden: true
             },
             {
                 name: 'CourseName', index: 'CourseName', sortable: false, editable: true

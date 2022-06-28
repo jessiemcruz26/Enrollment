@@ -15,10 +15,10 @@ namespace CommonService.Handlers
 
         protected override ClassResponse Process(ClassRequest request)
         {
-            var context = new EnrollmentEntities();
+            var context = new EnrollmentDB();
 
             //get list of Classes
-            if (request.ID == null)
+            if (request.SelectedRow == null)
             {
                 return GetClasses(context);
             }
@@ -28,7 +28,7 @@ namespace CommonService.Handlers
             }
         }
 
-        private ClassResponse GetClass(ClassRequest request, EnrollmentEntities context)
+        private ClassResponse GetClass(ClassRequest request, EnrollmentDB context)
         {
             var _classRow = context.Classes.Where(x => x.ClassID == request.ClassID).FirstOrDefault();
             var _courseRows = context.Courses.ToList();
@@ -46,7 +46,7 @@ namespace CommonService.Handlers
             return _response;
         }
 
-        private ClassResponse GetClasses(EnrollmentEntities context)
+        private ClassResponse GetClasses(EnrollmentDB context)
         {
             var _ClassRows = context.Classes.ToList();
             var _courseRows = context.Courses.ToList();

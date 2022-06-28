@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using model = WebEnrollment.Models;
+using WebEnrollment.Models;
 using System.Data.Entity;
 using WebEnrollment;
 using CommonService.Service;
@@ -14,10 +14,10 @@ namespace WebEnrollment.Mediator
 {
     public interface IInstructorMediator
     {
-        model.Instructor GetInstructor(string instructorID);
-        List<model.Instructor> GetInstructors();
-        model.Instructor UpdateInstructor(model.Instructor instructor);
-        model.Instructor CreateInstructor(Instructor instructor);
+        Instructor GetInstructor(string instructorNumber);
+        List<Instructor> GetInstructors();
+        Instructor UpdateInstructor(Instructor instructor);
+        Instructor CreateInstructor(Instructor instructor);
     }
 
     public class InstructorMediator : IInstructorMediator
@@ -28,18 +28,18 @@ namespace WebEnrollment.Mediator
             _service = service;
         }
 
-        public model.Instructor GetInstructor(string instructorID)
+        public Instructor GetInstructor(string instructorNumber)
         {
-            var _response = _service.GetInstructor(new contract.InstructorRequest() { ID = instructorID });
+            var _response = _service.GetInstructor(new contract.InstructorRequest() { InstructorNumber = instructorNumber });
 
             return ConvertResponseToModel(_response);
         }
 
-        public List<model.Instructor> GetInstructors()
+        public List<Instructor> GetInstructors()
         {
             var _response = _service.GetInstructor(new contract.InstructorRequest());
 
-            List<model.Instructor> _instructorsList = new List<model.Instructor>();
+            List<Instructor> _instructorsList = new List<Instructor>();
 
             foreach (var item in _response.Instructors)
             {
@@ -51,7 +51,7 @@ namespace WebEnrollment.Mediator
             return _instructorsList;
         }
 
-        public model.Instructor CreateInstructor(Instructor instructor)
+        public Instructor CreateInstructor(Instructor instructor)
         {
             var _instructorRequest = ConvertWebToRequest(instructor);
 
@@ -60,7 +60,7 @@ namespace WebEnrollment.Mediator
             return ConvertResponseToModel(_response);
         }
 
-        public model.Instructor UpdateInstructor(model.Instructor instructor)
+        public Instructor UpdateInstructor(Instructor instructor)
         {
             var _request = ConvertModelToRequest(instructor);
 
@@ -69,7 +69,7 @@ namespace WebEnrollment.Mediator
             return ConvertResponseToModel(_response);
         }
 
-        private contract.InstructorRequest ConvertModelToRequest(model.Instructor instructor)
+        private contract.InstructorRequest ConvertModelToRequest(Instructor instructor)
         {
             contract.InstructorRequest _studentRequest = new contract.InstructorRequest()
             {
@@ -78,7 +78,8 @@ namespace WebEnrollment.Mediator
                 LastName = instructor.LastName,
                 Mobile = instructor.Mobile,
                 Email = instructor.Email,
-                ID = instructor.ID,
+                SelectedRow = instructor.SelectedRow,
+                InstructorNumber = instructor.InstructorNumber
             };
 
             return _studentRequest;
@@ -88,38 +89,40 @@ namespace WebEnrollment.Mediator
         {
             contract.InstructorRequest _request = new contract.InstructorRequest()
             {
-                InstructorID = instructor.InstructorID,
+                InstructorID = Convert.ToInt32(instructor.InstructorID),
                 FirstName = instructor.FirstName,
                 LastName = instructor.LastName,
                 Mobile = instructor.Mobile,
                 Email = instructor.Email,
+                InstructorNumber = instructor.InstructorNumber
             };
 
             return _request;
         }
 
-        private model.Instructor ConvertResponseToModel(contract.InstructorResponse _response)
+        private Instructor ConvertResponseToModel(contract.InstructorResponse _response)
         {
-            model.Instructor _instructor = new model.Instructor
+            Instructor _instructor = new Instructor
             {
                 InstructorID = _response.InstructorID.ToString(),
                 FirstName = _response.FirstName,
                 LastName = _response.LastName,
                 Email = _response.Email,
                 Mobile = _response.Mobile,
+                InstructorNumber = _response.InstructorNumber,
                 ValidationErrors = MapValidationErrors(_response.ValidationErrors)
             };
 
             return _instructor;
         }
 
-        private static List<model.ValidationError> MapValidationErrors(List<contract.ValidationError> errorList)
+        private static List<ValidationError> MapValidationErrors(List<contract.ValidationError> errorList)
         {
-            List<model.ValidationError> modelErrorList = new List<model.ValidationError>();
+            List<ValidationError> modelErrorList = new List<ValidationError>();
 
             if (errorList != null && errorList.Count > 0)
             {
-                errorList.ForEach(error => modelErrorList.Add(new model.ValidationError { Code = error.Code, Message = error.Message }));
+                errorList.ForEach(error => modelErrorList.Add(new ValidationError { Code = error.Code, Message = error.Message }));
             }
 
             return modelErrorList;

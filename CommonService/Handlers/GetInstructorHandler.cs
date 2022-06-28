@@ -15,10 +15,10 @@ namespace CommonService.Handlers
 
         protected override InstructorResponse Process(InstructorRequest request)
         {
-            var context = new EnrollmentEntities();
+            var context = new EnrollmentDB();
 
             //get list of courses
-            if (request.ID == null)
+            if (request.SelectedRow == null)
             {
                 return GetInstructors(context);
             }
@@ -34,10 +34,9 @@ namespace CommonService.Handlers
             return validationErrors;
         }
 
-        private InstructorResponse GetInstructor(InstructorRequest request, EnrollmentEntities context)
+        private InstructorResponse GetInstructor(InstructorRequest request, EnrollmentDB context)
         {
-            int _id = Convert.ToInt32(request.ID);
-            var _instructorRow = context.Instructors.Where(x => x.InstructorID == _id).FirstOrDefault();
+            var _instructorRow = context.Instructors.Where(x => x.InstructorNumber == request.InstructorNumber).FirstOrDefault();
 
             InstructorResponse _response = new InstructorResponse
             {
@@ -46,12 +45,13 @@ namespace CommonService.Handlers
                 LastName = _instructorRow.LastName,
                 Email = _instructorRow.Email,
                 Mobile = _instructorRow.Mobile,
+                InstructorNumber = _instructorRow.InstructorNumber
             };
 
             return _response;
         }
 
-        private InstructorResponse GetInstructors(EnrollmentEntities context)
+        private InstructorResponse GetInstructors(EnrollmentDB context)
         {
             var _instructorRows = context.Instructors.ToList();
 
@@ -65,6 +65,7 @@ namespace CommonService.Handlers
                     LastName = item.LastName,
                     Email = item.Email,
                     Mobile = item.Mobile,
+                    InstructorNumber = item.InstructorNumber
                 };
 
                 response.Instructors.Add(_instructor);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using model = WebEnrollment.Models;
+using WebEnrollment.Models;
 using System.Data.Entity;
 using WebEnrollment;
 using CommonService.Service;
@@ -45,10 +45,10 @@ namespace WebApplication6.Controllers
                 _programListItems.Add(new SelectListItem() { Text = "Civil", Value = "Civil" });
                 _programListItems.Add(new SelectListItem() { Text = "Mechanical", Value = "Mechanical" });
 
-                return View(new model.Student() { ProgramListItems = _programListItems });
+                return View(new Student() { ProgramListItems = _programListItems });
             }
 
-            model.Student student = _studentMediator.GetStudent(studentNumber);
+            Student student = _studentMediator.GetStudent(studentNumber);
 
             return Json(new { row = student }, JsonRequestBehavior.AllowGet);
         }
@@ -60,7 +60,7 @@ namespace WebApplication6.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    model.Student _student = new model.Student
+                    Student _student = new Student
                     {
                         Address = Model.Address,
                         FirstName = Model.FirstName,
@@ -119,14 +119,14 @@ namespace WebApplication6.Controllers
             return msg;
         }
 
-        public string Delete(string Id)
+        public string Delete(string selectedRow)
         {
             string msg;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _studentMediator.UpdateStudent(new model.Student { ID = Id });
+                    _studentMediator.UpdateStudent(new Student { SelectedRow = selectedRow });
                     msg = "Saved Successfully";
                 }
                 else
@@ -161,7 +161,7 @@ namespace WebApplication6.Controllers
         {
             try
             {
-                model.Student student = new model.Student
+                Student student = new Student
                 {
                     StudentNumber = form["StudentNumber"],
                     FirstName = form["FirstName"],

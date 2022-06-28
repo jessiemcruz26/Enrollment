@@ -15,7 +15,7 @@ namespace CommonService.Handlers
 
         protected override CourseResponse Process(CourseRequest request)
         {
-            var context = new EnrollmentEntities();
+            var context = new EnrollmentDB();
 
             Course _course = new Course()
             {

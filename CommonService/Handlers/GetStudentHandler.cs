@@ -15,7 +15,7 @@ namespace CommonService.Handlers
 
         protected override StudentResponse Process(StudentRequest request)
         {
-            var context = new EnrollmentEntities();
+            var context = new EnrollmentDB();
 
             //get list of courses
             if (request.StudentNumber == null)
@@ -34,7 +34,7 @@ namespace CommonService.Handlers
             return validationErrors;
         }
 
-        private StudentResponse GetStudent(StudentRequest request, EnrollmentEntities context)
+        private StudentResponse GetStudent(StudentRequest request, EnrollmentDB context)
         {
             var _studentRow = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
 
@@ -55,7 +55,7 @@ namespace CommonService.Handlers
             return _response;
         }
 
-        private StudentResponse GetStudents(EnrollmentEntities context)
+        private StudentResponse GetStudents(EnrollmentDB context)
         {
             var _studentRow = context.Students.ToList();
 

@@ -15,11 +15,11 @@ namespace CommonService.Handlers
 
         protected override ClassResponse Process(ClassRequest request)
         {
-            var context = new EnrollmentEntities();
+            var context = new EnrollmentDB();
 
             var _Class = context.Classes.Where(x => x.ClassID == request.ClassID).FirstOrDefault();
 
-            if (string.IsNullOrEmpty(request.ID))
+            if (string.IsNullOrEmpty(request.SelectedRow))
             {
                 UpdateClass(request, _Class, context);
             }
@@ -50,7 +50,7 @@ namespace CommonService.Handlers
             return validationErrors;
         }
 
-        private void UpdateClass(ClassRequest request, Class _class, EnrollmentEntities context)
+        private void UpdateClass(ClassRequest request, Class _class, EnrollmentDB context)
         {
             _class.ClassID = request.ClassID;
             _class.InstructorID = request.InstructorID;
@@ -62,7 +62,7 @@ namespace CommonService.Handlers
             context.SaveChanges();
         }
 
-        private void DeleteClass(Class Class, EnrollmentEntities context)
+        private void DeleteClass(Class Class, EnrollmentDB context)
         {
             context.Classes.Remove(Class);
 

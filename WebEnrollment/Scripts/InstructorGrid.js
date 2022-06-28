@@ -3,10 +3,13 @@
         url: "/Instructor/GetInstructors",
         datatype: 'json',
         mtype: 'Get',
-        colNames: ["InstructorID", "First Name", "Last Name", "Email", "Mobile"],
+        colNames: ["InstructorID", "InstructorNumber", "First Name", "Last Name", "Email", "Mobile"],
         colModel: [
             {
-                key: true, name: 'InstructorID', index: 'InstructorID', editable: true
+                key: true, name: 'InstructorID', index: 'InstructorID', editable: true, hidden: true
+            },
+            {
+                key: true, name: 'InstructorNumber', index: 'InstructorNumber', editable: true
             },
             {
                 name: 'FirstName', index: 'FirstName', sortable: false, editable: true

@@ -15,7 +15,7 @@ namespace CommonService.Handlers
 
         protected override StudentResponse Process(StudentRequest request)
         {
-            var context = new EnrollmentEntities();
+            var context = new EnrollmentDB();
 
             Student _student = new Student()
             {

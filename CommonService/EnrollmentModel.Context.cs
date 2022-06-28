@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebEnrollment
+namespace CommonService
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EnrollmentEntities : DbContext
+    public partial class EnrollmentDB : DbContext
     {
-        public EnrollmentEntities()
-            : base("name=EnrollmentEntities")
+        public EnrollmentDB()
+            : base("name=EnrollmentDB")
         {
         }
     

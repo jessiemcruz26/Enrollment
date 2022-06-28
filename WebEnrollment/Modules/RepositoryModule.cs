@@ -8,8 +8,6 @@ namespace WebEnrollment.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DataAccess>().As<IDataAccess>(); 
-            builder.RegisterType<Business>().As<IBusiness>();
             builder.RegisterType<StudentMediator>().As<IStudentMediator>();
             builder.RegisterType<CourseMediator>().As<ICourseMediator>();
             builder.RegisterType<InstructorMediator>().As<IInstructorMediator>();

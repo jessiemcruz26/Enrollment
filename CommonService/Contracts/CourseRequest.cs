@@ -10,6 +10,6 @@ namespace CommonService.Contracts
         public int CourseID { get; set; }
         public string CourseName { get; set; }
         public string CourseDescription { get; set; }
-        public string Id { get; set; }
+        public string SelectedRow { get; set; }
     }
 }

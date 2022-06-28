@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using model = WebEnrollment.Models;
+using WebEnrollment.Models;
 using System.Data.Entity;
 using WebEnrollment;
 using CommonService.Service;
@@ -68,13 +68,14 @@ namespace WebEnrollment.Controllers
         {
             try
             {
-                model.Instructor _instructor = new model.Instructor
+                Instructor _instructor = new Instructor
                 {
                     InstructorID = form["InstructorID"],
                     FirstName = form["FirstName"],
                     LastName = form["LastName"],
                     Email = form["Email"],
-                    Mobile = form["Mobile"]
+                    Mobile = form["Mobile"],
+                    InstructorNumber = form["InstructorNumber"]
                 };
 
                 var response = _instructorMediator.UpdateInstructor(_instructor);
@@ -87,21 +88,20 @@ namespace WebEnrollment.Controllers
             }
         }
 
-
         [HttpGet]
-        public ActionResult Edit(string instructorId)
+        public ActionResult Edit(string instructorNumber)
         {
-            if (string.IsNullOrEmpty(instructorId))
+            if (string.IsNullOrEmpty(instructorNumber))
             {
                 //var _programListItems = new List<SelectListItem>();
                 //_programListItems.Add(new SelectListItem() { Text = "Electronics", Value = "Electronics", Selected = true });
                 //_programListItems.Add(new SelectListItem() { Text = "Civil", Value = "Civil" });
                 //_programListItems.Add(new SelectListItem() { Text = "Mechanical", Value = "Mechanical" });
 
-                return View(new model.Instructor() { });
+                return View(new Instructor() { });
             }
 
-            model.Instructor _instructor = _instructorMediator.GetInstructor(instructorId);
+            Instructor _instructor = _instructorMediator.GetInstructor(instructorNumber);
 
             return Json(new { row = _instructor }, JsonRequestBehavior.AllowGet);
         }
@@ -113,7 +113,7 @@ namespace WebEnrollment.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    model.Instructor _instructor = new model.Instructor
+                    Instructor _instructor = new Instructor
                     {
                         InstructorID = Model.InstructorID.ToString(),
                         FirstName = Model.FirstName,
@@ -137,45 +137,14 @@ namespace WebEnrollment.Controllers
             return msg;
         }
 
-        //public string EditGrid(Instructor Model)
-        //{
-        //    string msg;
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            model.Instructor _instructor = new model.Instructor
-        //            {
-        //                InstructorID = Model.InstructorID,
-        //                FirstName = Model.FirstName,
-        //                LastName = Model.LastName,
-        //                Mobile = Model.Mobile,
-        //                Email = Model.Email
-        //            };
-
-        //            _instructorMediator.UpdateInstructor(_instructor);
-        //            msg = "Saved Successfully";
-        //        }
-        //        else
-        //        {
-        //            msg = "Validation data not successfully";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        msg = "Error occured:" + ex.Message;
-        //    }
-        //    return msg;
-        //}
-
-        public string Delete(string Id)
+        public string Delete(string selectedRow)
         {
             string msg;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _instructorMediator.UpdateInstructor(new model.Instructor { ID = Id });
+                    _instructorMediator.UpdateInstructor(new Instructor { SelectedRow = selectedRow });
                     msg = "Saved Successfully";
                 }
                 else

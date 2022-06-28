@@ -15,13 +15,14 @@ namespace CommonService.Handlers
 
         protected override InstructorResponse Process(InstructorRequest request)
         {
-            var context = new EnrollmentEntities();
+            var context = new EnrollmentDB();
 
             Instructor _instructor = new Instructor() {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
-                Mobile = request.Mobile
+                Mobile = request.Mobile,
+                InstructorNumber = request.InstructorNumber
             };
 
             context.Instructors.Add(_instructor);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using model = WebEnrollment.Models;
+using WebEnrollment.Models;
 using System.Data.Entity;
 using WebEnrollment;
 using CommonService.Service;
@@ -43,7 +43,7 @@ namespace WebApplication6.Controllers
             //    return View(new model.Course() { CourseListItems = _CourseListItems });
             //}
 
-            model.Course course = _courseMediator.GetCourse(Convert.ToInt32(id));
+            Course course = _courseMediator.GetCourse(Convert.ToInt32(id));
 
             return Json(new { row = course }, JsonRequestBehavior.AllowGet);
         }
@@ -55,7 +55,7 @@ namespace WebApplication6.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    model.Course _course = new model.Course
+                    Course _course = new Course
                     {
                         CourseID = Model.CourseID,
                         CourseName = Model.CourseName,
@@ -109,14 +109,14 @@ namespace WebApplication6.Controllers
             return msg;
         }
 
-        public string Delete(string Id)
+        public string Delete(string selectedRow)
         {
             string msg;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _courseMediator.UpdateCourse(new model.Course { ID = Id });
+                    _courseMediator.UpdateCourse(new Course { SelectedRow = selectedRow });
                     msg = "Saved Successfully";
                 }
                 else
@@ -151,7 +151,7 @@ namespace WebApplication6.Controllers
         {
             try
             {
-                model.Course _course = new model.Course
+                Course _course = new Course
                 {
                     CourseID = Convert.ToInt32(form["CourseID"]),
                     CourseName = form["CourseName"],

@@ -50,7 +50,7 @@ namespace WebEnrollment.Mediator
             return _studentsList;
         }
 
-        public model.Student UpdateStudent(model.Student student)
+        public model.Student UpdateStudent(Student student)
         {
             var _studentRequest = ConvertModelToRequest(student);
 
@@ -117,7 +117,7 @@ namespace WebEnrollment.Mediator
             return _studentRequest;
         }
 
-        private contract.StudentRequest ConvertModelToRequest(model.Student student)
+        private contract.StudentRequest ConvertModelToRequest(Student student)
         {
             contract.StudentRequest _studentRequest = new contract.StudentRequest()
             {
@@ -131,15 +131,15 @@ namespace WebEnrollment.Mediator
                 StudentNumber = student.StudentNumber,
                 StudentID = student.StudentID,
                 Level = student.Level,
-                Id = student.ID
+                SelectedRow = student.SelectedRow
             };
 
             return _studentRequest;
         }
 
-        private model.Student ConvertResponseToModel(contract.StudentResponse _response)
+        private Student ConvertResponseToModel(contract.StudentResponse _response)
         {
-            model.Student _student = new model.Student
+            Student _student = new Student
             {
                 FirstName = _response.FirstName,
                 LastName = _response.LastName,

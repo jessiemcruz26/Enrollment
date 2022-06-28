@@ -15,6 +15,7 @@ namespace CommonService.Contracts
         public List<InstructorResponse> Instructors;
 
         public int InstructorID { get; set; }
+        public string InstructorNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

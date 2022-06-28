@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using model = WebEnrollment.Models;
+using WebEnrollment.Models;
 using System.Data.Entity;
 using WebEnrollment;
 using CommonService.Service;
@@ -43,7 +43,7 @@ namespace WebEnrollment.Controllers
             //    return View(new model.Class() { ClassListItems = _ClassListItems });
             //}
 
-            model.Class _class = _classMediator.GetClass(Convert.ToInt32(id));
+            Class _class = _classMediator.GetClass(Convert.ToInt32(id));
 
             return Json(new { row = _class }, JsonRequestBehavior.AllowGet);
         }
@@ -55,7 +55,7 @@ namespace WebEnrollment.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    model.Class _class = new model.Class
+                    Class _class = new Class
                     {
                         ClassID = Model.ClassID.ToString(),
                         InstructorID = Model.InstructorID.ToString(),
@@ -112,14 +112,14 @@ namespace WebEnrollment.Controllers
             return msg;
         }
 
-        public string Delete(string Id)
+        public string Delete(string selectedRow)
         {
             string msg;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _classMediator.UpdateClass(new model.Class { ID = Id });
+                    _classMediator.UpdateClass(new Class { SelectedRow = selectedRow });
                     msg = "Saved Successfully";
                 }
                 else
@@ -154,7 +154,7 @@ namespace WebEnrollment.Controllers
         {
             try
             {
-                model.Class _class = new model.Class
+                Class _class = new Class
                 {
                     ClassID = form["ClassID"],
                     InstructorID = form["InstructorID"],

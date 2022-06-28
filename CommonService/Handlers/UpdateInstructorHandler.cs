@@ -15,11 +15,11 @@ namespace CommonService.Handlers
 
         protected override InstructorResponse Process(InstructorRequest request)
         {
-            var context = new EnrollmentEntities();
+            var context = new EnrollmentDB();
 
             Instructor _instructor = null;
 
-            if (string.IsNullOrEmpty(request.ID))
+            if (string.IsNullOrEmpty(request.SelectedRow))
             {
                 _instructor = context.Instructors.Where(x => x.InstructorID == request.InstructorID).FirstOrDefault();
 
@@ -27,7 +27,7 @@ namespace CommonService.Handlers
             }
             else
             {
-                int _id = Convert.ToInt32(request.ID);
+                int _id = Convert.ToInt32(request.SelectedRow);
                 _instructor = context.Instructors.Where(x => x.InstructorID == _id).FirstOrDefault();
 
                 DeleteInsrtuctor(_instructor, context);
@@ -39,6 +39,7 @@ namespace CommonService.Handlers
                 FirstName = _instructor.FirstName,
                 LastName = _instructor.LastName,
                 Mobile = _instructor.Mobile,
+                InstructorNumber = _instructor.InstructorNumber
             };
 
             return _instructorResponse;
@@ -66,17 +67,19 @@ namespace CommonService.Handlers
             return validationErrors;
         }
 
-        private void UpdateInstructor(InstructorRequest request, Instructor instructor, EnrollmentEntities context)
+        private void UpdateInstructor(InstructorRequest request, Instructor instructor, EnrollmentDB context)
         {
             instructor.InstructorID = request.InstructorID;
             instructor.FirstName = request.FirstName;
             instructor.LastName = request.LastName;
             instructor.Mobile = request.Mobile;
             instructor.Email = request.Email;
+            instructor.InstructorNumber = request.InstructorNumber;
+
             context.SaveChanges();
         }
 
-        private void DeleteInsrtuctor(Instructor instructor, EnrollmentEntities context)
+        private void DeleteInsrtuctor(Instructor instructor, EnrollmentDB context)
         {
             context.Instructors.Remove(instructor);
 

@@ -37,7 +37,7 @@ $(function () {
                 key: false, name: 'ClassTime', index: 'ClassTime', editable: true, cellEdit: false, edittype: 'select',
                 formatter: function (cellvalue, options, rowObj) {
                     return cellvalue;
-                }, editoptions: { value: getTime() }
+                }, editoptions: { value: "" }
             },
             {
                 key: false, name: 'ClassDate', index: 'ClassDate', editable: true, edittype: 'select',

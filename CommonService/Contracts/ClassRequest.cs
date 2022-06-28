@@ -14,6 +14,6 @@ namespace CommonService.Contracts
         public string ClassDate { get; set; }
         public string RoomNumber { get; set; }
 
-        public string ID { get; set; }
+        public string SelectedRow { get; set; }
     }
 }

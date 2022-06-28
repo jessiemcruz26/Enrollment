@@ -164,37 +164,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Class.cs">
-      <DependentUpon>EnrollmentModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Course.cs">
-      <DependentUpon>EnrollmentModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EnrollmentModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EnrollmentModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EnrollmentModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EnrollmentModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EnrollmentModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Instructor.cs">
-      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Mediator\ClassMediator.cs" />
     <Compile Include="Models\Class.cs" />
@@ -206,17 +182,9 @@
     <Compile Include="Models\Student.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Mediator\Business.cs" />
-    <Compile Include="Mediator\DataAccess.cs" />
     <Compile Include="Mediator\CourseMediator.cs" />
     <Compile Include="Mediator\InstructorMediator.cs" />
     <Compile Include="Mediator\StudentMediator.cs" />
-    <Compile Include="Student.cs">
-      <DependentUpon>EnrollmentModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="StudentClass.cs">
-      <DependentUpon>EnrollmentModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -287,29 +255,12 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
-    <Content Include="EnrollmentModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
-      <LastGenOutput>EnrollmentModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="EnrollmentModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
-      <LastGenOutput>EnrollmentModel.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="EnrollmentModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EnrollmentModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="EnrollmentModel.edmx.diagram">
-      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\ClassGrid.js" />
     <Content Include="Scripts\i18n\grid.locale-ar.js" />

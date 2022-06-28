@@ -27,9 +27,9 @@ namespace CommonService
         public string ClassDate { get; set; }
         public string RoomNumber { get; set; }
     
-        public virtual Course Course { get; set; }
-        public virtual Instructor Instructor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentClass> StudentClasses { get; set; }
+        public virtual Course Course { get; set; }
+        public virtual Instructor Instructor { get; set; }
     }
 }

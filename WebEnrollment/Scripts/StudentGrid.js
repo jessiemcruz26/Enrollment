@@ -115,3 +115,13 @@ function getAllOptions() {
     var _programs = { 'Electronics': 'Electronics', 'Civil': 'Civil' };
     return _programs;
 }
+
+function getAllPrograms() {
+    var _text = ["Electronics", "Business", "Aviation", "Accounting"];
+    var _programs = {};
+    for (let i = 0; i < _time.length; i++) {
+        _programs[_text[i]] = _text[i];
+    }
+
+    return _programs;
+}

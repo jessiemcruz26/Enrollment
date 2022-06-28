@@ -22,14 +22,7 @@ namespace WebEnrollment.Models
         public string Birthday { get; set; }
 
         public IEnumerable<SelectListItem> ProgramListItems { get; set; }
-        public string ID { get; set; }
+        public string SelectedRow { get; set; }
     }
-
-    //public class Course
-    //{
-    //    public string CourseId { get; set; }
-    //    public string CourseName { get; set; }
-    //    public string CourseDescription { get; set; }
-    //}
 
 }

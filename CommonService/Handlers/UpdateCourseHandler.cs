@@ -15,11 +15,11 @@ namespace CommonService.Handlers
 
         protected override CourseResponse Process(CourseRequest request)
         {
-            var context = new EnrollmentEntities();
+            var context = new EnrollmentDB();
 
             var _course = context.Courses.Where(x => x.CourseID == request.CourseID).FirstOrDefault();
 
-            if (string.IsNullOrEmpty(request.Id))
+            if (string.IsNullOrEmpty(request.SelectedRow))
             {
                 UpdateCourse(request, _course, context);
             }
@@ -47,7 +47,7 @@ namespace CommonService.Handlers
             return validationErrors;
         }
 
-        private void UpdateCourse(CourseRequest request, Course course, EnrollmentEntities context)
+        private void UpdateCourse(CourseRequest request, Course course, EnrollmentDB context)
         {
             course.CourseID = request.CourseID;
             course.CourseName = request.CourseName;
@@ -56,7 +56,7 @@ namespace CommonService.Handlers
             context.SaveChanges();
         }
 
-        private void DeleteCourse(Course course, EnrollmentEntities context)
+        private void DeleteCourse(Course course, EnrollmentDB context)
         {
             context.Courses.Remove(course);
 

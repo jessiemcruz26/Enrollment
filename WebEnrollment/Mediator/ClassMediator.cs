@@ -84,9 +84,9 @@ namespace WebEnrollment.Mediator
         {
             contract.ClassRequest _classRequest = new contract.ClassRequest
             {
-                ClassID = _class.ClassID,
-                InstructorID = _class.InstructorID,
-                CourseID = _class.CourseID,
+                ClassID = Convert.ToInt32(_class.ClassID),
+                InstructorID = Convert.ToInt32(_class.InstructorID),
+                CourseID = Convert.ToInt32(_class.CourseID),
                 ClassDate = _class.ClassDate,
                 ClassTime = _class.ClassTime,
                 RoomNumber = _class.RoomNumber

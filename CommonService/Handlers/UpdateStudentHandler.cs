@@ -15,11 +15,11 @@ namespace CommonService.Handlers
 
         protected override StudentResponse Process(StudentRequest request)
         {
-            var context = new EnrollmentEntities();
+            var context = new EnrollmentDB();
 
             Student _student = null;
      
-            if (string.IsNullOrEmpty(request.Id))
+            if (string.IsNullOrEmpty(request.SelectedRow))
             {
                 _student = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
 
@@ -27,8 +27,8 @@ namespace CommonService.Handlers
             }
             else
             {
-                int _id = Convert.ToInt32(request.Id);
-                _student = context.Students.Where(x => x.StudentID == _id).FirstOrDefault();
+                int _selectedID = Convert.ToInt32(request.SelectedRow);
+                _student = context.Students.Where(x => x.StudentID == _selectedID).FirstOrDefault();
 
                 DeleteStudent(_student, context);
             }
@@ -54,7 +54,7 @@ namespace CommonService.Handlers
         {
             var validationErrors = new List<ValidationError>();
 
-            if (string.IsNullOrEmpty(request.Id))
+            if (string.IsNullOrEmpty(request.SelectedRow))
             {
                 if (string.IsNullOrEmpty(request.StudentNumber))
                     validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "StudentNumber must have a value" });
@@ -69,7 +69,7 @@ namespace CommonService.Handlers
             return validationErrors;
         }
 
-        private void UpdateStudent(StudentRequest request, Student student, EnrollmentEntities context)
+        private void UpdateStudent(StudentRequest request, Student student, EnrollmentDB context)
         {
             student.FirstName = request.FirstName;
             student.LastName = request.LastName;
@@ -81,7 +81,7 @@ namespace CommonService.Handlers
             context.SaveChanges();
         }
 
-        private void DeleteStudent(Student student, EnrollmentEntities context)
+        private void DeleteStudent(Student student, EnrollmentDB context)
         {
             context.Students.Remove(student);
 
