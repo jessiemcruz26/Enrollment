@@ -32,17 +32,6 @@ namespace WebEnrollment.Controllers
         [HttpGet]
         public ActionResult Edit(string id)
         {
-            //if (string.IsNullOrEmpty(id))
-            //{
-            //    var _ClassListItems = new List<SelectListItem>();
-
-            //    _ClassListItems.Add(new SelectListItem() { Text = "Northern Cape", Value = "NC" });
-            //    _ClassListItems.Add(new SelectListItem() { Text = "Free State", Value = "FS" });
-            //    _ClassListItems.Add(new SelectListItem() { Text = "Western Cape", Value = "WC" });
-
-            //    return View(new model.Class() { ClassListItems = _ClassListItems });
-            //}
-
             Class _class = _classMediator.GetClass(Convert.ToInt32(id));
 
             return Json(new { row = _class }, JsonRequestBehavior.AllowGet);

@@ -172,7 +172,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mediator\StudentClassMediator.cs" />
     <Compile Include="Mediator\ClassMediator.cs" />
     <Compile Include="Models\StudentClass.cs" />
     <Compile Include="Models\Class.cs" />
@@ -349,7 +348,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Class\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

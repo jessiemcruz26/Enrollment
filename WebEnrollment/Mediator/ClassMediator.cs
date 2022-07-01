@@ -96,6 +96,7 @@ namespace WebEnrollment.Mediator
 
             return _classRequest;
         }
+
         private contract.ClassRequest ConvertModelToRequest(model.Class _class)
         {
             contract.ClassRequest _classRequest = new contract.ClassRequest()
@@ -112,13 +113,13 @@ namespace WebEnrollment.Mediator
             return _classRequest;
         }
 
-        private model.Class ConvertResponseToModel(contract.ClassResponse _response)
+        private Class ConvertResponseToModel(contract.ClassResponse _response)
         {
             var _courses = GetSelectListItems(_response.Courses);
 
-            model.Class _class = new model.Class
+            Class _class = new Class
             {
-                ClassID = _response.ClassID != 0 ? _response.ClassID.ToString() : String.Empty,
+                ClassID = _response.ClassID != 0 ? _response.ClassID.ToString() : string.Empty,
                 InstructorID = _response.InstructorID,
                 CourseID = _response.CourseID,
                 ClassDate = _response.ClassDate,
@@ -132,27 +133,13 @@ namespace WebEnrollment.Mediator
             return _class;
         }
 
-        //private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<Class> elements)
-        //{
-        //    var selectList = new List<SelectListItem>();
-        //    foreach (var element in elements)
-        //    {
-        //        selectList.Add(new SelectListItem
-        //        {
-        //            Value = element.ClassID.ToString(),
-        //            Text = element.ClassName
-        //        });
-        //    }
-        //    return selectList;
-        //}
-
-        private List<model.Course> GetSelectListItems(List<CommonService.Course> elements)
+        private List<Course> GetSelectListItems(List<CommonService.Course> elements)
         {
-            var _courses = new List<model.Course>();
+            var _courses = new List<Course>();
             
             foreach (var element in elements)
             {
-                var _course = new model.Course()
+                var _course = new Course()
                 {
                     CourseID = element.CourseID,
                     CourseName = element.CourseName

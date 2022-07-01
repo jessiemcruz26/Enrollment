@@ -16,15 +16,10 @@ namespace WebApplication6.Controllers
     {
         private readonly IStudentMediator _studentMediator;
 
-        private readonly IClassMediator _classMediator;
 
-        //private readonly IStudentClassMediator _studentClassMediator;
-
-        public StudentController(IStudentMediator studentMediator, IClassMediator classMediator)
+        public StudentController(IStudentMediator studentMediator)
         {
             _studentMediator = studentMediator;
-            _classMediator = classMediator;
-            //_studentClassMediator = studentClassMediator;
         }
 
         [HttpGet]
@@ -167,41 +162,21 @@ namespace WebApplication6.Controllers
             return selectList;
         }
 
-        //Edit fields
-
-        //[HttpGet]
-        //public ActionResult Edit()
-        //{
-        //    var _programListItems = new List<SelectListItem>();
-        //    _programListItems.Add(new SelectListItem() { Text = "Electronics", Value = "Electronics", Selected = true });
-        //    _programListItems.Add(new SelectListItem() { Text = "Civil", Value = "Civil" });
-        //    _programListItems.Add(new SelectListItem() { Text = "Mechanical", Value = "Mechanical" });
-
-        //    return View(new Student() { ProgramListItems = _programListItems, AssociatedClasses = new List<Class>(), UnassociatedClasses = new List<Class>() });
-        //}
-
-
         [HttpPost]
         public ActionResult Edit(FormCollection form)
         {
             try
             {
                 string studentNumberSearch = form["StudentNumberSearch"];
+
                 if (!string.IsNullOrEmpty(studentNumberSearch))
                 {
 
-                    Student student1 = _studentMediator.GetStudent(studentNumberSearch);
-                    //student1.AssociatedClasses = student1.AssociatedClasses;
-                    //student1.UnassociatedClasses = student1.UnassociatedClasses;
-                    return View(student1);
+                    Student _student = _studentMediator.GetStudent(studentNumberSearch);
+                    return View(_student);
                 }
-                //    Student student = _studentMediator.GetStudent(studentNumber);
-                //    student.AssociatedClasses = student.AssociatedClasses;
-                //    student.UnassociatedClasses = student.UnassociatedClasses;
-
-                //    return Json(new { row = student }, JsonRequestBehavior.AllowGet);
-
-                String[] _removeClassIds = string.IsNullOrEmpty(form["removeClassIds"]) ? new String[0] : form["removeClassIds"].Split(',');
+              
+                string[] _removeClassIds = string.IsNullOrEmpty(form["removeClassIds"]) ? new string[0] : form["removeClassIds"].Split(',');
 
                 Student student = new Student
                 {

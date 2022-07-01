@@ -32,17 +32,6 @@ namespace WebApplication6.Controllers
         [HttpGet]
         public ActionResult Edit(string id)
         {
-            //if (string.IsNullOrEmpty(id))
-            //{
-            //    var _CourseListItems = new List<SelectListItem>();
-
-            //    _CourseListItems.Add(new SelectListItem() { Text = "Northern Cape", Value = "NC" });
-            //    _CourseListItems.Add(new SelectListItem() { Text = "Free State", Value = "FS" });
-            //    _CourseListItems.Add(new SelectListItem() { Text = "Western Cape", Value = "WC" });
-
-            //    return View(new model.Course() { CourseListItems = _CourseListItems });
-            //}
-
             Course course = _courseMediator.GetCourse(Convert.ToInt32(id));
 
             return Json(new { row = course }, JsonRequestBehavior.AllowGet);
@@ -129,20 +118,6 @@ namespace WebApplication6.Controllers
                 msg = "Error occured:" + ex.Message;
             }
             return msg;
-        }
-
-        private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<Course> elements)
-        {
-            var selectList = new List<SelectListItem>();
-            foreach (var element in elements)
-            {
-                selectList.Add(new SelectListItem
-                {
-                    Value = element.CourseID.ToString(),
-                    Text = element.CourseName
-                });
-            }
-            return selectList;
         }
 
         //Edit fields

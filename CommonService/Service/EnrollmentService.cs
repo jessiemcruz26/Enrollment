@@ -26,9 +26,9 @@ namespace CommonService.Service
         ClassResponse CreateClass(ClassRequest request);
         ClassResponse UpdateClass(ClassRequest request);
 
-        StudentClassResponse CreateStudentClass(StudentClassRequest request);
-        StudentClassResponse GetStudentClassByStudentID(StudentClassRequest request);
-        StudentClassResponse GetStudentClassExcludingByStudentID(StudentClassRequest request);
+        //StudentClassResponse CreateStudentClass(StudentClassRequest request);
+        //StudentClassResponse GetStudentClassByStudentID(StudentClassRequest request);
+        //StudentClassResponse GetStudentClassExcludingByStudentID(StudentClassRequest request);
     }
 
     public class EnrollmentService : IEnrollmentService
@@ -105,23 +105,23 @@ namespace CommonService.Service
             return serviceHandler.Execute(request);
         }
 
-        public StudentClassResponse CreateStudentClass(StudentClassRequest request)
-        {
-            var serviceHandler = new CreateStudentClassHandler();
-            return serviceHandler.Execute(request);
-        }
+        //public StudentClassResponse CreateStudentClass(StudentClassRequest request)
+        //{
+        //    var serviceHandler = new CreateStudentClassHandler();
+        //    return serviceHandler.Execute(request);
+        //}
 
-        public StudentClassResponse GetStudentClassByStudentID(StudentClassRequest request)
-        {
-            var serviceHandler = new GetStudentClassByStudentIDHandler();
-            return serviceHandler.Execute(request);
-        }
+        //public StudentClassResponse GetStudentClassByStudentID(StudentClassRequest request)
+        //{
+        //    var serviceHandler = new GetStudentClassByStudentIDHandler();
+        //    return serviceHandler.Execute(request);
+        //}
 
-        public StudentClassResponse GetStudentClassExcludingByStudentID(StudentClassRequest request)
-        {
-            var serviceHandler = new GetStudentClassExcludingByStudentIDHandler();
-            return serviceHandler.Execute(request);
-        }
+        //public StudentClassResponse GetStudentClassExcludingByStudentID(StudentClassRequest request)
+        //{
+        //    var serviceHandler = new GetStudentClassExcludingByStudentIDHandler();
+        //    return serviceHandler.Execute(request);
+        //}
 
     }
 }

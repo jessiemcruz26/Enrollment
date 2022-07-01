@@ -34,11 +34,11 @@ namespace WebEnrollment.Mediator
             return ConvertResponseToModel(_course);
         }
 
-        public List<model.Course> GetCourses()
+        public List<Course> GetCourses()
         {
             var _response = _service.GetCourse(new contract.CourseRequest());
 
-            List<model.Course> _coursesList = new List<model.Course>();
+            List<Course> _coursesList = new List<Course>();
 
             foreach (var item in _response.Courses)
             {
@@ -50,7 +50,7 @@ namespace WebEnrollment.Mediator
             return _coursesList;
         }
 
-        public model.Course UpdateCourse(model.Course course)
+        public Course UpdateCourse(Course course)
         {
             var _courseRequest = ConvertModelToRequest(course);
 
@@ -71,7 +71,7 @@ namespace WebEnrollment.Mediator
             return modelErrorList;
         }
 
-        public model.Course CreateCourse(Course course)
+        public Course CreateCourse(Course course)
         {
             var _courseRequest = ConvertWebToRequest(course);
 
@@ -92,7 +92,7 @@ namespace WebEnrollment.Mediator
 
             return _courseRequest;
         }
-        private contract.CourseRequest ConvertModelToRequest(model.Course course)
+        private contract.CourseRequest ConvertModelToRequest(Course course)
         {
             contract.CourseRequest _courseRequest = new contract.CourseRequest()
             {
@@ -105,9 +105,9 @@ namespace WebEnrollment.Mediator
             return _courseRequest;
         }
 
-        private model.Course ConvertResponseToModel(contract.CourseResponse _response)
+        private Course ConvertResponseToModel(contract.CourseResponse _response)
         {
-            model.Course _course = new model.Course
+            Course _course = new Course
             {
                 CourseID = _response.CourseID,
                 CourseName = _response.CourseName,
