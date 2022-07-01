@@ -12,10 +12,10 @@ namespace WebEnrollment.Mediator
 {
     public interface IClassMediator
     {
-        model.Class GetClass(int ClassID);
-        List<model.Class> GetClasses();
-        model.Class UpdateClass(model.Class Class);
-        model.Class CreateClass(Class Class);
+        Class GetClass(int ClassID);
+        List<Class> GetClasses();
+        Class UpdateClass(Class Class);
+        Class CreateClass(Class Class);
     }
 
     public class ClassMediator : IClassMediator
@@ -27,18 +27,18 @@ namespace WebEnrollment.Mediator
             _service = service;
         }
 
-        public model.Class GetClass(int ClassID)
+        public Class GetClass(int ClassID)
         {
             var _Class = _service.GetClass(new contract.ClassRequest() { ClassID = ClassID });
 
             return ConvertResponseToModel(_Class);
         }
 
-        public List<model.Class> GetClasses()
+        public List<Class> GetClasses()
         {
             var _response = _service.GetClass(new contract.ClassRequest());
 
-            List<model.Class> _classList = new List<model.Class>();
+            List<Class> _classList = new List<Class>();
 
             foreach (var item in _response.Classes)
             {
@@ -50,7 +50,7 @@ namespace WebEnrollment.Mediator
             return _classList;
         }
 
-        public model.Class UpdateClass(model.Class Class)
+        public Class UpdateClass(Class Class)
         {
             var _ClassRequest = ConvertModelToRequest(Class);
 
@@ -71,7 +71,7 @@ namespace WebEnrollment.Mediator
             return modelErrorList;
         }
 
-        public model.Class CreateClass(Class Class)
+        public Class CreateClass(Class Class)
         {
             var _ClassRequest = ConvertWebToRequest(Class);
 
@@ -89,8 +89,9 @@ namespace WebEnrollment.Mediator
                 CourseID = Convert.ToInt32(_class.CourseID),
                 ClassDate = _class.ClassDate,
                 ClassTime = _class.ClassTime,
-                RoomNumber = _class.RoomNumber
-
+                RoomNumber = _class.RoomNumber,
+                ClassCode = _class.ClassCode,
+                
             };
 
             return _classRequest;
@@ -104,7 +105,8 @@ namespace WebEnrollment.Mediator
                 CourseID = Convert.ToInt32(_class.CourseID),
                 ClassDate = _class.ClassDate,
                 ClassTime = _class.ClassTime,
-                RoomNumber = _class.RoomNumber
+                RoomNumber = _class.RoomNumber,
+                ClassCode = _class.ClassCode,
             };
 
             return _classRequest;
@@ -116,12 +118,13 @@ namespace WebEnrollment.Mediator
 
             model.Class _class = new model.Class
             {
-                ClassID = _response.ClassID.ToString(),
-                InstructorID = _response.InstructorID.ToString(),
-                CourseID = _response.CourseID.ToString(),
+                ClassID = _response.ClassID != 0 ? _response.ClassID.ToString() : String.Empty,
+                InstructorID = _response.InstructorID,
+                CourseID = _response.CourseID,
                 ClassDate = _response.ClassDate,
                 ClassTime = _response.ClassTime,
                 RoomNumber = _response.RoomNumber,
+                ClassCode = _response.ClassCode,
                 Courses = GetSelectListItems(_response.Courses),
                 ValidationErrors = MapValidationErrors(_response.ValidationErrors)
             };

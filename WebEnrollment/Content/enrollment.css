@@ -1,0 +1,8 @@
+﻿body {
+}
+
+#Program, #CourseID, #InstructorID, #ClassTime {
+    width: 14em;
+    padding: .4em;
+
+}

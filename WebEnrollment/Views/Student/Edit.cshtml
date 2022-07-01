@@ -1,166 +1,159 @@
 ﻿@model WebEnrollment.Models.Student
+<head>
+    <link href="~/Content/student.css" rel="stylesheet" />
+</head>
 @section scripts{
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-
     <script>
-
         $(function () {
             $("#datepicker").datepicker();
-        });
 
-        $('#btn_Submit').click(function () {
-
-            $('#studentPartialViewContainer').css("display", "block");
-
-            $.ajax({
-                type: "GET",
-                url: "/Student/Edit",
-                data: { studentNumber: $('#txtStudentNumber').val() },
-                success: function (data) {
-                    $("#StudentNumber").val(data.row.StudentNumber);
-                    $("#Program").val(data.row.Program);
-                    $("#Level").val(data.row.Level);
-                    $("#FirstName").val(data.row.FirstName);
-                    $("#LastName").val(data.row.LastName);
-                    $("#datepicker").val(data.row.Birthday);
-                    $("#Email").val(data.row.Email);
-                    $("#Mobile").val(data.row.Mobile);
-                    $("#Address").val(data.row.Address);
-                }
+            var ids = [];
+            $(document).on('click', '.btn_Delete', function () {
+                $(this).parents('tr').remove();
+                var _assoc = $(this).parents('tr').find('.assoc').val();
+                ids.push(_assoc);
+                $('#removeClassIds').val(ids);
             });
         });
     </script>
 }
 
-<h2>Student Edit</h2>
-
-<div class="jumbotron">
-    <div class="form-group row">
-        <label for="staticStudentNumber" class="col-sm-2 col-form-label">Enter student number : </label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control-plaintext" id="txtStudentNumber" name="StudentNumber">
-        </div>
-    </div>
-    <span class="col-right">
-        <input id="btn_Submit" name="" value="Submit" class="buttonUpdate" type="submit" />
-    </span>
-</div>
-
-<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseProfile" aria-expanded="false" aria-controls="collapseProfile">
-    Student Profile
-</button>
-<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseCourses" aria-expanded="false" aria-controls="collapseCourses">
-    My Courses
-</button>
-</p>
-<div class="collapse jumbotron" id="collapseProfile">
-    <div class="card card-body">
-        @using (Html.BeginForm("Edit", "Student", FormMethod.Post, new { autocomplete = "off" }))
-        {
-
-
-<div class="form-group row">
-    <label for="staticStudentNumber" class="col-sm-2 col-form-label">Student Number</label>
-    <div class="col-sm-10">
-        <input type="text" readonly class="form-control-plaintext" id="StudentNumber" name="StudentNumber" value="@Model.StudentNumber">
-    </div>
-</div>
-                <div class="form-group row">
-                    <label for="staticProgram" class="col-sm-2 col-form-label">Program</label>
-                    <div class="col-sm-10">
-                        @Html.DropDownListFor(x => Model.Program, Model.ProgramListItems)
-                    </div>
-                </div>
-                                <div class="form-group row">
-                                    <label for="staticProgram" class="col-sm-2 col-form-label">Level</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control-plaintext" id="Level" name="Level" value="@Model.Level">
-                                    </div>
-                                </div>
-
-                                                <div class="form-group row">
-                                                    <label for="staticFirstName" class="col-sm-2 col-form-label">First Name</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control-plaintext" id="FirstName" name="FirstName" value="@Model.FirstName">
-                                                    </div>
-                                                </div>
-                                                                <div class="form-group row">
-                                                                    <label for="staticLastName" class="col-sm-2 col-form-label">Last Name</label>
-                                                                    <div class="col-sm-10">
-                                                                        <input type="text" class="form-control-plaintext" id="LastName" name="LastName" value="@Model.LastName">
-                                                                    </div>
-                                                                </div>
-                                                                                <div class="form-group row">
-                                                                                    <label for="staticBirthday" class="col-sm-2 col-form-label">Birthday</label>
-                                                                                    <div class="col-sm-10">
-                                                                                        <input type="text" class="form-control-plaintext" id="datepicker" name="Birthday" value="@Model.Birthday">
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                                <div class="form-group row">
-                                                                                                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                                                                                                    <div class="col-sm-10">
-                                                                                                        <input type="text" class="form-control-plaintext" id="Email" name="Email" value="@Model.Email">
-                                                                                                    </div>
-                                                                                                </div>
-
-                                                                                                                <div class="form-group row">
-                                                                                                                    <label for="staticMobile" class="col-sm-2 col-form-label">Mobile</label>
-                                                                                                                    <div class="col-sm-10">
-                                                                                                                        <input type="text" class="form-control-plaintext" id="Mobile" name="Mobile" value="@Model.Mobile">
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                                <div class="form-group row">
-                                                                                                                                    <label for="staticAddress" class="col-sm-2 col-form-label">Address</label>
-                                                                                                                                    <div class="col-sm-10">
-                                                                                                                                        <input type="text" class="form-control-plaintext" id="Address" name="Address" value="@Model.Address">
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                                                <span class="col-right">
-                                                                                                                                                    <input name="" value="Save" class="buttonUpdate" type="submit" />
-                                                                                                                                                </span>}
-    </div>
-</div>
-<div class="collapse jumbotron" id="collapseCourses">
-    <div class="card card-body">
-        @using (Html.BeginForm("SaveClass", "Student", FormMethod.Post, new { autocomplete = "off" }))
-        {
-<div class="form-group row">
-    <label for="staticStudentNumber" class="col-sm-2 col-form-label">Student Number</label>
-    <div class="col-sm-10">
-        <input type="text" readonly class="form-control-plaintext" id="StudentNumber" name="StudentNumber" value="@Model.StudentNumber">
-    </div>
-    <br />
-</div>
-                <div class="form-group row">
-                    <label for="staticStudentNumber1" class="col-sm-2 col-form-label">Courses</label>
-                    <div class="col-sm-10">
-                        @*@Html.DropDownList("Course", Model.CourseListItems)*@
-                        @*@Html.DropDownList("Course", Model.CourseListItems)*@
-                        @*@Html.DropDownListFor(x => Model.CourseID, Model.CourseListItems)*@
-                        <div class="dropdown">
-
-
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown button
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
+<h2>Student Profile</h2>
+@using (Html.BeginForm("Edit", "Student", FormMethod.Post, new { autocomplete = "off" }))
+{
+    <div class="jumbotron" id="collapseProfile">
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group row">
+                        <label for="staticStudentNumber" class="col-sm-4 col-form-label">Search Student No.</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control-plaintext" id="txtStudentNumber" name="studentNumberSearch" value="@Model.StudentNumberSearch">
                         </div>
                     </div>
                 </div>
-                                <span class="col-right">
-                                    <input name="" value="Save" class="buttonUpdate" type="submit" />
-                                </span>}
+            </div>
+            <span class="col-right">
+                <input id="btn_Submit" name="" value="Submit" class="buttonUpdate btn btn-primary" type="submit" />
+            </span>
+        </div>
     </div>
-</div>
+    <div class="jumbotron" id="collapseProfile">
+        <div class="card card-body">
+            <div class="row">
+                <div class="form-group row">
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group row">
+                        <label for="staticStudentNumber" class="col-sm-4 col-form-label">Student Number</label>
+                        <div class="col-sm-6">
+                            <input type="text" readonly class="form-control-plaintext" id="StudentNumber" name="StudentNumber" value="@Model.StudentNumber">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticFirstName" class="col-sm-4 col-form-label">First Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control-plaintext" id="FirstName" name="FirstName" value="@Model.FirstName">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticLastName" class="col-sm-4 col-form-label">Last Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control-plaintext" id="LastName" name="LastName" value="@Model.LastName">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticBirthday" class="col-sm-4 col-form-label">Birthday</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control-plaintext" id="datepicker" name="Birthday" value="@Model.Birthday">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-4 col-form-label">Email</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control-plaintext" id="Email" name="Email" value="@Model.Email">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group row">
+                        <label for="staticMobile" class="col-sm-3 col-form-label">Mobile</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control-plaintext" id="Mobile" name="Mobile" value="@Model.Mobile">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticAddress" class="col-sm-3 col-form-label">Address</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control-plaintext" id="Address" name="Address" value="@Model.Address">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticProgram" class="col-sm-3 col-form-label">Program</label>
+                        <div class="col-sm-9">
+                            @Html.DropDownListFor(x => Model.Program, Model.ProgramListItems, new { @class = "ProgramDD" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticProgram" class="col-sm-3 col-form-label">Level</label>
+                        <div class="col-sm-9">
+                            <input type="text" readonly class="form-control-plaintext" id="Level" name="Level" value="@Model.Level">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="StudentID" name="StudentID" value="@Model.StudentID">
+            <input type="hidden" id="removeClassIds" name="removeClassIds" />
+            <div class="form-group row"></div>
+            <div class="form-group row"></div>
+            @if (Model.AssociatedClasses.Any())
+            {
+                <h4>Associated Classes</h4>
+                <div class="form-group row">
+                    <table id="Student-Class-Associated" class="table">
+                        <thead class="thead-dark"><tr><td scope="col">Code</td><td scope="col">Course</td><td scope="col">Time</td><td scope="col">Date</td><td scope="col">Room</td><td scope="col">Delete</td></tr></thead>
+                        <tbody>
+                            @foreach (var item in Model.AssociatedClasses)
+                            {
+                                <tr><input type="hidden" class="assoc" value="@item.ClassID" /><td>@item.ClassCode</td><td>@item.CourseName</td><td>@item.ClassTime</td><td>@item.ClassDate</td><td>@item.RoomNumber</td><td><input type="button" class="btn_Delete" value="x"></td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            <div class="form-group row">
+                <span class="col-right">
+                    <input name="" value="Save" class="buttonUpdate btn btn-primary" type="submit" />
+                </span>
+            </div>
+        </div>
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    if (Model.UnassociatedClasses.Any())
+    {
+        <div class="jumbotron" id="collapseProfile">
+            <h4>Classes Available</h4>
+            <div class="card card-body">
+                <div class="form-group row">
+                    <table id="Student-Class1">
+                        <thead><tr><td></td><td>Code</td><td>Course</td><td>Time</td><td>Date</td><td>Room</td></tr></thead>
+                        <tbody>
+                            @foreach (var item in Model.UnassociatedClasses)
+                            {
+                                <tr><td class="radio-input"><input type="radio" name="classSelection" class="form-check-input " value="@item.ClassID" /></td><td>@item.ClassCode</td><td><input type="hidden" class="assoc" value="@item.ClassID" />@item.CourseName</td><td>@item.ClassTime</td><td>@item.ClassDate</td><td>@item.RoomNumber</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group row">
+                    <span class="col-right">
+                        <input name="" value="Add" class="buttonUpdate btn btn-primary" type="submit" />
+                    </span>
+                </div>
+            </div>
+        </div>
+    }
+}

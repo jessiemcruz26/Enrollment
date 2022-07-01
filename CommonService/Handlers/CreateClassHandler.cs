@@ -24,7 +24,8 @@ namespace CommonService.Handlers
                 CourseID = request.CourseID,
                 ClassDate = request.ClassDate,
                 ClassTime = request.ClassTime,
-                RoomNumber = request.RoomNumber
+                RoomNumber = request.RoomNumber,
+                ClassCode = request.ClassCode,
             };
 
             context.Classes.Add(_class);

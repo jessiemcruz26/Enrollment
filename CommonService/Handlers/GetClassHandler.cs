@@ -41,6 +41,7 @@ namespace CommonService.Handlers
                 ClassTime = _classRow.ClassTime,
                 RoomNumber = _classRow.RoomNumber,
                 Courses = _courseRows,
+                ClassCode = _classRow.ClassCode,
             };
 
             return _response;
@@ -59,7 +60,8 @@ namespace CommonService.Handlers
                     ClassDate = item.ClassDate,
                     ClassTime = item.ClassTime,
                     RoomNumber = item.RoomNumber,
-                    Courses = _courseRows
+                    Courses = _courseRows,
+                    ClassCode= item.ClassCode,
                 };
 
                 var _instructor = context.Instructors.Where(x => x.InstructorID == item.InstructorID).FirstOrDefault();

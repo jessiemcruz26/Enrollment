@@ -18,5 +18,9 @@ namespace CommonService.Contracts
         public string Level { get; set; }
         public DateTime? Birthday { get; set; }
         public string SelectedRow { get; set; }
+
+        public string[] ClassIds { get; set; }
+
+        public string ClassSelection { get; set; }
     }
 }

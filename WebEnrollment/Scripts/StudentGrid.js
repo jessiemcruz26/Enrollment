@@ -27,10 +27,10 @@
             //    key: false, name: 'Birthday', index: 'Birthday', editable: true, formatter: 'date', formatoptions: { newformat: 'd/m/Y' }
             //},
             {
-                key: false, name: 'Program', index: 'Program', editable: true, cellEdit: false, edittype: 'select',
+                key: false, name: 'Program', index: 'Program', class: 'a', editable: true, cellEdit: false, edittype: 'select',
                 formatter: function (cellvalue, options, rowObj) {
                     return cellvalue;
-                }, editoptions: { value: getAllOptions() }
+                }, editoptions: { value: getAllPrograms1() }
             },
             {
                 key: false, name: 'Level', index: 'Level', editable: true
@@ -110,16 +110,22 @@
 });
 
 
-function getAllOptions() {
-    //var _programs = ['Electronics', 'Civil', 'Mechanical'];
-    var _programs = { 'Electronics': 'Electronics', 'Civil': 'Civil' };
-    return _programs;
-}
+//function getAllOptions() {
+//    //var _programs = ['Electronics', 'Civil', 'Mechanical'];
+//    var _programs = { 'Electronics': 'Electronics', 'Civil': 'Civil' };
+//    return _programs;
+//}
 
-function getAllPrograms() {
+//function getAllOptions() {
+//    //var _programs = ['Electronics', 'Civil', 'Mechanical'];
+//    var _programs = { 'Electronics': 'Electronics', 'Civil': 'Civil' };
+//    return _programs;
+//}
+
+function getAllPrograms1() {
     var _text = ["Electronics", "Business", "Aviation", "Accounting"];
     var _programs = {};
-    for (let i = 0; i < _time.length; i++) {
+    for (let i = 0; i < _text.length; i++) {
         _programs[_text[i]] = _text[i];
     }
 

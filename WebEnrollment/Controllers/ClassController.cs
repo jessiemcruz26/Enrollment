@@ -62,7 +62,8 @@ namespace WebEnrollment.Controllers
                         CourseID = Model.CourseID.ToString(),
                         ClassDate = Model.ClassDate,
                         ClassTime = Model.ClassTime,
-                        RoomNumber = Model.RoomNumber
+                        RoomNumber = Model.RoomNumber,
+                        ClassCode = Model.ClassCode
                     };
 
                     _classMediator.UpdateClass(_class);
@@ -161,8 +162,8 @@ namespace WebEnrollment.Controllers
                     CourseID = form["CourseID"],
                     ClassDate = form["ClassDate"],
                     ClassTime = form["ClassTime"],
-                    RoomNumber = form["RoomNumber"] 
-
+                    RoomNumber = form["RoomNumber"],
+                    ClassCode = form["RoomNumber"]
                 };
 
                 var response = _classMediator.UpdateClass(_class);

@@ -73,7 +73,7 @@ namespace WebEnrollment.Mediator
         {
             contract.InstructorRequest _studentRequest = new contract.InstructorRequest()
             {
-                InstructorID = Convert.ToInt32(instructor.InstructorID),
+                InstructorID = !string.IsNullOrEmpty(instructor.InstructorID) ? Convert.ToInt32(instructor.InstructorID) : 0,
                 FirstName = instructor.FirstName,
                 LastName = instructor.LastName,
                 Mobile = instructor.Mobile,
@@ -89,7 +89,7 @@ namespace WebEnrollment.Mediator
         {
             contract.InstructorRequest _request = new contract.InstructorRequest()
             {
-                InstructorID = Convert.ToInt32(instructor.InstructorID),
+                InstructorID = !string.IsNullOrEmpty(instructor.InstructorID) ? Convert.ToInt32(instructor.InstructorID) : 0,
                 FirstName = instructor.FirstName,
                 LastName = instructor.LastName,
                 Mobile = instructor.Mobile,

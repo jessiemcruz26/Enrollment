@@ -12,10 +12,10 @@ namespace WebEnrollment.Mediator
 {
     public interface IStudentMediator
     {
-        model.Student GetStudent(string studentNumber);
-        List<model.Student> GetStudents();
-        model.Student UpdateStudent(model.Student student);
-        model.Student CreateStudent(Student student);
+        Student GetStudent(string studentNumber);
+        List<Student> GetStudents();
+        Student UpdateStudent(Student student);
+        Student CreateStudent(Student student);
     }
 
     public class StudentMediator : IStudentMediator
@@ -26,19 +26,19 @@ namespace WebEnrollment.Mediator
             _service = service;
         }
 
-        public model.Student GetStudent(string studentNumber)
+        public Student GetStudent(string studentNumber)
         {
             var _response = _service.GetStudent(new contract.StudentRequest() { StudentNumber = studentNumber });
 
             return ConvertResponseToModel(_response);
         }
 
-        public List<model.Student> GetStudents()
+        public List<Student> GetStudents()
         {
 
             var _response = _service.GetStudent(new contract.StudentRequest());
 
-            List<model.Student> _studentsList = new List<model.Student>();
+            List<Student> _studentsList = new List<Student>();
 
             foreach (var item in _response.Students)
             {
@@ -50,12 +50,14 @@ namespace WebEnrollment.Mediator
             return _studentsList;
         }
 
-        public model.Student UpdateStudent(Student student)
+        public Student UpdateStudent(Student student)
         {
             var _studentRequest = ConvertModelToRequest(student);
 
-            var _response = _service.UpdateStudent(_studentRequest);
+            contract.StudentResponse _response = new contract.StudentResponse();
 
+            _response = _service.UpdateStudent(_studentRequest);
+            
             return ConvertResponseToModel(_response);
         }
 
@@ -89,7 +91,7 @@ namespace WebEnrollment.Mediator
             return modelErrorList;
         }
 
-        public model.Student CreateStudent(Student student)
+        public Student CreateStudent(Student student)
         {
             var _studentRequest = ConvertWebToRequest(student);
 
@@ -110,7 +112,7 @@ namespace WebEnrollment.Mediator
                 Email = student.Email,
                 Program = student.Program,
                 StudentNumber = student.StudentNumber,
-                StudentID = student.StudentID,
+                StudentID = student.StudentID != null ? Convert.ToInt32(student.StudentID) : 0,
                 Level = student.Level,
             };
 
@@ -129,9 +131,11 @@ namespace WebEnrollment.Mediator
                 Email = student.Email,
                 Program = student.Program,
                 StudentNumber = student.StudentNumber,
-                StudentID = student.StudentID,
+                StudentID = !string.IsNullOrEmpty(student.StudentID) ? Convert.ToInt32(student.StudentID) : 0,
                 Level = student.Level,
-                SelectedRow = student.SelectedRow
+                SelectedRow = student.SelectedRow,
+                ClassIds = student.ClassIds,
+                ClassSelection = student.ClassSelection,
             };
 
             return _studentRequest;
@@ -149,13 +153,49 @@ namespace WebEnrollment.Mediator
                 Email = _response.Email,
                 Program = _response.Program,
                 StudentNumber = _response.StudentNumber,
-                StudentID = _response.StudentID,
+                StudentID = _response.StudentID.ToString(),
                 Level = _response.Level,
+                AssociatedClasses = MapCommonClasstoClass(_response.AssociatedClasses),
+                UnassociatedClasses = MapCommonClasstoClass(_response.UnassociatedClasses),
+
+
                 ProgramListItems = GetProgramList(_response.Program),
-                ValidationErrors = MapValidationErrors(_response.ValidationErrors)
+                ValidationErrors = MapValidationErrors(_response.ValidationErrors),
+                //StudentNumberSearch = _response.StudentNumber
             };
 
             return _student;
+        }
+
+        //private Class ConvertResponseToModel1(contract.ClassResponse _response)
+        //{
+        //    StudentClass _studentClass = new StudentClass
+        //    {
+        //       ClassID = 
+        //    };
+
+        //    return _studentClass;
+        //}
+
+        private List<Class> MapCommonClasstoClass(List<CommonService.Class> classes)
+        { 
+            List<Class> _classList = new List<Class>();
+            foreach (var item in classes)
+            {
+                Class _class = new Class()
+                {
+                    ClassCode = item.ClassCode,
+                    ClassDate = item.ClassDate,
+                    ClassTime = item.ClassTime,
+                    RoomNumber = item.RoomNumber,
+                    ClassID = item.ClassID.ToString(),
+                    CourseName = item.Course.CourseName,
+                    
+                };
+                _classList.Add(_class);
+            }
+
+            return _classList;
         }
     }
 }

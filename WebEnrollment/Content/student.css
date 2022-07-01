@@ -1,0 +1,37 @@
+﻿#Program {
+    width: 13em;
+    padding: .3em;
+}
+
+table tr td {
+    width: 15em;
+    /*border: 1px solid;*/
+    text-align: left; 
+    padding: .4em;
+}
+
+table thead tr td {
+    width: 15em;
+    /*border: 1px solid;*/
+    text-align: left;
+    padding: .4em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #212529;
+    border-color: #32383e;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.buttonUpdate {
+    width: 10em;
+}
+
+input[readonly] {
+    background-color: lightgray;
+}
+
+.radio-input {
+   /* display: inline-block;
+    vertical-align: top;*/
+    text-align: center;
+}

@@ -37,6 +37,19 @@ namespace CommonService.Handlers
         private StudentResponse GetStudent(StudentRequest request, EnrollmentDB context)
         {
             var _studentRow = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
+            var _associatedClasses = context.StudentClasses.Where(x => x.StudentID == _studentRow.StudentID).ToList();
+            var _allClasses = context.Classes.ToList();
+
+            List<Class> _associatedClasslist = new List<Class>();
+            List<Class> _unAssociatedClasslist = new List<Class>();
+
+            foreach (var item in _associatedClasses)
+            {
+                var _assoClass = context.Classes.Where(x => x.ClassID == item.ClassID).First();
+                _associatedClasslist.Add(_assoClass);
+            }
+           
+            _unAssociatedClasslist = _allClasses.Except(_associatedClasslist).ToList();
 
             StudentResponse _response = new StudentResponse
             {
@@ -50,6 +63,8 @@ namespace CommonService.Handlers
                 StudentNumber = _studentRow.StudentNumber,
                 Address = _studentRow.Address,
                 Birthday = _studentRow?.Birthday,
+                AssociatedClasses = _associatedClasslist,
+                UnassociatedClasses = _unAssociatedClasslist
             };
 
             return _response;

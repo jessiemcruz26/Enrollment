@@ -37,7 +37,8 @@ namespace CommonService.Handlers
                 CourseID = request.CourseID.ToString(),
                 ClassDate = request.ClassDate,
                 ClassTime = request.ClassTime,
-                RoomNumber = request.RoomNumber
+                RoomNumber = request.RoomNumber,
+                ClassCode = request.ClassCode
             };
 
             return _classResponse;
@@ -58,6 +59,7 @@ namespace CommonService.Handlers
             _class.ClassDate = request.ClassDate;
             _class.ClassTime = request.ClassTime;
             _class.RoomNumber = request.RoomNumber;
+            _class.ClassCode = request.ClassCode;
 
             context.SaveChanges();
         }

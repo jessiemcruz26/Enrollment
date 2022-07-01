@@ -26,8 +26,6 @@ namespace CommonService.Handlers
             else
             {
                 DeleteCourse(_course, context);
-
-                return new CourseResponse();
             }
 
             var _courseResponse = new CourseResponse

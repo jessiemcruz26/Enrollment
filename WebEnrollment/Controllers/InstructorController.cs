@@ -68,6 +68,14 @@ namespace WebEnrollment.Controllers
         {
             try
             {
+                string _instructorNumberSearch = form["InstructorNumberSearch"];
+
+                if (!string.IsNullOrEmpty(_instructorNumberSearch))
+                {
+                    Instructor instructor = _instructorMediator.GetInstructor(_instructorNumberSearch);
+                    return View(instructor);
+                }
+
                 Instructor _instructor = new Instructor
                 {
                     InstructorID = form["InstructorID"],
@@ -120,6 +128,7 @@ namespace WebEnrollment.Controllers
                         LastName = Model.LastName,
                         Mobile = Model.Mobile,
                         Email = Model.Email,
+                        InstructorNumber = Model.InstructorNumber,
                     };
 
                     _instructorMediator.UpdateInstructor(_instructor);

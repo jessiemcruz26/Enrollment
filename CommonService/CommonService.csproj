@@ -98,7 +98,9 @@
     <Compile Include="Contracts\InstructorRequest.cs" />
     <Compile Include="Contracts\CourseResponse.cs" />
     <Compile Include="Contracts\CourseRequest.cs" />
+    <Compile Include="Contracts\StudentClassRequest.cs" />
     <Compile Include="Contracts\StudentRequest.cs" />
+    <Compile Include="Contracts\StudentClassResponse.cs" />
     <Compile Include="Contracts\StudentResponse.cs" />
     <Compile Include="Contracts\IRequest.cs" />
     <Compile Include="Contracts\IResponse.cs" />
@@ -125,6 +127,9 @@
     </Compile>
     <Compile Include="Handlers\CreateClassHandler.cs" />
     <Compile Include="Handlers\CreateInstructorHandler.cs" />
+    <Compile Include="Handlers\CreateStudenClasstHandler.cs" />
+    <Compile Include="Handlers\GetStudentClassExcludingByStudentIDHandler.cs" />
+    <Compile Include="Handlers\GetStudentClassByStudentIDHandler.cs" />
     <Compile Include="Handlers\GetClassHandler.cs" />
     <Compile Include="Handlers\GetCourseHandler.cs" />
     <Compile Include="Handlers\GetInstructorHandler.cs" />
@@ -132,6 +137,7 @@
     <Compile Include="Handlers\UpdateInstructorHandler.cs" />
     <Compile Include="Handlers\UpdateCourseHandler.cs" />
     <Compile Include="Handlers\CreateCourseHandler .cs" />
+    <Compile Include="Handlers\UpdateStudentClassHandler.cs" />
     <Compile Include="Handlers\UpdateStudentHandler.cs" />
     <Compile Include="Handlers\GetStudentHandler.cs" />
     <Compile Include="Handlers\CreateStudentHandler.cs" />

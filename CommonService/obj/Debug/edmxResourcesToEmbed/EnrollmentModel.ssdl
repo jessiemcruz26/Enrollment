@@ -10,6 +10,7 @@
     <Property Name="ClassTime" Type="varchar" MaxLength="50" />
     <Property Name="ClassDate" Type="varchar" MaxLength="50" />
     <Property Name="RoomNumber" Type="varchar" MaxLength="50" />
+    <Property Name="ClassCode" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Course">
     <Key>

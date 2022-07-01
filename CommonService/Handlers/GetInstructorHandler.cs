@@ -18,7 +18,7 @@ namespace CommonService.Handlers
             var context = new EnrollmentDB();
 
             //get list of courses
-            if (request.SelectedRow == null)
+            if (request.InstructorNumber == null)
             {
                 return GetInstructors(context);
             }

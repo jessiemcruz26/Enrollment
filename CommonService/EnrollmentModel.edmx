@@ -15,6 +15,7 @@
           <Property Name="ClassTime" Type="varchar" MaxLength="50" />
           <Property Name="ClassDate" Type="varchar" MaxLength="50" />
           <Property Name="RoomNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ClassCode" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -146,6 +147,7 @@
           <NavigationProperty Name="StudentClasses" Relationship="Self.FK__StudentCl__Class__4222D4EF" FromRole="Class" ToRole="StudentClass" />
           <NavigationProperty Name="Course" Relationship="Self.FK_Course_CourseID" FromRole="Class" ToRole="Course" />
           <NavigationProperty Name="Instructor" Relationship="Self.FK_Instructor_InstructorID" FromRole="Class" ToRole="Instructor" />
+          <Property Name="ClassCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -274,6 +276,7 @@
           <EntitySetMapping Name="Classes">
             <EntityTypeMapping TypeName="EnrollmentModel.Class">
               <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />

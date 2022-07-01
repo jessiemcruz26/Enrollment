@@ -16,9 +16,15 @@ namespace WebApplication6.Controllers
     {
         private readonly IStudentMediator _studentMediator;
 
-        public StudentController(IStudentMediator studentMediator)
+        private readonly IClassMediator _classMediator;
+
+        //private readonly IStudentClassMediator _studentClassMediator;
+
+        public StudentController(IStudentMediator studentMediator, IClassMediator classMediator)
         {
             _studentMediator = studentMediator;
+            _classMediator = classMediator;
+            //_studentClassMediator = studentClassMediator;
         }
 
         [HttpGet]
@@ -35,9 +41,15 @@ namespace WebApplication6.Controllers
             return Json(new { rows = _listStudents }, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// First load
+        /// </summary>
+        /// <param name="studentNumber"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Edit(string studentNumber)
         {
+
             if (string.IsNullOrEmpty(studentNumber))
             {
                 var _programListItems = new List<SelectListItem>();
@@ -45,12 +57,12 @@ namespace WebApplication6.Controllers
                 _programListItems.Add(new SelectListItem() { Text = "Civil", Value = "Civil" });
                 _programListItems.Add(new SelectListItem() { Text = "Mechanical", Value = "Mechanical" });
 
-                return View(new Student() { ProgramListItems = _programListItems });
+                return View(new Student() { ProgramListItems = _programListItems, AssociatedClasses = new List<Class>(), UnassociatedClasses = new List<Class>() });
             }
 
             Student student = _studentMediator.GetStudent(studentNumber);
 
-            return Json(new { row = student }, JsonRequestBehavior.AllowGet);
+            return View(student);
         }
 
         public string EditGrid(Student Model)
@@ -156,11 +168,41 @@ namespace WebApplication6.Controllers
         }
 
         //Edit fields
+
+        //[HttpGet]
+        //public ActionResult Edit()
+        //{
+        //    var _programListItems = new List<SelectListItem>();
+        //    _programListItems.Add(new SelectListItem() { Text = "Electronics", Value = "Electronics", Selected = true });
+        //    _programListItems.Add(new SelectListItem() { Text = "Civil", Value = "Civil" });
+        //    _programListItems.Add(new SelectListItem() { Text = "Mechanical", Value = "Mechanical" });
+
+        //    return View(new Student() { ProgramListItems = _programListItems, AssociatedClasses = new List<Class>(), UnassociatedClasses = new List<Class>() });
+        //}
+
+
         [HttpPost]
         public ActionResult Edit(FormCollection form)
         {
             try
             {
+                string studentNumberSearch = form["StudentNumberSearch"];
+                if (!string.IsNullOrEmpty(studentNumberSearch))
+                {
+
+                    Student student1 = _studentMediator.GetStudent(studentNumberSearch);
+                    //student1.AssociatedClasses = student1.AssociatedClasses;
+                    //student1.UnassociatedClasses = student1.UnassociatedClasses;
+                    return View(student1);
+                }
+                //    Student student = _studentMediator.GetStudent(studentNumber);
+                //    student.AssociatedClasses = student.AssociatedClasses;
+                //    student.UnassociatedClasses = student.UnassociatedClasses;
+
+                //    return Json(new { row = student }, JsonRequestBehavior.AllowGet);
+
+                String[] _removeClassIds = string.IsNullOrEmpty(form["removeClassIds"]) ? new String[0] : form["removeClassIds"].Split(',');
+
                 Student student = new Student
                 {
                     StudentNumber = form["StudentNumber"],
@@ -171,10 +213,13 @@ namespace WebApplication6.Controllers
                     Address = form["Address"],
                     Birthday = form["Birthday"],
                     Program = form["Program"],
+                    StudentID = form["StudentID"],
+                    ClassSelection = form["classSelection"],
+                    ClassIds = _removeClassIds
                 };
 
                 var response = _studentMediator.UpdateStudent(student);
-
+                
                 return View(response);
             }
             catch

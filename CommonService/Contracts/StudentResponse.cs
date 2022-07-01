@@ -11,6 +11,8 @@ namespace CommonService.Contracts
         public StudentResponse()
         {
             Students = new List<StudentResponse>();
+            AssociatedClasses = new List<Class>();
+            UnassociatedClasses = new List<Class>();
         }
 
         public List<StudentResponse> Students;
@@ -26,5 +28,8 @@ namespace CommonService.Contracts
         public string Program { get; set; }
         public string Level { get; set; }
         public DateTime? Birthday { get; set; }
+
+        public List<Class> AssociatedClasses;
+        public List<Class> UnassociatedClasses;
     }
 }

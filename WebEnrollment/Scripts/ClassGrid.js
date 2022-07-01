@@ -16,10 +16,13 @@ $(function () {
         url: "/Class/GetClasses",
         datatype: 'json',
         mtype: 'Get',
-        colNames: ["ClassID", "Course", "Instructor", "Class Time", "Class Date", "Room Number"],
+        colNames: ["ClassID", "Code", "Course", "Instructor", "Class Time", "Class Date", "Room Number"],
         colModel: [
             {
                 key: true, name: 'ClassID', index: 'ClassID', sortable: false, editable: true, hidden: true
+            },
+            {
+                name: 'ClassCode', index: 'ClassCode', editable: true
             },
             {
                 key: false, name: 'CourseID', index: 'CourseID', editable: true, cellEdit: false, edittype: 'select',
@@ -37,7 +40,7 @@ $(function () {
                 key: false, name: 'ClassTime', index: 'ClassTime', editable: true, cellEdit: false, edittype: 'select',
                 formatter: function (cellvalue, options, rowObj) {
                     return cellvalue;
-                }, editoptions: { value: "" }
+                }, editoptions: { value: getTime1() }
             },
             {
                 key: false, name: 'ClassDate', index: 'ClassDate', editable: true, edittype: 'select',
@@ -120,7 +123,7 @@ $(function () {
         });
 });
 
-function getTime() {
+function getTime1() {
     var _time = ["7:30am-9:00am", "9:00am-10:30am", "10:30am-12:00nn", "12:00nn-1:30pm", "1:30pm-3:00pm", "3:00pm-4:30pm"];
     var _sched = {};
     for (let i = 0; i < _time.length; i++) {
