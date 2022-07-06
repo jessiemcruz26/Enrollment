@@ -3,7 +3,7 @@ GO
 
 USE Enrollment;
 
---1
+--1 Student
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Student')
  BEGIN
 	CREATE TABLE Student
@@ -30,8 +30,7 @@ IF NOT (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRA
  END
 GO
 
---2
---Instructor
+--2 Instructor
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Instructor' and xtype='U')
  BEGIN
 	CREATE TABLE Instructor
@@ -61,7 +60,7 @@ IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Course' and xtype='U')
 	(
 		 CourseID 			INT			  IDENTITY(1,1)
 		,CourseName			VARCHAR(50)   NULL
-		,CourseDescription  VARCHAR(50)   NULL 				
+		,CourseDescription  VARCHAR(250)  NULL 				
 	)
  END
 GO
@@ -82,6 +81,7 @@ IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Class' and xtype='U')
 		 ClassID 			INT		IDENTITY(1,1) PRIMARY KEY
 		,CourseID 			INT 	FOREIGN KEY REFERENCES [Course] (CourseID)
 		,InstructorID 		INT 	FOREIGN KEY REFERENCES [Instructor] (InstructorID)	
+		,ClassCode			VARCHAR(50)   UNIQUE NOT NULL
 		,ClassTime			VARCHAR(50)  NULL	 		
 		,ClassDate			VARCHAR(50)  NULL
 		,RoomNumber			VARCHAR(50)  NULL			
@@ -98,7 +98,6 @@ IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='StudentClass' and xtype='U')
 		 StudentClassID 	INT		IDENTITY(1,1) PRIMARY KEY
 		,StudentID		 	INT 	NOT NULL FOREIGN KEY REFERENCES [Student] (StudentID)	
 		,ClassID			INT 	NOT NULL FOREIGN KEY REFERENCES [Class] (ClassID)		
-			
 	)
  END
 GO
