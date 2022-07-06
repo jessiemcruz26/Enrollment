@@ -1,6 +1,7 @@
-﻿Create Database Enrollment
+﻿Create Database Enrollment;
+GO
 
-USE Enrollment
+USE Enrollment;
 
 --1
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Student')
