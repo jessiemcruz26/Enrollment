@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using CommonService.Service;
 using WebEnrollment.Models;
 using contract = CommonService.Contracts;
-using model = WebEnrollment.Models;
 
 namespace WebEnrollment.Mediator
 {
@@ -29,6 +28,9 @@ namespace WebEnrollment.Mediator
         public Student GetStudent(string studentNumber)
         {
             var _response = _service.GetStudent(new contract.StudentRequest() { StudentNumber = studentNumber });
+
+            if (_response.StudentID == 0)
+                return new Student { IsStudentFound = false };
 
             return ConvertResponseToModel(_response);
         }
@@ -54,10 +56,32 @@ namespace WebEnrollment.Mediator
         {
             var _studentRequest = ConvertModelToRequest(student);
 
-            contract.StudentResponse _response = new contract.StudentResponse();
+            contract.StudentResponse _response = _service.UpdateStudent(_studentRequest);
 
-            _response = _service.UpdateStudent(_studentRequest);
-            
+            if (_response.ValidationErrors.Any())
+            {
+                var _responseGet = _service.GetStudent(new contract.StudentRequest { StudentNumber = student.StudentNumber });
+
+                foreach (var item in _response.ValidationErrors)
+                {
+                    switch (item.Code)
+                    {
+                        case "FirstName":
+                            _responseGet.FirstName = string.Empty;
+                            break;
+                        case "LastName":
+                            _responseGet.LastName = string.Empty;
+                            break;
+                        case "StudentNumber":
+                            _responseGet.StudentNumber = string.Empty;
+                            break;
+                    }
+                }
+
+                _responseGet.ValidationErrors = _response.ValidationErrors;
+                return ConvertResponseToModel(_responseGet);
+            }
+
             return ConvertResponseToModel(_response);
         }
 
@@ -97,6 +121,8 @@ namespace WebEnrollment.Mediator
 
             var _response = _service.CreateStudent(_studentRequest);
 
+
+
             return ConvertResponseToModel(_response);
         }
 
@@ -127,7 +153,7 @@ namespace WebEnrollment.Mediator
                 LastName = student.LastName,
                 Address = student.Address,
                 Mobile = student.Mobile,
-                Birthday = null,
+                Birthday = !string.IsNullOrEmpty(student.Birthday) ? (DateTime?)(DateTime.Parse((student.Birthday))) : null,
                 Email = student.Email,
                 Program = student.Program,
                 StudentNumber = student.StudentNumber,
@@ -149,7 +175,7 @@ namespace WebEnrollment.Mediator
                 LastName = _response.LastName,
                 Address = _response.Address,
                 Mobile = _response.Mobile,
-                Birthday = _response.Birthday != null ? _response.Birthday.ToString() : null,
+                Birthday = _response.Birthday != null ? Convert.ToDateTime(_response.Birthday).ToShortDateString() : null,
                 Email = _response.Email,
                 Program = _response.Program,
                 StudentNumber = _response.StudentNumber,
@@ -158,24 +184,12 @@ namespace WebEnrollment.Mediator
                 AssociatedClasses = MapCommonClasstoClass(_response.AssociatedClasses),
                 UnassociatedClasses = MapCommonClasstoClass(_response.UnassociatedClasses),
 
-
                 ProgramListItems = GetProgramList(_response.Program),
                 ValidationErrors = MapValidationErrors(_response.ValidationErrors),
-                //StudentNumberSearch = _response.StudentNumber
             };
 
             return _student;
         }
-
-        //private Class ConvertResponseToModel1(contract.ClassResponse _response)
-        //{
-        //    StudentClass _studentClass = new StudentClass
-        //    {
-        //       ClassID = 
-        //    };
-
-        //    return _studentClass;
-        //}
 
         private List<Class> MapCommonClasstoClass(List<CommonService.Class> classes)
         { 
@@ -190,8 +204,8 @@ namespace WebEnrollment.Mediator
                     RoomNumber = item.RoomNumber,
                     ClassID = item.ClassID.ToString(),
                     CourseName = item.Course.CourseName,
-                    
                 };
+
                 _classList.Add(_class);
             }
 

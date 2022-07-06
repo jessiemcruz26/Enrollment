@@ -38,6 +38,9 @@ namespace CommonService.Handlers
         {
             var _instructorRow = context.Instructors.Where(x => x.InstructorNumber == request.InstructorNumber).FirstOrDefault();
 
+            if (_instructorRow == null)
+                return new InstructorResponse();
+
             InstructorResponse _response = new InstructorResponse
             {
                 InstructorID = _instructorRow.InstructorID,

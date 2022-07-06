@@ -29,9 +29,9 @@ namespace WebEnrollment.Mediator
 
         public Class GetClass(int ClassID)
         {
-            var _Class = _service.GetClass(new contract.ClassRequest() { ClassID = ClassID });
+            var _class = _service.GetClass(new contract.ClassRequest() { ClassID = ClassID });
 
-            return ConvertResponseToModel(_Class);
+            return ConvertResponseToModel(_class);
         }
 
         public List<Class> GetClasses()

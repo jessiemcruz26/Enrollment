@@ -17,14 +17,64 @@
                 ids.push(_assoc);
                 $('#removeClassIds').val(ids);
             });
+
+            $("#BtnSearchStudent").click(function () {
+                if ($('#txtStudentNumber').val().trim() != "") {
+                    $("#StudentSearchForm").submit();
+                }
+            });
+
+            $("#BtnSave").click(function () {
+                if (IsFormValid()) {
+                    $("#StudentForm").submit();
+                }
+            });
+
+            function IsFormValid() {
+                $('#Error').empty();
+
+                if ($('#StudentNumber').val().trim() == "") {
+                    $('#StudentNumber').addClass('errorClass');
+                    $('#Error').append("Error: Student Number should have a value <br/>");
+                }
+                else {
+                    $('#StudentNumber').removeClass('errorClass');
+                }
+
+                if ($('#FirstName').val().trim() == "") {
+                    $('#FirstName').addClass('errorClass');
+                    $('#Error').append("Error: First name is required <br/> ");
+                }
+                else {
+                    $('#FirstName').removeClass('errorClass');
+                }
+
+                if ($('#LastName').val().trim() == "") {
+                    $('#LastName').addClass('errorClass');
+                    $('#Error').append("Error: Last name is required <br/>");
+                }
+                else {
+                    $('#LastName').removeClass('errorClass');
+                }
+
+                if ($('#Error').text() != "")
+                    return false;
+
+                return true;
+            }
         });
     </script>
 }
 
 <h2>Student Profile</h2>
-@using (Html.BeginForm("Edit", "Student", FormMethod.Post, new { autocomplete = "off" }))
+@using (Html.BeginForm("Search", "Student", FormMethod.Post, new { autocomplete = "off", id = "StudentSearchForm" }))
 {
     <div class="jumbotron" id="collapseProfile">
+        @if (!Model.IsStudentFound)
+        {
+            <label id="Error" class="error">Error : Student Number Not Found</label>
+            <br />
+        }
         <div class="card card-body">
             <div class="row">
                 <div class="col-sm-6">
@@ -37,15 +87,33 @@
                 </div>
             </div>
             <span class="col-right">
-                <input id="btn_Submit" name="" value="Submit" class="buttonUpdate btn btn-primary" type="submit" />
+                <input id="BtnSearchStudent" name="" value="Submit" class="buttonUpdate btn btn-primary" type="button" />
             </span>
         </div>
     </div>
+}
+@Html.ValidationSummary()
+@using (Html.BeginForm("Edit", "Student", FormMethod.Post, new { autocomplete = "off", id = "StudentForm" }))
+{
     <div class="jumbotron" id="collapseProfile">
+        <label id="Error" class="error"></label>
+        <br />
         <div class="card card-body">
             <div class="row">
-                <div class="form-group row">
-                </div>
+                @if (Model.ValidationErrors.Any())
+                {
+                    <label for="" class="col-sm-4 col-form-label error-message">Page not saved</label>
+                    <br />
+                    foreach (var item in Model.ValidationErrors)
+                    {
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="" class="col-sm-6 col-form-label error-message">@item.Code : @item.Message</label>
+                            </div>
+                        </div>
+                    }
+                    <br />
+                }
                 <div class="col-sm-6">
                     <div class="form-group row">
                         <label for="staticStudentNumber" class="col-sm-4 col-form-label">Student Number</label>
@@ -118,7 +186,7 @@
                         <tbody>
                             @foreach (var item in Model.AssociatedClasses)
                             {
-                                <tr><input type="hidden" class="assoc" value="@item.ClassID" /><td>@item.ClassCode</td><td>@item.CourseName</td><td>@item.ClassTime</td><td>@item.ClassDate</td><td>@item.RoomNumber</td><td><input type="button" class="btn_Delete" value="x"></td></tr>
+                                <tr><input type="hidden" class="assoc" value="@item.ClassID" /><td>@item.ClassCode</td><td>@item.CourseName</td><td>@item.ClassTime</td><td>@item.ClassDate</td><td>@item.RoomNumber</td><td><input type="button" class="btn_Delete"></td></tr>
                             }
                         </tbody>
                     </table>
@@ -126,7 +194,7 @@
             }
             <div class="form-group row">
                 <span class="col-right">
-                    <input name="" value="Save" class="buttonUpdate btn btn-primary" type="submit" />
+                    <input name="" value="Save" class="buttonUpdate btn btn-primary" type="button" id="BtnSave" />
                 </span>
             </div>
         </div>
@@ -157,3 +225,4 @@
         </div>
     }
 }
+

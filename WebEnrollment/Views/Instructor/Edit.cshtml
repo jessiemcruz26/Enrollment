@@ -6,19 +6,67 @@
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <link href="~/Content/student.css" rel="stylesheet" />
     <script>
-
         $(function () {
             $("#datepicker").datepicker();
         });
 
+        $("#BtnSearch").click(function () {
+            if ($('#txtInstructorNumber').val().trim() != "") {
+                $("#InstructorSearchForm").submit();
+            }
+        });
+
+        $("#BtnSaveInstructor").click(function () {
+            if (IsFormValid()) {
+                $("#InstructorForm").submit();
+            }
+        });
+
+        function IsFormValid() {
+            $('#Error').empty();
+
+            if ($('#InstructorNumber').val().trim() == "") {
+                $('#InstructorNumber').addClass('errorClass');
+                $('#Error').append("Error: Instructor Number should have a value <br/>");
+            }
+            else {
+                $('#InstructorNumber').removeClass('errorClass');
+            }
+
+            if ($('#FirstName').val().trim() == "") {
+                $('#FirstName').addClass('errorClass');
+                $('#Error').append("Error: First name is required <br/> ");
+            }
+            else {
+                $('#FirstName').removeClass('errorClass');
+            }
+
+            if ($('#LastName').val().trim() == "") {
+                $('#LastName').addClass('errorClass');
+                $('#Error').append("Error: Last name is required <br/>");
+            }
+            else {
+                $('#LastName').removeClass('errorClass');
+            }
+
+            if ($('#Error').text() != "")
+                return false;
+
+            return true;
+        }
     </script>
 }
 
 <h2>Instructor Edit</h2>
 
-@using (Html.BeginForm("Edit", "Instructor", FormMethod.Post, new { autocomplete = "off" }))
+@using (Html.BeginForm("Search", "Instructor", FormMethod.Post, new { autocomplete = "off", id = "InstructorSearchForm" }))
 {
     <div class="jumbotron">
+        @if (!Model.IsInstructorFound)
+        {
+            <label id="Error" class="error">Error : Instructor Number Not Found</label>
+            <br />
+        }
         <div class="form-group row">
             <label for="staticStudentNumber" class="col-sm-2 col-form-label">Instructor Number : </label>
             <div class="col-sm-10">
@@ -26,13 +74,29 @@
             </div>
         </div>
         <span class="col-right">
-            <input id="btn_Submit" name="" value="Submit" class="buttonUpdate btn btn-primary" type="submit" />
+            <input id="BtnSearch" name="" value="Search" class="buttonUpdate btn btn-primary" type="button" />
         </span>
     </div>
-
+}
+@using (Html.BeginForm("Edit", "Instructor", FormMethod.Post, new { autocomplete = "off", id = "InstructorForm" }))
+{
     <div class="jumbotron" id="collapseProfile">
         <div class="card card-body">
-
+            <label id="Error"></label>
+            @if (Model.ValidationErrors.Any())
+            {
+                <label for="" class="col-sm-4 col-form-label error-message">Page not saved</label>
+                <br />
+                foreach (var item in Model.ValidationErrors)
+                {
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="" class="col-sm-6 col-form-label error-message">@item.Code : @item.Message</label>
+                        </div>
+                    </div>
+                }
+                <br />
+            }
             <input type="hidden" id="InstructorID" name="InstructorID" value="@Model.InstructorID">
             <div class="form-group row">
                 <label for="staticStudentNumber" class="col-sm-2 col-form-label">Instructor Number</label>
@@ -65,7 +129,7 @@
                 </div>
             </div>
             <span class="col-right">
-                <input name="" value="Save" class="buttonUpdate btn btn-primary" type="submit" />
+                <input id="BtnSaveInstructor" value="Save" class="buttonUpdate btn btn-primary" type="button" />
             </span>
         </div>
     </div>

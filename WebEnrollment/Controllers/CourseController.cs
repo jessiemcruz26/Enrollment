@@ -10,7 +10,7 @@ using CommonService.Service;
 using contract = CommonService.Contracts;
 using WebEnrollment.Mediator;
 
-namespace WebApplication6.Controllers
+namespace WebApplication.Controllers
 {
     public class CourseController : Controller
     {

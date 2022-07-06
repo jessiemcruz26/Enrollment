@@ -10,12 +10,12 @@ using CommonService.Service;
 using contract = CommonService.Contracts;
 using WebEnrollment.Mediator;
 
-namespace WebApplication6.Controllers
+namespace WebApplication.Controllers
 {
+    [HandleError]
     public class StudentController : Controller
     {
         private readonly IStudentMediator _studentMediator;
-
 
         public StudentController(IStudentMediator studentMediator)
         {
@@ -28,36 +28,21 @@ namespace WebApplication6.Controllers
             return View();
         }
 
+        #region Grid
+
         [HttpGet]
         public ActionResult GetStudents()
         {
-            var _listStudents = _studentMediator.GetStudents();
-
-            return Json(new { rows = _listStudents }, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// First load
-        /// </summary>
-        /// <param name="studentNumber"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public ActionResult Edit(string studentNumber)
-        {
-
-            if (string.IsNullOrEmpty(studentNumber))
+            try
             {
-                var _programListItems = new List<SelectListItem>();
-                _programListItems.Add(new SelectListItem() { Text = "Electronics", Value = "Electronics", Selected = true });
-                _programListItems.Add(new SelectListItem() { Text = "Civil", Value = "Civil" });
-                _programListItems.Add(new SelectListItem() { Text = "Mechanical", Value = "Mechanical" });
+                var _listStudents = _studentMediator.GetStudents();
 
-                return View(new Student() { ProgramListItems = _programListItems, AssociatedClasses = new List<Class>(), UnassociatedClasses = new List<Class>() });
+                return Json(new { rows = _listStudents, success = true }, JsonRequestBehavior.AllowGet);
             }
-
-            Student student = _studentMediator.GetStudent(studentNumber);
-
-            return View(student);
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = e.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public string EditGrid(Student Model)
@@ -148,18 +133,41 @@ namespace WebApplication6.Controllers
             return msg;
         }
 
-        private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<Course> elements)
+        #endregion
+
+        #region Student
+
+        [HttpGet]
+        public ActionResult Edit()
         {
-            var selectList = new List<SelectListItem>();
-            foreach (var element in elements)
+            return View(InitializeStudent());
+        }
+
+        [HttpPost]
+        public ActionResult Search(FormCollection form)
+        {
+            try
             {
-                selectList.Add(new SelectListItem
+                string studentNumberSearch = form["StudentNumberSearch"];
+
+                Student _student = _studentMediator.GetStudent(studentNumberSearch);
+
+                if (!_student.IsStudentFound)
                 {
-                    Value = element.CourseID.ToString(),
-                    Text = element.CourseName
-                });
+                    var _emptyStudent = InitializeStudent(studentNumberSearch);
+                    _emptyStudent.IsStudentFound = false;
+
+                    return View("Edit", _emptyStudent);
+                }
+
+                return View("Edit", _student);
             }
-            return selectList;
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, "Error : " + e.Message);
+
+                return View("Edit", InitializeStudent());
+            }
         }
 
         [HttpPost]
@@ -167,15 +175,6 @@ namespace WebApplication6.Controllers
         {
             try
             {
-                string studentNumberSearch = form["StudentNumberSearch"];
-
-                if (!string.IsNullOrEmpty(studentNumberSearch))
-                {
-
-                    Student _student = _studentMediator.GetStudent(studentNumberSearch);
-                    return View(_student);
-                }
-              
                 string[] _removeClassIds = string.IsNullOrEmpty(form["removeClassIds"]) ? new string[0] : form["removeClassIds"].Split(',');
 
                 Student student = new Student
@@ -193,14 +192,31 @@ namespace WebApplication6.Controllers
                     ClassIds = _removeClassIds
                 };
 
-                var response = _studentMediator.UpdateStudent(student);
-                
-                return View(response);
+                var _response = _studentMediator.UpdateStudent(student);
+
+                return View(_response);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, "Error : " + e.Message);
+
+                return View(InitializeStudent());
             }
+        }
+
+        #endregion
+
+        private static Student InitializeStudent(string _entry = null)
+        {
+            var _programListItems = new List<SelectListItem>();
+            _programListItems.Add(new SelectListItem() { Text = "Electronics", Value = "Electronics", Selected = true });
+            _programListItems.Add(new SelectListItem() { Text = "Civil", Value = "Civil" });
+            _programListItems.Add(new SelectListItem() { Text = "Mechanical", Value = "Mechanical" });
+
+            return new Student {StudentNumberSearch = _entry, 
+                ProgramListItems = _programListItems, 
+                AssociatedClasses = new List<Class>(), 
+                UnassociatedClasses = new List<Class>() };
         }
     }
 }

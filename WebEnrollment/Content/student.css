@@ -6,7 +6,7 @@
 table tr td {
     width: 15em;
     /*border: 1px solid;*/
-    text-align: left; 
+    text-align: left;
     padding: .4em;
 }
 
@@ -31,7 +31,33 @@ input[readonly] {
 }
 
 .radio-input {
-   /* display: inline-block;
-    vertical-align: top;*/
     text-align: center;
+}
+
+.error-message {
+    color: red;
+}
+
+.btn_Delete {
+    background: url('../images/close.png') no-repeat;
+    border: none;
+    width: 40px;
+    height: 30px
+}
+
+#Error {
+    color: red;
+}
+
+.errorClass {
+    border: 1px solid red;
+}
+
+.validation-summary-errors {
+    color: red;
+    font-weight: bold;
+}
+
+.error {
+    padding-bottom: 1em;
 }

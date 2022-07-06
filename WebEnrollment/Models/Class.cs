@@ -16,7 +16,6 @@ namespace WebEnrollment.Models
         public List<Course> Courses;
         public string ClassID { get; set; }
         public string CourseID { get; set; }
-
         public string CourseName { get; set; }
         public string InstructorID { get; set; }
         public string ClassTime { get; set; }

@@ -14,8 +14,6 @@ namespace WebEnrollment.Models
             AssociatedClasses = new List<Class>();
             UnassociatedClasses = new List<Class>();
         }
-
-        public int MyProperty { get; set; }
         public string StudentID { get; set; }
         public string StudentNumberSearch { get; set; }
         public string StudentNumber { get; set; }
@@ -36,6 +34,7 @@ namespace WebEnrollment.Models
         public String[] ClassIds { get; set; }
 
         public string SelectedRow { get; set; }
-    }
 
+        public bool IsStudentFound { get; set; } = true;
+    }
 }

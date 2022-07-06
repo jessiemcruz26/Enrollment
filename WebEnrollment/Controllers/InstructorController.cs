@@ -21,7 +21,8 @@ namespace WebEnrollment.Controllers
             _instructorMediator = instructorMediator;
         }
 
-        // POST: Instructor/Create
+        #region Grid
+
         [HttpPost]
         public string Create([Bind(Exclude = "InstructorId")] Instructor Model)
         {
@@ -57,61 +58,16 @@ namespace WebEnrollment.Controllers
         [HttpGet]
         public ActionResult GetInstructors()
         {
-            var _listInstructors = _instructorMediator.GetInstructors();
-
-            return Json(new { rows = _listInstructors }, JsonRequestBehavior.AllowGet);
-        }
-
-
-        [HttpPost]
-        public ActionResult Edit(FormCollection form)
-        {
             try
             {
-                string _instructorNumberSearch = form["InstructorNumberSearch"];
+                var _listInstructors = _instructorMediator.GetInstructors();
 
-                if (!string.IsNullOrEmpty(_instructorNumberSearch))
-                {
-                    Instructor instructor = _instructorMediator.GetInstructor(_instructorNumberSearch);
-                    return View(instructor);
-                }
-
-                Instructor _instructor = new Instructor
-                {
-                    InstructorID = form["InstructorID"],
-                    FirstName = form["FirstName"],
-                    LastName = form["LastName"],
-                    Email = form["Email"],
-                    Mobile = form["Mobile"],
-                    InstructorNumber = form["InstructorNumber"]
-                };
-
-                var response = _instructorMediator.UpdateInstructor(_instructor);
-
-                return View(response);
+                return Json(new { success = true, rows = _listInstructors }, JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                return Json(new { success = false, message = e.Message }, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        [HttpGet]
-        public ActionResult Edit(string instructorNumber)
-        {
-            if (string.IsNullOrEmpty(instructorNumber))
-            {
-                //var _programListItems = new List<SelectListItem>();
-                //_programListItems.Add(new SelectListItem() { Text = "Electronics", Value = "Electronics", Selected = true });
-                //_programListItems.Add(new SelectListItem() { Text = "Civil", Value = "Civil" });
-                //_programListItems.Add(new SelectListItem() { Text = "Mechanical", Value = "Mechanical" });
-
-                return View(new Instructor() { });
-            }
-
-            Instructor _instructor = _instructorMediator.GetInstructor(instructorNumber);
-
-            return Json(new { row = _instructor }, JsonRequestBehavior.AllowGet);
         }
 
         public string EditGrid(Instructor Model)
@@ -167,5 +123,65 @@ namespace WebEnrollment.Controllers
             }
             return msg;
         }
+
+        #endregion
+
+
+        #region Instructor
+
+        [HttpPost]
+        public ActionResult Search(FormCollection form)
+        {
+            try
+            {
+                string _instructorNumberSearch = form["InstructorNumberSearch"];
+
+                Instructor instructor = _instructorMediator.GetInstructor(_instructorNumberSearch);
+
+                return View("Edit", instructor);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, "Error : " + e.Message);
+
+                return View("Edit", new Instructor());
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(FormCollection form)
+        {
+            try
+            {
+                Instructor _instructor = new Instructor
+                {
+                    InstructorID = form["InstructorID"],
+                    FirstName = form["FirstName"],
+                    LastName = form["LastName"],
+                    Email = form["Email"],
+                    Mobile = form["Mobile"],
+                    InstructorNumber = form["InstructorNumber"]
+                };
+
+                var response = _instructorMediator.UpdateInstructor(_instructor);
+
+                return View(response);
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError(string.Empty, "Error : " + e.Message);
+
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            return View(new Instructor());
+        }
+
+        #endregion
+
     }
 }

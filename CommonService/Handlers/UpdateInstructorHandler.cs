@@ -51,17 +51,11 @@ namespace CommonService.Handlers
 
             if (request.InstructorID != 0)
             {
-                if (!string.IsNullOrEmpty(request.FirstName))
-                {
-                    if (string.IsNullOrEmpty(request.FirstName))
-                        validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "FirstName must have a value" });
-                }
+                if (string.IsNullOrEmpty(request.FirstName))
+                    validationErrors.Add(new ValidationError { Code = "FirstName", Message = "First name must have a value" });
 
-                if (!string.IsNullOrEmpty(request.LastName))
-                {
-                    if (string.IsNullOrEmpty(request.LastName))
-                        validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "LastName must have a value" });
-                }
+                if (string.IsNullOrEmpty(request.LastName))
+                    validationErrors.Add(new ValidationError { Code = "LastName", Message = "Last name must have a value" });
             }
 
             return validationErrors;

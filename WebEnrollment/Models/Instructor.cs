@@ -17,6 +17,7 @@ namespace WebEnrollment.Models
         public string Mobile { get; set; }
         public string SelectedRow { get; set; }
         public string InstructorNumberSearch { get; set; }
+        public bool IsInstructorFound { get; set; } = true;
 
     }
 }

@@ -23,9 +23,6 @@
             {
                 key: false, name: 'Mobile', index: 'Mobile', editable: true
             },
-            //{
-            //    key: false, name: 'Birthday', index: 'Birthday', editable: true, formatter: 'date', formatoptions: { newformat: 'd/m/Y' }
-            //},
             {
                 key: false, name: 'Program', index: 'Program', class: 'a', editable: true, cellEdit: false, edittype: 'select',
                 formatter: function (cellvalue, options, rowObj) {
@@ -36,14 +33,6 @@
                 key: false, name: 'Level', index: 'Level', editable: true
             }
         ],
-        //colNames: ['ID', 'Student Name', 'Father Name', 'Gender', 'Class', 'Admission Date'],
-        //colModel: [
-        //    { key: true, hidden: true, name: 'ID', index: 'ID', editable: true },
-        //    { key: false, name: 'Name', index: 'Name', editable: true },
-        //    { key: false, name: 'FatherName', index: 'FatherName', editable: true },
-        //    { key: false, name: 'Gender', index: 'Gender', editable: true, edittype: 'select', editoptions: { value: { 'M': 'Male', 'F': 'Female', 'N': 'None' } } },
-        //    { key: false, name: 'ClassName', index: 'ClassName', editable: true, edittype: 'select', editoptions: { value: { '1': '1st Class', '2': '2nd Class', '3': '3rd Class', '4': '4th Class', '5': '5th Class' } } },
-        //    { key: false, name: 'DateOfAdmission', index: 'DateOfAdmission', editable: true, formatter: 'date', formatoptions: { newformat: 'd/m/Y' } }],
         pager: jQuery('#studentControls'),
         rowNum: 10,
         rowList: [10, 20, 30, 40, 50],
@@ -108,19 +97,6 @@
             sopt: ['cn']
         });
 });
-
-
-//function getAllOptions() {
-//    //var _programs = ['Electronics', 'Civil', 'Mechanical'];
-//    var _programs = { 'Electronics': 'Electronics', 'Civil': 'Civil' };
-//    return _programs;
-//}
-
-//function getAllOptions() {
-//    //var _programs = ['Electronics', 'Civil', 'Mechanical'];
-//    var _programs = { 'Electronics': 'Electronics', 'Civil': 'Civil' };
-//    return _programs;
-//}
 
 function getAllPrograms1() {
     var _text = ["Electronics", "Business", "Aviation", "Accounting"];

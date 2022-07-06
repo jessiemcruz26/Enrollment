@@ -8,7 +8,6 @@ using System.Data.Entity;
 using WebEnrollment;
 using CommonService.Service;
 using contract = CommonService.Contracts;
-using WebEnrollment.Mediator;
 
 namespace WebEnrollment.Mediator
 {
@@ -31,6 +30,9 @@ namespace WebEnrollment.Mediator
         public Instructor GetInstructor(string instructorNumber)
         {
             var _response = _service.GetInstructor(new contract.InstructorRequest() { InstructorNumber = instructorNumber });
+
+            if (_response.InstructorID == 0)
+                return new Instructor { IsInstructorFound = false };
 
             return ConvertResponseToModel(_response);
         }
@@ -65,6 +67,31 @@ namespace WebEnrollment.Mediator
             var _request = ConvertModelToRequest(instructor);
 
             var _response = _service.UpdateInstructor(_request);
+
+            if (_response.ValidationErrors.Any())
+            {
+                var _responseGet = _service.GetInstructor(new contract.InstructorRequest { InstructorNumber = instructor.InstructorNumber });
+
+                foreach (var item in _response.ValidationErrors)
+                {
+                    switch (item.Code)
+                    {
+                        case "FirstName":
+                            _responseGet.FirstName = string.Empty;
+                            break;
+                        case "LastName":
+                            _responseGet.LastName = string.Empty;
+                            break;
+                        case "InstructorNumber":
+                            _responseGet.InstructorNumber = string.Empty;
+                            break;
+                    }
+                }
+
+                _responseGet.ValidationErrors = _response.ValidationErrors;
+
+                return ConvertResponseToModel(_responseGet);
+            }
 
             return ConvertResponseToModel(_response);
         }

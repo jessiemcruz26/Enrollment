@@ -124,21 +124,6 @@ namespace WebEnrollment.Controllers
             return msg;
         }
 
-        //private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<Class> elements)
-        //{
-        //    var selectList = new List<SelectListItem>();
-        //    foreach (var element in elements)
-        //    {
-        //        selectList.Add(new SelectListItem
-        //        {
-        //            Value = element.ClassID.ToString(),
-        //            Text = element.ClassName
-        //        });
-        //    }
-        //    return selectList;
-        //}
-
-        //Edit fields
         [HttpPost]
         public ActionResult Edit(FormCollection form)
         {

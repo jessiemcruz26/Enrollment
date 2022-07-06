@@ -11,12 +11,12 @@ using CommonService.Service;
 
 namespace WebApplication.Controllers
 {
+    [HandleError]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
             return View();
         }
-
     }
 }

@@ -37,6 +37,10 @@ namespace CommonService.Handlers
         private StudentResponse GetStudent(StudentRequest request, EnrollmentDB context)
         {
             var _studentRow = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
+
+            if (_studentRow == null)
+                return new StudentResponse();
+
             var _associatedClasses = context.StudentClasses.Where(x => x.StudentID == _studentRow.StudentID).ToList();
             var _allClasses = context.Classes.ToList();
 

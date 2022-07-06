@@ -1,15 +1,17 @@
-﻿var _courses1 = {};
+﻿//const { error } = require("jquery");
 
-//$.ajax({
-//    type: "GET",
-//    url: "/Course/GetCourses",
-//    contentType: "application/json; charset=utf-8",
-//    dataType: "json",
-//    async: false,
-//    success: function (data, a) {
-//        debugger;
-//    }
-//});
+//var _courses1 = {};
+
+////$.ajax({
+////    type: "GET",
+////    url: "/Course/GetCourses",
+////    contentType: "application/json; charset=utf-8",
+////    dataType: "json",
+////    async: false,
+////    success: function (data, a) {
+////        debugger;
+////    }
+////});
 
 $(function () {
     $("#classGrid").jqGrid({
@@ -141,9 +143,11 @@ function getAllCourses() {
          contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,
-        success: function (data, status) {
-            for (let i = 0; i < data.rows.length; i++) {
-                _courses[data.rows[i].CourseID] = data.rows[i].CourseName;
+        success: function (data) {
+            if (data.success) {
+                for (let i = 0; i < data.rows.length; i++) {
+                    _courses[data.rows[i].CourseID] = data.rows[i].CourseName;
+                }
             }
         }
     });
@@ -160,8 +164,10 @@ function getAllInstructors() {
         dataType: "json",
         async: false,
         success: function (data, status) {
-            for (let i = 0; i < data.rows.length; i++) {
-                _instructors[data.rows[i].InstructorID] = data.rows[i].FirstName + " " + data.rows[i].LastName;
+            if (data.success) {
+                for (let i = 0; i < data.rows.length; i++) {
+                    _instructors[data.rows[i].InstructorID] = data.rows[i].FirstName + " " + data.rows[i].LastName;
+                }
             }
         }
     });

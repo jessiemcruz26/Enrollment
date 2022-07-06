@@ -54,13 +54,6 @@ namespace CommonService.Handlers
             var _associatedClasses = context.StudentClasses.Where(x => x.StudentID == _studentRow.StudentID).ToList();
             var _allClasses = context.Classes.ToList();
 
-            //List<int> _associated = new List<int>();
-
-            //foreach (var item in _associatedClasses)
-            //{
-            //    _associated.Add(item.ClassID);
-            //}
-
             List<Class> _associatedClasslist = new List<Class>();
             List<Class> _unAssociatedClasslist = new List<Class>();
 
@@ -97,13 +90,13 @@ namespace CommonService.Handlers
             if (string.IsNullOrEmpty(request.SelectedRow))
             {
                 if (string.IsNullOrEmpty(request.StudentNumber))
-                    validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "StudentNumber must have a value" });
+                    validationErrors.Add(new ValidationError { Code = "StudentNumber", Message = "Student Number must have a value" });
 
                 if (string.IsNullOrEmpty(request.FirstName))
-                    validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "FirstName must have a value" });
+                    validationErrors.Add(new ValidationError { Code = "FirstName", Message = "First Name must have a value" });
 
                 if (string.IsNullOrEmpty(request.LastName))
-                    validationErrors.Add(new ValidationError { Code = "Field Empty", Message = "LastName must have a value" });
+                    validationErrors.Add(new ValidationError { Code = "LastName", Message = "Last Name must have a value" });
             }
 
             return validationErrors;
