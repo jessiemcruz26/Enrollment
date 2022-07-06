@@ -6,7 +6,7 @@
         colNames: ["StudentID", "StudentNumber", "First Name", "Last Name", "Email", "Mobile", "Program", "Level"],
         colModel: [
             {
-                key: true, name: 'StudentID', index: 'StudentID', sortable: false, editable: true, hidden: true
+                key: true, name: 'StudentID', index: 'StudentID', editable: true, hidden: true
             },
             {
                 key: false, name: 'StudentNumber', index: 'StudentNumber', editable: true
@@ -27,7 +27,7 @@
                 key: false, name: 'Program', index: 'Program', class: 'a', editable: true, cellEdit: false, edittype: 'select',
                 formatter: function (cellvalue, options, rowObj) {
                     return cellvalue;
-                }, editoptions: { value: getAllPrograms1() }
+                }, editoptions: { value: getAllPrograms() }
             },
             {
                 key: false, name: 'Level', index: 'Level', editable: true
@@ -90,15 +90,11 @@
                     alert(response.responseText);
                 }
             }
-        },
-        {
-            zIndex: 100,
-            caption: "Search Students",
-            sopt: ['cn']
-        });
+        }
+       );
 });
 
-function getAllPrograms1() {
+function getAllPrograms() {
     var _text = ["Electronics", "Business", "Aviation", "Accounting"];
     var _programs = {};
     for (let i = 0; i < _text.length; i++) {

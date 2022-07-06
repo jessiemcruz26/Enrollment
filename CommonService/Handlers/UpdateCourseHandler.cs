@@ -17,6 +17,9 @@ namespace CommonService.Handlers
         {
             var context = new EnrollmentDB();
 
+            if (request.CourseID == 0)
+                request.CourseID = Convert.ToInt32(request.SelectedRow);
+
             var _course = context.Courses.Where(x => x.CourseID == request.CourseID).FirstOrDefault();
 
             if (string.IsNullOrEmpty(request.SelectedRow))

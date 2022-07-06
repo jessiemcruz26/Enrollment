@@ -31,17 +31,20 @@ namespace WebEnrollment.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var _student = _instructorMediator.CreateInstructor(Model);
+                    var _response = _instructorMediator.CreateInstructor(Model);
 
-                    if (_student.ValidationErrors.Any())
+                    if (_response.ValidationErrors.Any())
                     {
-                        foreach (var item in _student.ValidationErrors)
+                        msg = "Data not saved. \n";
+                        foreach (var item in _response.ValidationErrors)
                         {
-                            msg = msg + Environment.NewLine + item.Code + " : " + item.Message;
+                            msg += item.Message + "\n";
                         }
                     }
                     else
+                    {
                         msg = "Saved Successfully";
+                    }
                 }
                 else
                 {
@@ -87,8 +90,20 @@ namespace WebEnrollment.Controllers
                         InstructorNumber = Model.InstructorNumber,
                     };
 
-                    _instructorMediator.UpdateInstructor(_instructor);
-                    msg = "Saved Successfully";
+                    Instructor _response = _instructorMediator.UpdateInstructor(_instructor);
+
+                    if (_response.ValidationErrors.Any())
+                    {
+                        msg = "Data not saved. \n";
+                        foreach (var item in _response.ValidationErrors)
+                        {
+                            msg += item.Message + "\n";
+                        }
+                    }
+                    else
+                    {
+                        msg = "Saved Successfully";
+                    }
                 }
                 else
                 {
@@ -102,14 +117,14 @@ namespace WebEnrollment.Controllers
             return msg;
         }
 
-        public string Delete(string selectedRow)
+        public string Delete(string id)
         {
             string msg;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _instructorMediator.UpdateInstructor(new Instructor { SelectedRow = selectedRow });
+                    _instructorMediator.UpdateInstructor(new Instructor { SelectedRow = id });
                     msg = "Saved Successfully";
                 }
                 else

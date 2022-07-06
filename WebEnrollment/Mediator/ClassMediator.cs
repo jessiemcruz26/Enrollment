@@ -108,6 +108,7 @@ namespace WebEnrollment.Mediator
                 ClassTime = _class.ClassTime,
                 RoomNumber = _class.RoomNumber,
                 ClassCode = _class.ClassCode,
+                SelectedRow = _class.SelectedRow
             };
 
             return _classRequest;

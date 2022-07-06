@@ -132,6 +132,7 @@
     <Compile Include="Handlers\UpdateInstructorHandler.cs" />
     <Compile Include="Handlers\UpdateCourseHandler.cs" />
     <Compile Include="Handlers\CreateCourseHandler .cs" />
+    <Compile Include="Handlers\UpdateStudentGridHandler.cs" />
     <Compile Include="Handlers\UpdateStudentHandler.cs" />
     <Compile Include="Handlers\GetStudentHandler.cs" />
     <Compile Include="Handlers\CreateStudentHandler.cs" />

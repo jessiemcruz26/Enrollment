@@ -47,7 +47,7 @@ namespace WebApplication.Controllers
 
         public string EditGrid(Student Model)
         {
-            string msg;
+            string msg = "";
             try
             {
                 if (ModelState.IsValid)
@@ -64,8 +64,20 @@ namespace WebApplication.Controllers
                         StudentNumber = Model.StudentNumber
                     };
 
-                    _studentMediator.UpdateStudent(_student);
-                    msg = "Saved Successfully";
+                    Student _response = _studentMediator.UpdateStudentGrid(_student);
+
+                    if (_response.ValidationErrors.Any())
+                    {
+                        msg = "Data not saved. \n";
+                        foreach (var item in _response.ValidationErrors)
+                        {
+                            msg += item.Message + "\n";
+                        }
+                    }
+                    else 
+                    {
+                        msg = "Saved Successfully";
+                    }
                 }
                 else
                 {
@@ -87,17 +99,20 @@ namespace WebApplication.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var _student = _studentMediator.CreateStudent(Model);
+                    var _response = _studentMediator.CreateStudent(Model);
 
-                    if (_student.ValidationErrors.Any())
+                    if (_response.ValidationErrors.Any())
                     {
-                        foreach (var item in _student.ValidationErrors)
+                        msg = "Data not saved. \n";
+                        foreach (var item in _response.ValidationErrors)
                         {
-                            msg = msg + Environment.NewLine + item.Code + " : " + item.Message;
+                            msg += item.Message + "\n";
                         }
                     }
                     else
+                    {
                         msg = "Saved Successfully";
+                    }
                 }
                 else
                 {
@@ -111,14 +126,14 @@ namespace WebApplication.Controllers
             return msg;
         }
 
-        public string Delete(string selectedRow)
+        public string Delete(string id)
         {
             string msg;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _studentMediator.UpdateStudent(new Student { SelectedRow = selectedRow });
+                    _studentMediator.UpdateStudentGrid(new Student { SelectedRow = id });
                     msg = "Saved Successfully";
                 }
                 else

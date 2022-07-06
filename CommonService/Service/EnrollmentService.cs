@@ -21,6 +21,8 @@ namespace CommonService.Service
         ClassResponse GetClass(ClassRequest request);
         ClassResponse CreateClass(ClassRequest request);
         ClassResponse UpdateClass(ClassRequest request);
+
+        StudentResponse UpdateStudentGrid(StudentRequest request);
     }
 
     public class EnrollmentService : IEnrollmentService
@@ -40,6 +42,12 @@ namespace CommonService.Service
         public StudentResponse UpdateStudent(StudentRequest request)
         {
             var serviceHandler = new UpdateStudentHandler();
+            return serviceHandler.Execute(request);
+        }
+
+        public StudentResponse UpdateStudentGrid(StudentRequest request)
+        {
+            var serviceHandler = new UpdateStudentGridHandler();
             return serviceHandler.Execute(request);
         }
 

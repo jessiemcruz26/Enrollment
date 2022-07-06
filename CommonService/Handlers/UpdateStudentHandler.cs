@@ -19,7 +19,7 @@ namespace CommonService.Handlers
 
             Student _student = null;
 
-            if (request.ClassIds.Any())
+            if (request.ClassIds != null && request.ClassIds.Any())
             {
                 foreach (var item in request.ClassIds)
                 {
@@ -29,27 +29,17 @@ namespace CommonService.Handlers
                 }
             }
 
-            if (string.IsNullOrEmpty(request.SelectedRow))
-            {
-                _student = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
+            _student = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
 
-                if (!string.IsNullOrEmpty(request.ClassSelection))
-                    context.StudentClasses.Add(new StudentClass { ClassID = Convert.ToInt32(request.ClassSelection),
-                        StudentID = request.StudentID
-                    });
+            if (!string.IsNullOrEmpty(request.ClassSelection))
+                context.StudentClasses.Add(new StudentClass
+                {
+                    ClassID = Convert.ToInt32(request.ClassSelection),
+                    StudentID = request.StudentID
+                });
 
-                UpdateStudent(request, _student, context);
-            }
-            else
-            {
-                int _selectedID = Convert.ToInt32(request.SelectedRow);
-                _student = context.Students.Where(x => x.StudentID == _selectedID).FirstOrDefault();
-
-                DeleteStudent(_student, context);
-            }
-
-           
-
+            UpdateStudent(request, _student, context);
+        
             var _studentRow = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
             var _associatedClasses = context.StudentClasses.Where(x => x.StudentID == _studentRow.StudentID).ToList();
             var _allClasses = context.Classes.ToList();

@@ -1,18 +1,5 @@
 ﻿//const { error } = require("jquery");
 
-//var _courses1 = {};
-
-////$.ajax({
-////    type: "GET",
-////    url: "/Course/GetCourses",
-////    contentType: "application/json; charset=utf-8",
-////    dataType: "json",
-////    async: false,
-////    success: function (data, a) {
-////        debugger;
-////    }
-////});
-
 $(function () {
     $("#classGrid").jqGrid({
         url: "/Class/GetClasses",
@@ -52,14 +39,7 @@ $(function () {
                 name: 'RoomNumber', index: 'RoomNumber', editable: true
             },
         ],
-        //colNames: ['ID', 'Student Name', 'Father Name', 'Gender', 'Class', 'Admission Date'],
-        //colModel: [
-        //    { key: true, hidden: true, name: 'ID', index: 'ID', editable: true },
-        //    { key: false, name: 'Name', index: 'Name', editable: true },
-        //    { key: false, name: 'FatherName', index: 'FatherName', editable: true },
-        //    { key: false, name: 'Gender', index: 'Gender', editable: true, edittype: 'select', editoptions: { value: { 'M': 'Male', 'F': 'Female', 'N': 'None' } } },
-        //    { key: false, name: 'ClassName', index: 'ClassName', editable: true, edittype: 'select', editoptions: { value: { '1': '1st Class', '2': '2nd Class', '3': '3rd Class', '4': '4th Class', '5': '5th Class' } } },
-        //    { key: false, name: 'DateOfAdmission', index: 'DateOfAdmission', editable: true, formatter: 'date', formatoptions: { newformat: 'd/m/Y' } }],
+       
         pager: jQuery('#classControls'),
         rowNum: 10,
         rowList: [10, 20, 30, 40, 50],

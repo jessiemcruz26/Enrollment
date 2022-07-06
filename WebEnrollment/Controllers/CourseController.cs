@@ -26,7 +26,7 @@ namespace WebApplication.Controllers
         {
             var _listCourses = _courseMediator.GetCourses();
 
-            return Json(new { rows = _listCourses }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, rows = _listCourses }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -51,8 +51,19 @@ namespace WebApplication.Controllers
                         CourseDescription = Model.CourseDescription,
                     };
 
-                    _courseMediator.UpdateCourse(_course);
-                    msg = "Saved Successfully";
+                    Course _response = _courseMediator.UpdateCourse(_course);
+                    if (_response.ValidationErrors.Any())
+                    {
+                        msg = "Data not saved. \n";
+                        foreach (var item in _response.ValidationErrors)
+                        {
+                            msg += item.Message + "\n";
+                        }
+                    }
+                    else
+                    {
+                        msg = "Saved Successfully";
+                    }
                 }
                 else
                 {
@@ -74,17 +85,20 @@ namespace WebApplication.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var _course = _courseMediator.CreateCourse(Model);
+                    var _response = _courseMediator.CreateCourse(Model);
 
-                    if (_course.ValidationErrors.Any())
+                    if (_response.ValidationErrors.Any())
                     {
-                        foreach (var item in _course.ValidationErrors)
+                        msg = "Data not saved. \n";
+                        foreach (var item in _response.ValidationErrors)
                         {
-                            msg = msg + Environment.NewLine + item.Code + " : " + item.Message;
+                            msg += item.Message + "\n";
                         }
                     }
                     else
+                    {
                         msg = "Saved Successfully";
+                    }
                 }
                 else
                 {
@@ -98,14 +112,14 @@ namespace WebApplication.Controllers
             return msg;
         }
 
-        public string Delete(string selectedRow)
+        public string Delete(string id)
         {
             string msg;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _courseMediator.UpdateCourse(new Course { SelectedRow = selectedRow });
+                    _courseMediator.UpdateCourse(new Course { SelectedRow = id });
                     msg = "Saved Successfully";
                 }
                 else

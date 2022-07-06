@@ -55,8 +55,20 @@ namespace WebEnrollment.Controllers
                         ClassCode = Model.ClassCode
                     };
 
-                    _classMediator.UpdateClass(_class);
-                    msg = "Saved Successfully";
+                    var _response = _classMediator.UpdateClass(_class);
+
+                    if (_response.ValidationErrors.Any())
+                    {
+                        msg = "Data not saved. \n";
+                        foreach (var item in _response.ValidationErrors)
+                        {
+                            msg += item.Message + "\n";
+                        }
+                    }
+                    else
+                    {
+                        msg = "Saved Successfully";
+                    }
                 }
                 else
                 {
@@ -78,17 +90,20 @@ namespace WebEnrollment.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var _Class = _classMediator.CreateClass(Model);
+                    var _response = _classMediator.CreateClass(Model);
 
-                    if (_Class.ValidationErrors.Any())
+                    if (_response.ValidationErrors.Any())
                     {
-                        foreach (var item in _Class.ValidationErrors)
+                        msg = "Data not saved. \n";
+                        foreach (var item in _response.ValidationErrors)
                         {
-                            msg = msg + Environment.NewLine + item.Code + " : " + item.Message;
+                            msg += item.Message + "\n";
                         }
                     }
                     else
+                    {
                         msg = "Saved Successfully";
+                    }
                 }
                 else
                 {
@@ -102,14 +117,14 @@ namespace WebEnrollment.Controllers
             return msg;
         }
 
-        public string Delete(string selectedRow)
+        public string Delete(string id)
         {
             string msg;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _classMediator.UpdateClass(new Class { SelectedRow = selectedRow });
+                    _classMediator.UpdateClass(new Class { SelectedRow = id });
                     msg = "Saved Successfully";
                 }
                 else

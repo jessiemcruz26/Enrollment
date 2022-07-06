@@ -14,6 +14,7 @@ namespace WebEnrollment.Mediator
         Student GetStudent(string studentNumber);
         List<Student> GetStudents();
         Student UpdateStudent(Student student);
+        Student UpdateStudentGrid(Student student);
         Student CreateStudent(Student student);
     }
 
@@ -81,6 +82,15 @@ namespace WebEnrollment.Mediator
                 _responseGet.ValidationErrors = _response.ValidationErrors;
                 return ConvertResponseToModel(_responseGet);
             }
+
+            return ConvertResponseToModel(_response);
+        }
+
+        public Student UpdateStudentGrid(Student student)
+        {
+            var _studentRequest = ConvertModelToRequest(student);
+
+            contract.StudentResponse _response = _service.UpdateStudentGrid(_studentRequest);
 
             return ConvertResponseToModel(_response);
         }

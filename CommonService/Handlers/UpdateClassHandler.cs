@@ -17,15 +17,18 @@ namespace CommonService.Handlers
         {
             var context = new EnrollmentDB();
 
-            var _Class = context.Classes.Where(x => x.ClassID == request.ClassID).FirstOrDefault();
+            if (request.ClassID == 0)
+                request.ClassID = Convert.ToInt32(request.SelectedRow);
+
+            var _class = context.Classes.Where(x => x.ClassID == request.ClassID).FirstOrDefault();
 
             if (string.IsNullOrEmpty(request.SelectedRow))
             {
-                UpdateClass(request, _Class, context);
+                UpdateClass(request, _class, context);
             }
             else
             {
-                DeleteClass(_Class, context);
+                DeleteClass(_class, context);
 
                 return new ClassResponse();
             }

@@ -1,6 +1,6 @@
 ﻿@model WebEnrollment.Models.Student
 <head>
-    <link href="~/Content/student.css" rel="stylesheet" />
+    <link href="~/Content/enrollment.css" rel="stylesheet" />
 </head>
 @section scripts{
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
@@ -25,10 +25,9 @@
             });
 
             $("#BtnSave").click(function () {
-                $("#StudentForm").submit();
-                //if (IsFormValid()) {
-                //    $("#StudentForm").submit();
-                //}
+                if (IsFormValid()) {
+                    $("#StudentForm").submit();
+                }
             });
 
             function IsFormValid() {
@@ -207,8 +206,8 @@
             <h4>Classes Available</h4>
             <div class="card card-body">
                 <div class="form-group row">
-                    <table id="Student-Class1">
-                        <thead><tr><td></td><td>Code</td><td>Course</td><td>Time</td><td>Date</td><td>Room</td></tr></thead>
+                    <table id="Student-Class1" class="table">
+                        <thead class="thead-dark"><tr><td></td><td>Code</td><td>Course</td><td>Time</td><td>Date</td><td>Room</td></tr></thead>
                         <tbody>
                             @foreach (var item in Model.UnassociatedClasses)
                             {
