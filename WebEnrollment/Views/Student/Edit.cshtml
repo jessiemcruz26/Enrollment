@@ -25,9 +25,10 @@
             });
 
             $("#BtnSave").click(function () {
-                if (IsFormValid()) {
-                    $("#StudentForm").submit();
-                }
+                $("#StudentForm").submit();
+                //if (IsFormValid()) {
+                //    $("#StudentForm").submit();
+                //}
             });
 
             function IsFormValid() {
@@ -81,7 +82,7 @@
                     <div class="form-group row">
                         <label for="staticStudentNumber" class="col-sm-4 col-form-label">Search Student No.</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control-plaintext" id="txtStudentNumber" name="studentNumberSearch" value="@Model.StudentNumberSearch">
+                            <input type="text" class="form-control" id="txtStudentNumber" name="studentNumberSearch" value="@Model.StudentNumberSearch">
                         </div>
                     </div>
                 </div>
@@ -118,31 +119,31 @@
                     <div class="form-group row">
                         <label for="staticStudentNumber" class="col-sm-4 col-form-label">Student Number</label>
                         <div class="col-sm-6">
-                            <input type="text" readonly class="form-control-plaintext" id="StudentNumber" name="StudentNumber" value="@Model.StudentNumber">
+                            <input type="text" readonly class="form-control" id="StudentNumber" name="StudentNumber" value="@Model.StudentNumber">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="staticFirstName" class="col-sm-4 col-form-label">First Name</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control-plaintext" id="FirstName" name="FirstName" value="@Model.FirstName">
+                            <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Model.FirstName">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="staticLastName" class="col-sm-4 col-form-label">Last Name</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control-plaintext" id="LastName" name="LastName" value="@Model.LastName">
+                            <input type="text" class="form-control" id="LastName" name="LastName" value="@Model.LastName">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="staticBirthday" class="col-sm-4 col-form-label">Birthday</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control-plaintext" id="datepicker" name="Birthday" value="@Model.Birthday">
+                            <input type="text" class="form-control" id="datepicker" name="Birthday" value="@Model.Birthday">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-4 col-form-label">Email</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control-plaintext" id="Email" name="Email" value="@Model.Email">
+                            <input type="text" class="form-control" id="Email" name="Email" value="@Model.Email">
                         </div>
                     </div>
                 </div>
@@ -150,25 +151,25 @@
                     <div class="form-group row">
                         <label for="staticMobile" class="col-sm-3 col-form-label">Mobile</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control-plaintext" id="Mobile" name="Mobile" value="@Model.Mobile">
+                            <input type="text" class="form-control" id="Mobile" name="Mobile" value="@Model.Mobile">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="staticAddress" class="col-sm-3 col-form-label">Address</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control-plaintext" id="Address" name="Address" value="@Model.Address">
+                            <input type="text" class="form-control" id="Address" name="Address" value="@Model.Address">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="staticProgram" class="col-sm-3 col-form-label">Program</label>
                         <div class="col-sm-9">
-                            @Html.DropDownListFor(x => Model.Program, Model.ProgramListItems, new { @class = "ProgramDD" })
+                            @Html.DropDownListFor(x => Model.Program, Model.ProgramListItems, new { @class = "ProgramDD form-control" })
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="staticProgram" class="col-sm-3 col-form-label">Level</label>
                         <div class="col-sm-9">
-                            <input type="text" readonly class="form-control-plaintext" id="Level" name="Level" value="@Model.Level">
+                            <input type="text" readonly class="form-control" id="Level" name="Level" value="@Model.Level">
                         </div>
                     </div>
                 </div>
