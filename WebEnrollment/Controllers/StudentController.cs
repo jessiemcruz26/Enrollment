@@ -9,6 +9,7 @@ using WebEnrollment;
 using CommonService.Service;
 using contract = CommonService.Contracts;
 using WebEnrollment.Mediator;
+using WebEnrollment.Common;
 
 namespace WebApplication.Controllers
 {
@@ -30,6 +31,11 @@ namespace WebApplication.Controllers
 
         #region Grid
 
+
+        /// <summary>
+        /// Get list of students for Grid
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult GetStudents()
         {
@@ -45,6 +51,11 @@ namespace WebApplication.Controllers
             }
         }
 
+        /// <summary>
+        /// Update student record in Grid
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
         public string EditGrid(Student Model)
         {
             string msg = "";
@@ -91,6 +102,11 @@ namespace WebApplication.Controllers
             return msg;
         }
 
+        /// <summary>
+        /// Create student record in Grid
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
         [HttpPost]
         public string Create([Bind(Exclude = "StudentId")] Student Model)
         {
@@ -126,6 +142,11 @@ namespace WebApplication.Controllers
             return msg;
         }
 
+        /// <summary>
+        /// Delete student record in Grid
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string Delete(string id)
         {
             string msg;
@@ -152,12 +173,21 @@ namespace WebApplication.Controllers
 
         #region Student
 
+        /// <summary>
+        /// Edit landing page
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Edit()
         {
-            return View(InitializeStudent());
+            return View(InitializeStudentPrograms());
         }
 
+        /// <summary>
+        /// Search Student Number
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Search(FormCollection form)
         {
@@ -169,7 +199,7 @@ namespace WebApplication.Controllers
 
                 if (!_student.IsStudentFound)
                 {
-                    var _emptyStudent = InitializeStudent(studentNumberSearch);
+                    var _emptyStudent = InitializeStudentPrograms(studentNumberSearch);
                     _emptyStudent.IsStudentFound = false;
 
                     return View("Edit", _emptyStudent);
@@ -181,10 +211,15 @@ namespace WebApplication.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Error : " + e.Message);
 
-                return View("Edit", InitializeStudent());
+                return View("Edit", InitializeStudentPrograms());
             }
         }
 
+        /// <summary>
+        /// Update student record
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(FormCollection form)
         {
@@ -215,18 +250,26 @@ namespace WebApplication.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Error : " + e.Message);
 
-                return View(InitializeStudent());
+                return View(InitializeStudentPrograms());
             }
         }
 
         #endregion
 
-        private static Student InitializeStudent(string _entry = null)
+        /// <summary>
+        /// Initialized student programs
+        /// </summary>
+        /// <param name="_entry"></param>
+        /// <returns></returns>
+        private static Student InitializeStudentPrograms(string _entry = null)
         {
+            var _programs = EnrollmentHelper.GetStudentPrograms();
             var _programListItems = new List<SelectListItem>();
-            _programListItems.Add(new SelectListItem() { Text = "Electronics", Value = "Electronics", Selected = true });
-            _programListItems.Add(new SelectListItem() { Text = "Civil", Value = "Civil" });
-            _programListItems.Add(new SelectListItem() { Text = "Mechanical", Value = "Mechanical" });
+
+            foreach (var program in _programs)
+            {
+                _programListItems.Add(new SelectListItem() { Text = program, Value = program });
+            }
 
             return new Student {StudentNumberSearch = _entry, 
                 ProgramListItems = _programListItems, 

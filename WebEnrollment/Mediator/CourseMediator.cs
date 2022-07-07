@@ -6,16 +6,16 @@ using System.Web.Mvc;
 using CommonService.Service;
 using WebEnrollment.Models;
 using contract = CommonService.Contracts;
-using model = WebEnrollment.Models;
+using WebEnrollment.Common;
 
 namespace WebEnrollment.Mediator
 {
     public interface ICourseMediator
     {
-        model.Course GetCourse(int courseID);
-        List<model.Course> GetCourses();
-        model.Course UpdateCourse(model.Course course);
-        model.Course CreateCourse(Course course);
+        Course GetCourse(int courseID);
+        List<Course> GetCourses();
+        Course UpdateCourse(Course course);
+        Course CreateCourse(Course course);
     }
 
     public class CourseMediator : ICourseMediator
@@ -27,13 +27,22 @@ namespace WebEnrollment.Mediator
             _service = service;
         }
 
-        public model.Course GetCourse(int courseID)
+        /// <summary>
+        /// Retrieve a course from enrollment service using course id
+        /// </summary>
+        /// <param name="courseID"></param>
+        /// <returns></returns>
+        public Course GetCourse(int courseID)
         {
             var _course = _service.GetCourse(new contract.CourseRequest() { CourseID = courseID });
 
             return ConvertResponseToModel(_course);
         }
 
+        /// <summary>
+        /// Retrieve list of courses from enrollment service
+        /// </summary>
+        /// <returns></returns>
         public List<Course> GetCourses()
         {
             var _response = _service.GetCourse(new contract.CourseRequest());
@@ -50,6 +59,11 @@ namespace WebEnrollment.Mediator
             return _coursesList;
         }
 
+        /// <summary>
+        /// Update a course using enrollment service
+        /// </summary>
+        /// <param name="course"></param>
+        /// <returns></returns>
         public Course UpdateCourse(Course course)
         {
             var _courseRequest = ConvertModelToRequest(course);
@@ -59,39 +73,25 @@ namespace WebEnrollment.Mediator
             return ConvertResponseToModel(_response);
         }
 
-        private static List<ValidationError> MapValidationErrors(List<contract.ValidationError> errorList)
-        {
-            List<ValidationError> modelErrorList = new List<ValidationError>();
-
-            if (errorList != null && errorList.Count > 0)
-            {
-                errorList.ForEach(error => modelErrorList.Add(new ValidationError { Code = error.Code, Message = error.Message }));
-            }
-
-            return modelErrorList;
-        }
-
+        /// <summary>
+        /// Create course record using enrollment service
+        /// </summary>
+        /// <param name="course"></param>
+        /// <returns></returns>
         public Course CreateCourse(Course course)
         {
-            var _courseRequest = ConvertWebToRequest(course);
+            var _courseRequest = ConvertModelToRequest(course);
 
             var _response = _service.CreateCourse(_courseRequest);
 
             return ConvertResponseToModel(_response);
         }
 
-        private contract.CourseRequest ConvertWebToRequest(Course course)
-        {
-            contract.CourseRequest _courseRequest = new contract.CourseRequest()
-            {
-                CourseID = course.CourseID,
-                CourseName = course.CourseName,
-                CourseDescription = course.CourseDescription,
-              
-            };
-
-            return _courseRequest;
-        }
+        /// <summary>
+        /// Map web model to service model
+        /// </summary>
+        /// <param name="course"></param>
+        /// <returns></returns>
         private contract.CourseRequest ConvertModelToRequest(Course course)
         {
             contract.CourseRequest _courseRequest = new contract.CourseRequest()
@@ -105,6 +105,11 @@ namespace WebEnrollment.Mediator
             return _courseRequest;
         }
 
+        /// <summary>
+        /// Map service model to web model
+        /// </summary>
+        /// <param name="_response"></param>
+        /// <returns></returns>
         private Course ConvertResponseToModel(contract.CourseResponse _response)
         {
             Course _course = new Course
@@ -113,7 +118,7 @@ namespace WebEnrollment.Mediator
                 CourseName = _response.CourseName,
                 CourseDescription = _response.CourseDescription,
 
-                ValidationErrors = MapValidationErrors(_response.ValidationErrors)
+                ValidationErrors = EnrollmentHelper.MapValidationErrors(_response.ValidationErrors)
             };
 
             return _course;

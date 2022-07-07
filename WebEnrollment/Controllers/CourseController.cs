@@ -21,6 +21,10 @@ namespace WebApplication.Controllers
             _courseMediator = courseMediator;
         }
 
+        /// <summary>
+        /// Retrieve list of courses
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult GetCourses()
         {
@@ -29,14 +33,11 @@ namespace WebApplication.Controllers
             return Json(new { success = true, rows = _listCourses }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public ActionResult Edit(string id)
-        {
-            Course course = _courseMediator.GetCourse(Convert.ToInt32(id));
-
-            return Json(new { row = course }, JsonRequestBehavior.AllowGet);
-        }
-
+        /// <summary>
+        /// Update course record from Grid
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
         public string EditGrid(Course Model)
         {
             string msg;
@@ -77,6 +78,11 @@ namespace WebApplication.Controllers
             return msg;
         }
 
+        /// <summary>
+        /// Create course record from Grid
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
         [HttpPost]
         public string Create([Bind(Exclude = "CourseId")] Course Model)
         {
@@ -112,6 +118,11 @@ namespace WebApplication.Controllers
             return msg;
         }
 
+        /// <summary>
+        /// Delete course record from Grid
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string Delete(string id)
         {
             string msg;
@@ -132,29 +143,6 @@ namespace WebApplication.Controllers
                 msg = "Error occured:" + ex.Message;
             }
             return msg;
-        }
-
-        //Edit fields
-        [HttpPost]
-        public ActionResult Edit(FormCollection form)
-        {
-            try
-            {
-                Course _course = new Course
-                {
-                    CourseID = Convert.ToInt32(form["CourseID"]),
-                    CourseName = form["CourseName"],
-                    CourseDescription = form["CourseDescription"]
-                };
-
-                var response = _courseMediator.UpdateCourse(_course);
-
-                return View(response);
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

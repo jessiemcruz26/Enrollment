@@ -1,69 +1,10 @@
 ﻿@model WebEnrollment.Models.Student
-<head>
-    <link href="~/Content/enrollment.css" rel="stylesheet" />
-</head>
 @section scripts{
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Css/enrollment.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    <script>
-        $(function () {
-            $("#datepicker").datepicker();
-
-            var ids = [];
-            $(document).on('click', '.btn_Delete', function () {
-                $(this).parents('tr').remove();
-                var _assoc = $(this).parents('tr').find('.assoc').val();
-                ids.push(_assoc);
-                $('#removeClassIds').val(ids);
-            });
-
-            $("#BtnSearchStudent").click(function () {
-                if ($('#txtStudentNumber').val().trim() != "") {
-                    $("#StudentSearchForm").submit();
-                }
-            });
-
-            $("#BtnSave").click(function () {
-                if (IsFormValid()) {
-                    $("#StudentForm").submit();
-                }
-            });
-
-            function IsFormValid() {
-                $('#Error').empty();
-
-                if ($('#StudentNumber').val().trim() == "") {
-                    $('#StudentNumber').addClass('errorClass');
-                    $('#Error').append("Error: Student Number should have a value <br/>");
-                }
-                else {
-                    $('#StudentNumber').removeClass('errorClass');
-                }
-
-                if ($('#FirstName').val().trim() == "") {
-                    $('#FirstName').addClass('errorClass');
-                    $('#Error').append("Error: First name is required <br/> ");
-                }
-                else {
-                    $('#FirstName').removeClass('errorClass');
-                }
-
-                if ($('#LastName').val().trim() == "") {
-                    $('#LastName').addClass('errorClass');
-                    $('#Error').append("Error: Last name is required <br/>");
-                }
-                else {
-                    $('#LastName').removeClass('errorClass');
-                }
-
-                if ($('#Error').text() != "")
-                    return false;
-
-                return true;
-            }
-        });
-    </script>
+    <script src="~/Scripts/Student-edit.js"></script>
 }
 
 <h2>Student Profile</h2>
@@ -72,7 +13,7 @@
     <div class="jumbotron" id="collapseProfile">
         @if (!Model.IsStudentFound)
         {
-            <label id="Error" class="error">Error : Student Number Not Found</label>
+            <label id="Error" class="error error-message">Error : Student Number Not Found</label>
             <br />
         }
         <div class="card card-body">

@@ -1,10 +1,9 @@
 ﻿body {
 }
 
-#Program, #CourseID, #InstructorID, #ClassTime, #Classdate {
+#Program, #CourseID, #InstructorID, #ClassTime, #ClassDate {
     width: 14em;
     padding: .4em;
-
 }
 
 #Program {
@@ -12,16 +11,8 @@
     padding: .3em;
 }
 
-/*table tr td {
-    width: 15em;*/
-    /*border: 1px solid;*/
-    /*text-align: left;
-    padding: .4em;
-}*/
-
 .form-group table thead tr td {
     width: 15em;
-    /*border: 1px solid;*/
     text-align: left;
     padding: .4em;
     font-weight: bold;
@@ -52,10 +43,6 @@ input[readonly] {
     border: none;
     width: 40px;
     height: 30px
-}
-
-#Error {
-    color: red;
 }
 
 .errorClass {

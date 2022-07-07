@@ -1,60 +1,10 @@
 ﻿@model WebEnrollment.Models.Instructor
 @section scripts{
-
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    <link href="~/Content/enrollment.css" rel="stylesheet" />
-    <script>
-        $(function () {
-            $("#datepicker").datepicker();
-        });
-
-        $("#BtnSearch").click(function () {
-            if ($('#txtInstructorNumber').val().trim() != "") {
-                $("#InstructorSearchForm").submit();
-            }
-        });
-
-        $("#BtnSaveInstructor").click(function () {
-            if (IsFormValid()) {
-                $("#InstructorForm").submit();
-            }
-        });
-
-        function IsFormValid() {
-            $('#Error').empty();
-
-            if ($('#InstructorNumber').val().trim() == "") {
-                $('#InstructorNumber').addClass('errorClass');
-                $('#Error').append("Error: Instructor Number should have a value <br/>");
-            }
-            else {
-                $('#InstructorNumber').removeClass('errorClass');
-            }
-
-            if ($('#FirstName').val().trim() == "") {
-                $('#FirstName').addClass('errorClass');
-                $('#Error').append("Error: First name is required <br/> ");
-            }
-            else {
-                $('#FirstName').removeClass('errorClass');
-            }
-
-            if ($('#LastName').val().trim() == "") {
-                $('#LastName').addClass('errorClass');
-                $('#Error').append("Error: Last name is required <br/>");
-            }
-            else {
-                $('#LastName').removeClass('errorClass');
-            }
-
-            if ($('#Error').text() != "")
-                return false;
-
-            return true;
-        }
-    </script>
+    <link href="~/Css/enrollment.css" rel="stylesheet" />
+    <script src="~/Scripts/Instructor-edit.js"></script>
 }
 
 <h2>Instructor Edit</h2>
@@ -64,7 +14,7 @@
     <div class="jumbotron">
         @if (!Model.IsInstructorFound)
         {
-            <label id="Error" class="error">Error : Instructor Number Not Found</label>
+            <label id="Error" class="error error-message">Error : Instructor Number Not Found</label>
             <br />
         }
         <div class="form-group row">
@@ -78,6 +28,7 @@
         </span>
     </div>
 }
+
 @using (Html.BeginForm("Edit", "Instructor", FormMethod.Post, new { autocomplete = "off", id = "InstructorForm" }))
 {
     <div class="jumbotron" id="collapseProfile">
@@ -134,5 +85,3 @@
         </div>
     </div>
 }
-
-

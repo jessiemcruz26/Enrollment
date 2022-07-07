@@ -23,6 +23,11 @@ namespace WebEnrollment.Controllers
 
         #region Grid
 
+        /// <summary>
+        /// Create instructor record in Grid
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
         [HttpPost]
         public string Create([Bind(Exclude = "InstructorId")] Instructor Model)
         {
@@ -58,6 +63,10 @@ namespace WebEnrollment.Controllers
             return msg;
         }
 
+        /// <summary>
+        /// Get list of instructors in Grid
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult GetInstructors()
         {
@@ -73,6 +82,11 @@ namespace WebEnrollment.Controllers
             }
         }
 
+        /// <summary>
+        /// Update instructor record in Grid
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
         public string EditGrid(Instructor Model)
         {
             string msg;
@@ -117,6 +131,11 @@ namespace WebEnrollment.Controllers
             return msg;
         }
 
+        /// <summary>
+        /// Delete instructor record in Grid
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string Delete(string id)
         {
             string msg;
@@ -144,6 +163,11 @@ namespace WebEnrollment.Controllers
 
         #region Instructor
 
+        /// <summary>
+        /// Search instructor record
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Search(FormCollection form)
         {
@@ -163,6 +187,11 @@ namespace WebEnrollment.Controllers
             }
         }
 
+        /// <summary>
+        /// Update instructor record
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(FormCollection form)
         {
@@ -190,6 +219,10 @@ namespace WebEnrollment.Controllers
             }
         }
 
+        /// <summary>
+        /// Instructor edit landing page
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Edit()
         {

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using WebEnrollment.Models;
-using System.Data.Entity;
-using WebEnrollment;
 using CommonService.Service;
 using contract = CommonService.Contracts;
+using WebEnrollment.Common;
 
 namespace WebEnrollment.Mediator
 {
@@ -27,6 +24,11 @@ namespace WebEnrollment.Mediator
             _service = service;
         }
 
+        /// <summary>
+        /// Retrieve instructor using instructorNumber from service
+        /// </summary>
+        /// <param name="instructorNumber"></param>
+        /// <returns></returns>
         public Instructor GetInstructor(string instructorNumber)
         {
             var _response = _service.GetInstructor(new contract.InstructorRequest() { InstructorNumber = instructorNumber });
@@ -37,6 +39,10 @@ namespace WebEnrollment.Mediator
             return ConvertResponseToModel(_response);
         }
 
+        /// <summary>
+        /// Get list of instructors from service
+        /// </summary>
+        /// <returns></returns>
         public List<Instructor> GetInstructors()
         {
             var _response = _service.GetInstructor(new contract.InstructorRequest());
@@ -53,15 +59,25 @@ namespace WebEnrollment.Mediator
             return _instructorsList;
         }
 
+        /// <summary>
+        /// Create instructor using service
+        /// </summary>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
         public Instructor CreateInstructor(Instructor instructor)
         {
-            var _instructorRequest = ConvertWebToRequest(instructor);
+            var _instructorRequest = ConvertModelToRequest(instructor);
 
             var _response = _service.CreateInstructor(_instructorRequest);
 
             return ConvertResponseToModel(_response);
         }
 
+        /// <summary>
+        /// Update instructor using service
+        /// </summary>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
         public Instructor UpdateInstructor(Instructor instructor)
         {
             var _request = ConvertModelToRequest(instructor);
@@ -96,6 +112,11 @@ namespace WebEnrollment.Mediator
             return ConvertResponseToModel(_response);
         }
 
+        /// <summary>
+        /// Map web model to service model
+        /// </summary>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
         private contract.InstructorRequest ConvertModelToRequest(Instructor instructor)
         {
             contract.InstructorRequest _studentRequest = new contract.InstructorRequest()
@@ -112,21 +133,11 @@ namespace WebEnrollment.Mediator
             return _studentRequest;
         }
 
-        private contract.InstructorRequest ConvertWebToRequest(Instructor instructor)
-        {
-            contract.InstructorRequest _request = new contract.InstructorRequest()
-            {
-                InstructorID = !string.IsNullOrEmpty(instructor.InstructorID) ? Convert.ToInt32(instructor.InstructorID) : 0,
-                FirstName = instructor.FirstName,
-                LastName = instructor.LastName,
-                Mobile = instructor.Mobile,
-                Email = instructor.Email,
-                InstructorNumber = instructor.InstructorNumber
-            };
-
-            return _request;
-        }
-
+        /// <summary>
+        /// Map service model to web model
+        /// </summary>
+        /// <param name="_response"></param>
+        /// <returns></returns>
         private Instructor ConvertResponseToModel(contract.InstructorResponse _response)
         {
             Instructor _instructor = new Instructor
@@ -137,23 +148,10 @@ namespace WebEnrollment.Mediator
                 Email = _response.Email,
                 Mobile = _response.Mobile,
                 InstructorNumber = _response.InstructorNumber,
-                ValidationErrors = MapValidationErrors(_response.ValidationErrors)
+                ValidationErrors = EnrollmentHelper.MapValidationErrors(_response.ValidationErrors)
             };
 
             return _instructor;
         }
-
-        private static List<ValidationError> MapValidationErrors(List<contract.ValidationError> errorList)
-        {
-            List<ValidationError> modelErrorList = new List<ValidationError>();
-
-            if (errorList != null && errorList.Count > 0)
-            {
-                errorList.ForEach(error => modelErrorList.Add(new ValidationError { Code = error.Code, Message = error.Message }));
-            }
-
-            return modelErrorList;
-        }
-
     }
 }

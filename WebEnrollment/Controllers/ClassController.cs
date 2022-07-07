@@ -21,6 +21,10 @@ namespace WebEnrollment.Controllers
             _classMediator = classMediator;
         }
 
+        /// <summary>
+        /// Get list of classes for Grid 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult GetClasses()
         {
@@ -29,14 +33,11 @@ namespace WebEnrollment.Controllers
             return Json(new { rows = _listClasses }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public ActionResult Edit(string id)
-        {
-            Class _class = _classMediator.GetClass(Convert.ToInt32(id));
-
-            return Json(new { row = _class }, JsonRequestBehavior.AllowGet);
-        }
-
+        /// <summary>
+        /// Update class record in Grid
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
         public string EditGrid(Class Model)
         {
             string msg;
@@ -82,6 +83,11 @@ namespace WebEnrollment.Controllers
             return msg;
         }
 
+        /// <summary>
+        /// Create class record in Grid
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
         [HttpPost]
         public string Create([Bind(Exclude = "ClassId")] Class Model)
         {
@@ -117,6 +123,11 @@ namespace WebEnrollment.Controllers
             return msg;
         }
 
+        /// <summary>
+        /// Delete class record in Grid
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string Delete(string id)
         {
             string msg;
@@ -139,30 +150,43 @@ namespace WebEnrollment.Controllers
             return msg;
         }
 
-        [HttpPost]
-        public ActionResult Edit(FormCollection form)
-        {
-            try
-            {
-                Class _class = new Class
-                {
-                    ClassID = form["ClassID"],
-                    InstructorID = form["InstructorID"],
-                    CourseID = form["CourseID"],
-                    ClassDate = form["ClassDate"],
-                    ClassTime = form["ClassTime"],
-                    RoomNumber = form["RoomNumber"],
-                    ClassCode = form["RoomNumber"]
-                };
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="id"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //public ActionResult Edit(string id)
+        //{
+        //    Class _class = _classMediator.GetClass(Convert.ToInt32(id));
 
-                var response = _classMediator.UpdateClass(_class);
+        //    return Json(new { row = _class }, JsonRequestBehavior.AllowGet);
+        //}
 
-                return View(response);
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //public ActionResult Edit(FormCollection form)
+        //{
+        //    try
+        //    {
+        //        Class _class = new Class
+        //        {
+        //            ClassID = form["ClassID"],
+        //            InstructorID = form["InstructorID"],
+        //            CourseID = form["CourseID"],
+        //            ClassDate = form["ClassDate"],
+        //            ClassTime = form["ClassTime"],
+        //            RoomNumber = form["RoomNumber"],
+        //            ClassCode = form["RoomNumber"]
+        //        };
+
+        //        var response = _classMediator.UpdateClass(_class);
+
+        //        return View(response);
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

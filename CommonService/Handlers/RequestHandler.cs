@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using CommonService.Contracts;
 
 namespace CommonService.Handlers
@@ -45,7 +44,6 @@ namespace CommonService.Handlers
         /// <returns></returns>
         protected virtual List<ValidationError> Validate(TRequest request)
         {
-            // Provide specific validations in the derived class
             return new List<ValidationError>();
         }
 
@@ -56,7 +54,6 @@ namespace CommonService.Handlers
         /// <returns></returns>
         protected virtual TResponse Process(TRequest request)
         {
-            // Provide specific processes in the derived class
             return new TResponse();
         }
     }
