@@ -8,15 +8,14 @@ namespace CommonService.Handlers
 {
     public class CreateInstructorHandler : RequestHandler<InstructorResponse, InstructorRequest>
     {
-        protected override void Initialize()
+        private readonly EnrollmentDB _context;
+        public CreateInstructorHandler(EnrollmentDB context)
         {
-            base.Initialize();
+            _context = context;
         }
 
         protected override InstructorResponse Process(InstructorRequest request)
         {
-            var context = new EnrollmentDB();
-
             Instructor _instructor = new Instructor() {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -25,8 +24,8 @@ namespace CommonService.Handlers
                 InstructorNumber = request.InstructorNumber
             };
 
-            context.Instructors.Add(_instructor);
-            context.SaveChanges();
+            _context.Instructors.Add(_instructor);
+            _context.SaveChanges();
 
             return new InstructorResponse();
         }

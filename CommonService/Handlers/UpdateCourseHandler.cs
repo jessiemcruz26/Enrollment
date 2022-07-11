@@ -8,27 +8,26 @@ namespace CommonService.Handlers
 {
     public class UpdateCourseHandler : RequestHandler<CourseResponse, CourseRequest>
     {
-        protected override void Initialize()
+        private readonly EnrollmentDB _context;
+        public UpdateCourseHandler(EnrollmentDB context)
         {
-            base.Initialize();
+            _context = context;
         }
 
         protected override CourseResponse Process(CourseRequest request)
         {
-            var context = new EnrollmentDB();
-
             if (request.CourseID == 0)
                 request.CourseID = Convert.ToInt32(request.SelectedRow);
 
-            var _course = context.Courses.Where(x => x.CourseID == request.CourseID).FirstOrDefault();
+            var _course = _context.Courses.Where(x => x.CourseID == request.CourseID).FirstOrDefault();
 
             if (string.IsNullOrEmpty(request.SelectedRow))
             {
-                UpdateCourse(request, _course, context);
+                UpdateCourse(request, _course, _context);
             }
             else
             {
-                DeleteCourse(_course, context);
+                DeleteCourse(_course, _context);
             }
 
             var _courseResponse = new CourseResponse

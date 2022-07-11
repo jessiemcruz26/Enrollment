@@ -8,29 +8,28 @@ namespace CommonService.Handlers
 {
     public class UpdateInstructorHandler : RequestHandler<InstructorResponse, InstructorRequest>
     {
-        protected override void Initialize()
+        private readonly EnrollmentDB _context;
+        public UpdateInstructorHandler(EnrollmentDB context)
         {
-            base.Initialize();
+            _context = context;
         }
 
         protected override InstructorResponse Process(InstructorRequest request)
         {
-            var context = new EnrollmentDB();
-
             Instructor _instructor = null;
 
             if (string.IsNullOrEmpty(request.SelectedRow))
             {
-                _instructor = context.Instructors.Where(x => x.InstructorID == request.InstructorID).FirstOrDefault();
+                _instructor = _context.Instructors.Where(x => x.InstructorID == request.InstructorID).FirstOrDefault();
 
-                UpdateInstructor(request, _instructor, context);
+                UpdateInstructor(request, _instructor, _context);
             }
             else
             {
                 int _id = Convert.ToInt32(request.SelectedRow);
-                _instructor = context.Instructors.Where(x => x.InstructorID == _id).FirstOrDefault();
+                _instructor = _context.Instructors.Where(x => x.InstructorID == _id).FirstOrDefault();
 
-                DeleteInsrtuctor(_instructor, context);
+                DeleteInsrtuctor(_instructor, _context);
             }
 
             var _instructorResponse = new InstructorResponse()

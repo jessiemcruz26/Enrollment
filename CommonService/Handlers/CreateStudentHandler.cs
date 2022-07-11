@@ -8,15 +8,14 @@ namespace CommonService.Handlers
 {
     public class CreateStudentHandler : RequestHandler<StudentResponse, StudentRequest>
     {
-        protected override void Initialize()
+        private readonly EnrollmentDB _context;
+        public CreateStudentHandler(EnrollmentDB context)
         {
-            base.Initialize();
+            _context = context;
         }
 
         protected override StudentResponse Process(StudentRequest request)
         {
-            var context = new EnrollmentDB();
-
             Student _student = new Student()
             {
                 StudentNumber = request.StudentNumber,
@@ -28,9 +27,9 @@ namespace CommonService.Handlers
                 Program = request.Program,
                 Address = request.Address
             };
-                
-            context.Students.Add(_student);
-            context.SaveChanges();
+
+            _context.Students.Add(_student);
+            _context.SaveChanges();
 
             return new StudentResponse();
         }

@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CommonService.Contracts;
+using System.Data.Entity;
 
 namespace CommonService.Handlers
 {
     public class UpdateStudentHandler : RequestHandler<StudentResponse, StudentRequest>
     {
-        protected override void Initialize()
+        private readonly EnrollmentDB _context;
+        public UpdateStudentHandler(EnrollmentDB context)
         {
-            base.Initialize();
+            _context = context;
         }
 
         protected override StudentResponse Process(StudentRequest request)
         {
-            var context = new EnrollmentDB();
-
             Student _student = null;
 
             if (request.ClassIds != null && request.ClassIds.Any())
@@ -24,32 +24,32 @@ namespace CommonService.Handlers
                 foreach (var item in request.ClassIds)
                 {
                     int _classId = Convert.ToInt32(item);
-                    var _studentClass = context.StudentClasses.Where(x => x.ClassID == _classId && x.StudentID == request.StudentID).First();
-                    context.StudentClasses.Remove(_studentClass);
+                    var _studentClass = _context.StudentClasses.Where(x => x.ClassID == _classId && x.StudentID == request.StudentID).First();
+                    _context.StudentClasses.Remove(_studentClass);
                 }
             }
 
-            _student = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
+            _student = _context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
 
             if (!string.IsNullOrEmpty(request.ClassSelection))
-                context.StudentClasses.Add(new StudentClass
+                _context.StudentClasses.Add(new StudentClass
                 {
                     ClassID = Convert.ToInt32(request.ClassSelection),
                     StudentID = request.StudentID
                 });
 
-            UpdateStudent(request, _student, context);
+            UpdateStudent(request, _student, _context);
         
-            var _studentRow = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
-            var _associatedClasses = context.StudentClasses.Where(x => x.StudentID == _studentRow.StudentID).ToList();
-            var _allClasses = context.Classes.ToList();
+            var _studentRow = _context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
+            var _associatedClasses = _context.StudentClasses.Where(x => x.StudentID == _studentRow.StudentID).ToList();
+            var _allClasses = _context.Classes.ToList();
 
             List<Class> _associatedClasslist = new List<Class>();
             List<Class> _unAssociatedClasslist = new List<Class>();
 
             foreach (var item in _associatedClasses)
             {
-                var _assoClass = context.Classes.Where(x => x.ClassID == item.ClassID).First();
+                var _assoClass = _context.Classes.Where(x => x.ClassID == item.ClassID).First();
                 _associatedClasslist.Add(_assoClass);
             }
             _unAssociatedClasslist = _allClasses.Except(_associatedClasslist).ToList();
@@ -100,13 +100,6 @@ namespace CommonService.Handlers
             student.Mobile = request.Mobile;
             student.Address = request.Address;
             student.Birthday = request.Birthday;
-
-            context.SaveChanges();
-        }
-
-        private void DeleteStudent(Student student, EnrollmentDB context)
-        {
-            context.Students.Remove(student);
 
             context.SaveChanges();
         }

@@ -8,15 +8,15 @@ namespace CommonService.Handlers
 {
     public class CreateClassHandler : RequestHandler<ClassResponse, ClassRequest>
     {
-        protected override void Initialize()
+        private readonly EnrollmentDB _context;
+
+        public CreateClassHandler(EnrollmentDB context)
         {
-            base.Initialize();
+            _context = context;
         }
 
         protected override ClassResponse Process(ClassRequest request)
         {
-            var context = new EnrollmentDB();
-
             Class _class = new Class()
             {
                 ClassID = request.ClassID,
@@ -28,8 +28,8 @@ namespace CommonService.Handlers
                 ClassCode = request.ClassCode,
             };
 
-            context.Classes.Add(_class);
-            context.SaveChanges();
+            _context.Classes.Add(_class);
+            _context.SaveChanges();
 
             return new ClassResponse();
         }

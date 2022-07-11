@@ -8,23 +8,22 @@ namespace CommonService.Handlers
 {
     public class GetClassHandler : RequestHandler<ClassResponse, ClassRequest>
     {
-        protected override void Initialize()
+        private readonly EnrollmentDB _context;
+        public GetClassHandler(EnrollmentDB context)
         {
-            base.Initialize();
+            _context = context;
         }
 
         protected override ClassResponse Process(ClassRequest request)
         {
-            var context = new EnrollmentDB();
-
             //get list of Classes
             if (request.SelectedRow == null)
             {
-                return GetClasses(context);
+                return GetClasses(_context);
             }
             else // get Class
             {
-                return GetClass(request, context);
+                return GetClass(request, _context);
             }
         }
 

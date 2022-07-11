@@ -16,9 +16,6 @@ namespace CommonService.Handlers
         /// <returns></returns>
         public TResponse Execute(TRequest request)
         {
-            // Initialize
-            Initialize();
-
             // Validate
             List<ValidationError> ValidationErrors = Validate(request);
 
@@ -29,12 +26,6 @@ namespace CommonService.Handlers
             TResponse response = Process(request);
 
             return response;
-        }
-
-        //Virtual method to initialize handler
-        protected virtual void Initialize()
-        {
-            // If applicable, override specific initialization in the derived class
         }
 
         /// <summary>

@@ -8,27 +8,27 @@ namespace CommonService.Handlers
 {
     public class UpdateClassHandler : RequestHandler<ClassResponse, ClassRequest>
     {
-        protected override void Initialize()
+        private readonly EnrollmentDB _context;
+
+        public UpdateClassHandler(EnrollmentDB context)
         {
-            base.Initialize();
+            _context = context;
         }
 
         protected override ClassResponse Process(ClassRequest request)
         {
-            var context = new EnrollmentDB();
-
             if (request.ClassID == 0)
                 request.ClassID = Convert.ToInt32(request.SelectedRow);
 
-            var _class = context.Classes.Where(x => x.ClassID == request.ClassID).FirstOrDefault();
+            var _class = _context.Classes.Where(x => x.ClassID == request.ClassID).FirstOrDefault();
 
             if (string.IsNullOrEmpty(request.SelectedRow))
             {
-                UpdateClass(request, _class, context);
+                UpdateClass(request, _class, _context);
             }
             else
             {
-                DeleteClass(_class, context);
+                DeleteClass(_class, _context);
 
                 return new ClassResponse();
             }

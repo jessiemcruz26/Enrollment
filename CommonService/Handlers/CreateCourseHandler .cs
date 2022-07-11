@@ -8,15 +8,14 @@ namespace CommonService.Handlers
 {
     public class CreateCourseHandler : RequestHandler<CourseResponse, CourseRequest>
     {
-        protected override void Initialize()
+        private readonly EnrollmentDB _context;
+        public CreateCourseHandler(EnrollmentDB context)
         {
-            base.Initialize();
+            _context = context;
         }
 
         protected override CourseResponse Process(CourseRequest request)
         {
-            var context = new EnrollmentDB();
-
             Course _course = new Course()
             {
                 CourseID = request.CourseID,
@@ -24,8 +23,8 @@ namespace CommonService.Handlers
                 CourseDescription = request.CourseDescription
             };
 
-            context.Courses.Add(_course);
-            context.SaveChanges();
+            _context.Courses.Add(_course);
+            _context.SaveChanges();
 
             return new CourseResponse();
         }

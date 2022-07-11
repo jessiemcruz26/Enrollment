@@ -8,30 +8,29 @@ namespace CommonService.Handlers
 {
     public class UpdateStudentGridHandler : RequestHandler<StudentResponse, StudentRequest>
     {
-        protected override void Initialize()
+        private readonly EnrollmentDB _context;
+        public UpdateStudentGridHandler(EnrollmentDB context)
         {
-            base.Initialize();
+            _context = context;
         }
 
         protected override StudentResponse Process(StudentRequest request)
         {
-            var context = new EnrollmentDB();
-
             Student _student = null;
 
             if (!string.IsNullOrEmpty(request.SelectedRow))
             {
                 int _studentId = Convert.ToInt32(request.SelectedRow);
 
-                _student = context.Students.Where(x => x.StudentID == _studentId).FirstOrDefault();
+                _student = _context.Students.Where(x => x.StudentID == _studentId).FirstOrDefault();
 
-                DeleteStudent(_student, context);
+                DeleteStudent(_student, _context);
             }
             else
             {
-                _student = context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
+                _student = _context.Students.Where(x => x.StudentNumber == request.StudentNumber).FirstOrDefault();
 
-                UpdateStudent(request, _student, context);
+                UpdateStudent(request, _student, _context);
             }
 
             return new StudentResponse();
